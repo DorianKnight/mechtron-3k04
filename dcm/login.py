@@ -15,17 +15,18 @@ login_fr = Frame(
 
 login_fr.pack()
 
-# login_label = tk.Label(login_fr, text="Login",bg=background)
+login_label = Label(login_fr, text="Login",bg=background)
 username_label = Label(login_fr, text="Username", bg=background)
 username_entry = Entry(login_fr)
 password_label = Label(login_fr, text="Password", bg=background)
 password_entry = Entry(login_fr, show="*")
 login_button = Button(login_fr, text="Login")
 
-username_label.grid(row = 0, column = 0, sticky =W, pady=10)
-username_entry.grid(row = 0, column = 1)
-password_label.grid(row = 1, column = 0)
-password_entry.grid(row = 1, column = 1)
-login_button.grid(row=2, column=0, columnspan=2, pady=30)
+login_label.grid(row=0, column=1, columnspan=2, sticky="news", pady=10)
+username_label.grid(row=1, column=0, padx=5)
+username_entry.grid(row=1, column=1, pady=10, padx=20)
+password_label.grid(row=2, column=0, padx=5)
+password_entry.grid(row=2, column=1, pady=10, padx=20)
+login_button.grid(row=3, column=1, columnspan=2, pady=10)
 
 window.mainloop()
