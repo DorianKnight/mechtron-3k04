@@ -12,6 +12,16 @@ def openMode():
     elif mode == "VVI":
         vviFrame.grid()
 
+def aooSubmit(): 
+    pass
+
+def vooSubmit(): 
+    pass
+
+def aaiSubmit(): 
+    pass
+def vviSubmit(): 
+    pass
 
 ######
 #Main#
@@ -56,8 +66,7 @@ apwEntry = Entry(aooFrame, textvariable = apwVar)
 aampLabel = Label(aooFrame, text = "Atrial Amplitude:")
 aampVar = DoubleVar()
 aampEntry = Entry(aooFrame, textvariable = aampVar)
-
-
+aoosubmitButton = Button(aooFrame, text = "Confirm changes", command = aooSubmit)
 
 aooFrame.grid(padx = 50, pady = 50)
 aooLabel.grid(row = 1, column = 1, columnspan = 2)
@@ -71,6 +80,7 @@ apwLabel.grid(row = 6, column = 1, sticky = W)
 apwEntry.grid(row = 6, column = 2, sticky = W)
 aampLabel.grid(row = 7, column = 1, sticky = W)
 aampEntry.grid(row = 7, column = 2, sticky = W)
+aoosubmitButton.grid(row = 8, column = 3, sticky = E)
 aooFrame.grid_remove()
 
 
