@@ -230,7 +230,7 @@ rsEntry.grid(row = 10, column = 2, sticky = W)
 vviFrame.grid_remove()
 
 
-
+root.mainloop()
 
 
 
