@@ -4,15 +4,15 @@ background = '#333333'
 
 window = tk.Tk()
 window.title("Login form")
-window.geometry('260x190')
-window.minsize(260, 190)
-window.maxsize(260, 190)
+window.geometry('300x190')
+window.minsize(300, 190)
+window.maxsize(300, 190)
 #window.configure(bg=background)
 
 login_label = tk.Label(window, text="Login")
-username_label = tk.Label(window, text="       Username ")
+username_label = tk.Label(window, text="  Username ")
 username_entry = tk.Entry(window)
-password_label = tk.Label(window, text="       Password ")
+password_label = tk.Label(window, text="  Password ")
 password_entry = tk.Entry(window, show="*")
 login_button = tk.Button(window, text="Login")
 
