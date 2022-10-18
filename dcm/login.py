@@ -3,7 +3,7 @@ from tkinter import *
 
 window = Tk()
 window.title("Login form")
-window.geometry('340x440')
+window.iconbitmap("logo.ico")
 background = '#ebebeb'
 
 login_fr = Frame(

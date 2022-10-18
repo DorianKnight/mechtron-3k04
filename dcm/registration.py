@@ -33,6 +33,7 @@ def checkEntries():
 
 window = tk.Tk()
 window.title("Pacemaker | Registration")
+window.iconbitmap("logo.ico")
 #window.geometry('340x440')
 f = ('Trebuchet', 14)
 
