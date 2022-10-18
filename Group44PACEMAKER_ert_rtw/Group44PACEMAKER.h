@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.98
+ * Model version                  : 1.119
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sun Oct 16 18:38:54 2022
+ * C/C++ source code generated on : Tue Oct 18 13:09:07 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -41,84 +41,83 @@
 /* Block signals (default storage) */
 typedef struct {
   char_T mode[256];
-  real_T dutyCycle;                    /* '<Root>/Chart' */
-  real_T cmpDutyCycle;                 /* '<Root>/Chart' */
-  boolean_T ATR_GND_CTRL;              /* '<Root>/Chart' */
-  boolean_T ATR_PACE_CTRL;             /* '<Root>/Chart' */
-  boolean_T PACE_CHARGE_CTRL;          /* '<Root>/Chart' */
-  boolean_T PACE_GND_CTRL;             /* '<Root>/Chart' */
-  boolean_T VENT_GND_CTRL;             /* '<Root>/Chart' */
-  boolean_T VENT_PACE_CTRL;            /* '<Root>/Chart' */
-  boolean_T Z_ATR_CTRL;                /* '<Root>/Chart' */
-  boolean_T Z_VENT_CTRL;               /* '<Root>/Chart' */
+  real_T dutyCycle;                    /* '<S4>/Chart' */
+  real_T cmpDutyCycle;                 /* '<S4>/Chart' */
+  boolean_T ATR_GND_CTRL;              /* '<S4>/Chart' */
+  boolean_T ATR_PACE_CTRL;             /* '<S4>/Chart' */
+  boolean_T PACE_CHARGE_CTRL;          /* '<S4>/Chart' */
+  boolean_T PACE_GND_CTRL;             /* '<S4>/Chart' */
+  boolean_T VENT_GND_CTRL;             /* '<S4>/Chart' */
+  boolean_T VENT_PACE_CTRL;            /* '<S4>/Chart' */
+  boolean_T Z_ATR_CTRL;                /* '<S4>/Chart' */
+  boolean_T Z_VENT_CTRL;               /* '<S4>/Chart' */
 } B_Group44PACEMAKER_T;
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  freedomk64f_DigitalRead_Group_T obj; /* '<Root>/VENT_CMP_DETECT' */
-  freedomk64f_DigitalRead_Group_T obj_a;/* '<Root>/ATR_CMP_DETECT' */
-  freedomk64f_PWMOutput_Group44_T obj_j;/* '<Root>/VENT_CMP_REF_PWM' */
-  freedomk64f_PWMOutput_Group44_T obj_m;/* '<Root>/PACING_REF_PWM' */
-  freedomk64f_PWMOutput_Group44_T obj_c;/* '<Root>/ATR_CMP_REF_PWM' */
-  freedomk64f_DigitalWrite_Grou_T obj_d;/* '<Root>/Z_VENT_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_n;/* '<Root>/Z_ATR_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_e;/* '<Root>/VENT_PACE_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_l;/* '<Root>/VENT_GND_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_o;/* '<Root>/PACE_GND_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_b;/* '<Root>/PACE_CHARGE_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_cq;/* '<Root>/Digital Write1' */
-  freedomk64f_DigitalWrite_Grou_T obj_h;/* '<Root>/Digital Write' */
-  freedomk64f_DigitalWrite_Grou_T obj_d2;/* '<Root>/ATR_PACE_CTRL' */
-  freedomk64f_DigitalWrite_Grou_T obj_i;/* '<Root>/ATR_GND_CTRL' */
-  uint32_T temporalCounter_i1;         /* '<Root>/Chart' */
-  uint8_T is_c6_Group44PACEMAKER;      /* '<Root>/Chart' */
-  uint8_T is_active_c6_Group44PACEMAKER;/* '<Root>/Chart' */
+  freedomk64f_DigitalRead_Group_T obj; /* '<S1>/in_VENT_CMP_DETECT' */
+  freedomk64f_DigitalRead_Group_T obj_c;/* '<S1>/in_ATR_CMP_DETECT' */
+  freedomk64f_PWMOutput_Group44_T obj_j;/* '<S3>/OUT_VENT_CMP_REF_PWM' */
+  freedomk64f_PWMOutput_Group44_T obj_m;/* '<S3>/OUT_PACING_REF_PWM' */
+  freedomk64f_PWMOutput_Group44_T obj_c2;/* '<S3>/OUT_ATR_CMP_REF_PWM' */
+  freedomk64f_DigitalWrite_Grou_T obj_d;/* '<S3>/OUT_Z_VENT_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_n;/* '<S3>/OUT_Z_ATR_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_e;/* '<S3>/OUT_VENT_PACE_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_l;/* '<S3>/OUT_VENT_GND_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_o;/* '<S3>/OUT_PACE_GND_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_b;/* '<S3>/OUT_PACE_CHARGE_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_d2;/* '<S3>/OUT_ATR_PACE_CTRL' */
+  freedomk64f_DigitalWrite_Grou_T obj_i;/* '<S3>/OUT_ATR_GND_CTRL' */
+  uint32_T temporalCounter_i1;         /* '<S4>/Chart' */
+  uint8_T is_c6_Group44PACEMAKER;      /* '<S4>/Chart' */
+  uint8_T is_active_c6_Group44PACEMAKER;/* '<S4>/Chart' */
+  boolean_T natPaceDetected;           /* '<S4>/Chart' */
 } DW_Group44PACEMAKER_T;
 
 /* Parameters (default storage) */
 struct P_Group44PACEMAKER_T_ {
-  real_T ATR_CMP_DETECT_SampleTime;    /* Expression: SampleTime
-                                        * Referenced by: '<Root>/ATR_CMP_DETECT'
+  real_T in_ATR_CMP_DETECT_SampleTime; /* Expression: SampleTime
+                                        * Referenced by: '<S1>/in_ATR_CMP_DETECT'
                                         */
-  real_T VENT_CMP_DETECT_SampleTime;   /* Expression: SampleTime
-                                        * Referenced by: '<Root>/VENT_CMP_DETECT'
+  real_T in_VENT_CMP_DETECT_SampleTime;/* Expression: SampleTime
+                                        * Referenced by: '<S1>/in_VENT_CMP_DETECT'
                                         */
-  real_T p_ARP_Value;                  /* Expression: 320
-                                        * Referenced by: '<Root>/p_ARP'
+  real_T in_p_ARP_Value;               /* Expression: 320
+                                        * Referenced by: '<S2>/in_p_ARP'
                                         */
-  real_T p_VRP_Value;                  /* Expression: 320
-                                        * Referenced by: '<Root>/p_VRP'
+  real_T in_p_VRP_Value;               /* Expression: 320
+                                        * Referenced by: '<S2>/in_p_VRP'
                                         */
-  real_T p_aPaceWidth_Value;           /* Expression: 5
-                                        * Referenced by: '<Root>/p_aPaceWidth'
+  real_T in_p_aPaceWidth_Value;        /* Expression: 5
+                                        * Referenced by: '<S2>/in_p_aPaceWidth'
                                         */
-  real_T p_hysteresisInterval_Value;   /* Expression: 200
-                                        * Referenced by: '<Root>/p_hysteresisInterval'
+  real_T in_p_hysteresisInterval_Value;/* Expression: 200
+                                        * Referenced by: '<S2>/in_p_hysteresisInterval'
                                         */
-  real_T p_lowrateInterval_Value;      /* Expression: 1000
-                                        * Referenced by: '<Root>/p_lowrateInterval'
+  real_T in_p_lowrateInterval_Value;   /* Expression: 1000
+                                        * Referenced by: '<S2>/in_p_lowrateInterval'
                                         */
-  real_T p_vPaceWidth_Value;           /* Expression: 5
-                                        * Referenced by: '<Root>/p_vPaceWidth'
+  real_T in_p_vPaceWidth_Value;        /* Expression: 5
+                                        * Referenced by: '<S2>/in_p_vPaceWidth'
                                         */
-  real_T p_aPaceAmp_Value;             /* Expression: 3
-                                        * Referenced by: '<Root>/p_aPaceAmp'
+  real_T in_p_aPaceAmp_Value;          /* Expression: 3
+                                        * Referenced by: '<S2>/in_p_aPaceAmp'
                                         */
-  real_T p_vPaceAmp_Value;             /* Expression: 3
-                                        * Referenced by: '<Root>/p_vPaceAmp'
+  real_T in_p_vPaceAmp_Value;          /* Expression: 3
+                                        * Referenced by: '<S2>/in_p_vPaceAmp'
                                         */
-  real_T p_vSensitivity_Value;         /* Expression: 2.75
-                                        * Referenced by: '<Root>/p_vSensitivity'
+  real_T in_p_vSensitivity_Value;      /* Expression: 2.75
+                                        * Referenced by: '<S2>/in_p_vSensitivity'
                                         */
-  real_T p_aSensitivity_Value;         /* Expression: 2.75
-                                        * Referenced by: '<Root>/p_aSensitivity'
+  real_T in_p_aSensitivity_Value;      /* Expression: 2.75
+                                        * Referenced by: '<S2>/in_p_aSensitivity'
                                         */
   char_T mode_String[256];             /* Computed Parameter: mode_String
-                                        * Referenced by: '<Root>/mode'
+                                        * Referenced by: '<S2>/mode'
                                         */
-  boolean_T p_hysteresis_Value;        /* Computed Parameter: p_hysteresis_Value
-                                        * Referenced by: '<Root>/p_hysteresis'
-                                        */
+  boolean_T in_p_hysteresis_Value;  /* Computed Parameter: in_p_hysteresis_Value
+                                     * Referenced by: '<S2>/in_p_hysteresis'
+                                     */
 };
 
 /* Real-time Model Data Structure */
@@ -148,10 +147,8 @@ extern volatile boolean_T runModel;
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<Root>/Scope' : Unused code path elimination
- * Block '<Root>/Scope1' : Unused code path elimination
- * Block '<Root>/Scope2' : Unused code path elimination
- * Block '<Root>/Scope3' : Unused code path elimination
+ * Block '<S3>/Scope1' : Unused code path elimination
+ * Block '<S3>/Scope2' : Unused code path elimination
  */
 
 /*-
@@ -169,7 +166,11 @@ extern volatile boolean_T runModel;
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'Group44PACEMAKER'
- * '<S1>'   : 'Group44PACEMAKER/Chart'
+ * '<S1>'   : 'Group44PACEMAKER/InputPins'
+ * '<S2>'   : 'Group44PACEMAKER/Inputs'
+ * '<S3>'   : 'Group44PACEMAKER/OutputPins'
+ * '<S4>'   : 'Group44PACEMAKER/Stateflow'
+ * '<S5>'   : 'Group44PACEMAKER/Stateflow/Chart'
  */
 #endif                                 /* RTW_HEADER_Group44PACEMAKER_h_ */
 
