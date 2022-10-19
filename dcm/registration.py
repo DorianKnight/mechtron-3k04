@@ -3,6 +3,8 @@ from tkinter import messagebox
 import sqlite3
 import pathlib
 from data import createDB
+from PIL import ImageTk, Image
+
 
 createDB()
 def checkEntries():
@@ -39,6 +41,10 @@ window.iconbitmap(str(pathlib.Path(__file__).parent.resolve())+ "\logo.ico")
 f = ('Trebuchet', 14)
 
 background = '#ebebeb'
+
+#interface logo
+img = ImageTk.PhotoImage(Image.open("dcm/Complogo.png"))
+
 register_fr = tk.Frame(
     window,
     bd = 2,
@@ -52,24 +58,30 @@ register_fr.pack()
 
 tk.Label(
     register_fr,
-    text = "Username",
-    bg = background,
+    image = img,
     font = f
-).grid(row = 0, column = 0, sticky = tk.W, pady = 10)
+).grid(row = 0, column = 1, sticky = tk.W, pady=10)
 
 tk.Label(
     register_fr,
-    text = "Password",
+    text = "Username",
     bg = background,
     font = f
 ).grid(row = 1, column = 0, sticky = tk.W, pady = 10)
 
 tk.Label(
     register_fr,
-    text = "Re-enter password",
+    text = "Password",
     bg = background,
     font = f
 ).grid(row = 2, column = 0, sticky = tk.W, pady = 10)
+
+tk.Label(
+    register_fr,
+    text = "Re-enter password",
+    bg = background,
+    font = f
+).grid(row = 3, column = 0, sticky = tk.W, pady = 10)
 
 username_entry_reg = tk.Entry(
     register_fr,
@@ -98,9 +110,9 @@ register_button = tk.Button(
     command=lambda: checkEntries()
 )
 
-username_entry_reg.grid(row = 0, column = 1,pady=10, padx=20)
-password_entry_reg.grid(row = 1, column = 1,pady=10, padx=20)
-password2_entry_reg.grid(row = 2, column = 1,pady=10, padx=20)
-register_button.grid(row = 3, column = 0, columnspan=2)
+username_entry_reg.grid(row = 1, column = 1,pady=10, padx=20)
+password_entry_reg.grid(row = 2, column = 1,pady=10, padx=20)
+password2_entry_reg.grid(row = 3, column = 1,pady=10, padx=20)
+register_button.grid(row = 4, column = 0, columnspan=2, pady=10)
 window.mainloop()
 

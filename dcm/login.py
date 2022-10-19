@@ -6,10 +6,7 @@ window.title("Login form")
 window.iconbitmap("logo.ico")
 background = '#ebebeb'
 
-#frame image code
-frame = Frame(window, width=600, height=400)
-frame.pack()
-frame.place(anchor='center', relx=0.5, rely=0.5)
+#interface logo
 img = ImageTk.PhotoImage(Image.open("dcm/Complogo.png"))
 
 login_fr = Frame(
@@ -29,7 +26,7 @@ password_label = Label(login_fr, text="Password")
 password_entry = Entry(login_fr, show="*")
 login_button = Button(login_fr, text="Login")
 
-img_label.grid(row=0, column=0)
+img_label.grid(row=0, column=0, padx=10)
 login_label.grid(row=0, column=1, columnspan=2, sticky="news", pady=10)
 username_label.grid(row=1, column=0, padx=5)
 username_entry.grid(row=1, column=1, pady=10, padx=20)
