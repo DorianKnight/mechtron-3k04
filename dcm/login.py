@@ -1,10 +1,13 @@
 from tkinter import *
-#from Pillow import ImageTk, Image
+from PIL import ImageTk, Image
 
 window = Tk()
 window.title("Login form")
 window.iconbitmap("logo.ico")
 background = '#ebebeb'
+
+#interface logo
+img = ImageTk.PhotoImage(Image.open("dcm/Complogo.png"))
 
 login_fr = Frame(
     window,
@@ -15,13 +18,15 @@ login_fr = Frame(
 
 login_fr.pack()
 
-login_label = Label(login_fr, text="Login",bg=background)
-username_label = Label(login_fr, text="Username", bg=background)
+img_label = Label(login_fr,image=img)
+login_label = Label(login_fr, text="Login")
+username_label = Label(login_fr, text="Username")
 username_entry = Entry(login_fr)
-password_label = Label(login_fr, text="Password", bg=background)
+password_label = Label(login_fr, text="Password")
 password_entry = Entry(login_fr, show="*")
 login_button = Button(login_fr, text="Login")
 
+img_label.grid(row=0, column=0, padx=10)
 login_label.grid(row=0, column=1, columnspan=2, sticky="news", pady=10)
 username_label.grid(row=1, column=0, padx=5)
 username_entry.grid(row=1, column=1, pady=10, padx=20)
