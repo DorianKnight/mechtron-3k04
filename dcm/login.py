@@ -9,6 +9,8 @@ class LoginPage:
         self.width = 400
         self.height = 350
         self.window.minsize(self.width+30, self.height+30)
+        self.window.iconbitmap("images\logo.ico")
+        self.window.title("Pacemaker Login")
 
         # ========= Login Frame =========
         self.login_frame = Frame(
@@ -30,7 +32,7 @@ class LoginPage:
         self.header.grid(row=0, column=0, columnspan=2, pady=(50,10))
 
         # ========= Login Logo =========
-        self.logo_image = ImageTk.PhotoImage(Image.open("dcm/images/Complogo.png"))
+        self.logo_image = ImageTk.PhotoImage(Image.open("images/Complogo.png"))
         self.logo = Label(self.login_frame, image = self.logo_image, bg=background)
         self.logo.image = self.logo_image
         self.logo.grid(row=1,column=0,columnspan=2,pady=10)

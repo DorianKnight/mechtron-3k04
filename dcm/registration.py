@@ -110,7 +110,7 @@ class RegistrationPage:
 def launchRegistration():
     window = Tk()
     RegistrationPage(window,10)
-    window.iconbitmap(str(pathlib.Path(__file__).parent.resolve())+ "\logo.ico")
+    window.iconbitmap("images\logo.ico")
     window.mainloop()
 
 if __name__ == '__main__':
