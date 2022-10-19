@@ -1,7 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import login
-#import registration 
+import registration 
 
 background = 'white'
 class WelcomePage:
@@ -18,14 +18,10 @@ class WelcomePage:
             self.window.destroy()
             login.launchLogin()
 
-        '''
-        def openLoginFrame():
-            newLogin = login.LoginPage(Tk())
-            login.newlogin.login_frame.grid()
-            '''
 
-        #def openRegisterWin():
-        #    registration.launchRegistration()
+        def openRegisterWin():
+            self.window.destroy()
+            registration.launchRegistration()
 
         # ========= Welcome Frame =========
         self.welcome_frame = Frame(
@@ -54,7 +50,7 @@ class WelcomePage:
 
         # ========= Welcome Entry =========
         self.login_button = Button(self.welcome_frame, text="Login", width = 30, bg=background, command=openLoginWin)
-        self.register_button = Button(self.welcome_frame, text="Register", width = 30, bg=background)
+        self.register_button = Button(self.welcome_frame, text="Register", width = 30, bg=background, command=openRegisterWin)
 
         # formatting entries
         self.login_button.grid(row=2, column=0, columnspan=2, pady=10)
