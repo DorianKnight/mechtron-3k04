@@ -1,29 +1,36 @@
 from tkinter import *
-#from Pillow import ImageTk, Image
+from PIL import ImageTk, Image
 
-background = 'black'
+background = 'white'
 class LoginPage:
     def __init__(self, window):
         self.window = window
         self.window.geometry('1000x1000')
-        self.window.background
-        # ======= Login Frame =========
-        self.login_fr = Frame(
+        self.width = 300
+        self.height = 500
+        self.window.minsize(self.width+30, self.height+30)
+
+        # ========= Login Frame =========
+        self.login_frame = Frame(
             self.window,
             bg = background,
-            padx = 10,
-            pady = 10
+            width = self.width,
+            height= self.height,
         )
-        self.login_fr.pack()
-        self.header_text = "Pacemaker"
-        self.header = Label(self.login_fr, text = self.header_text, font=('Arial', 24, 'bold'), bg = background, fg='white')
-        self.header.place(x=90, y=30,width=300, height=30)
+        self.login_frame.place(anchor="c", relx=0.5, rely=0.5)
 
-        # ======= Login Frame =========
+        # ========= Login Text =========
+        self.header_text = "Login"
+        self.header = Label(self.login_frame, text = self.header_text, font=('Arial', 24, 'bold'), bg = background, fg='black')
+        self.header.place(anchor="n", relx=0.5, y=50)
 
-def main():
+        # ========= Login Logo =========
+        self.logo = Image.open()
+
+def launchLogin():
     window = Tk()
     LoginPage(window)
     window.mainloop()
 
-main()
+if __name__ == '__main__':
+    launchLogin()
