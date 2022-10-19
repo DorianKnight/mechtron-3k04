@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.119
+ * Model version                  : 1.134
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Tue Oct 18 13:09:07 2022
+ * C/C++ source code generated on : Wed Oct 19 16:23:49 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -22,74 +22,64 @@
 /* Block parameters (default storage) */
 P_Group44PACEMAKER_T Group44PACEMAKER_P = {
   /* Expression: SampleTime
-   * Referenced by: '<S1>/in_ATR_CMP_DETECT'
+   * Referenced by: '<S1>/input_ATR_CMP_DETECT'
    */
   -1.0,
 
   /* Expression: SampleTime
-   * Referenced by: '<S1>/in_VENT_CMP_DETECT'
+   * Referenced by: '<S1>/input_VENT_CMP_DETECT'
    */
   -1.0,
 
   /* Expression: 320
-   * Referenced by: '<S2>/in_p_ARP'
+   * Referenced by: '<S2>/input_ARP'
    */
   320.0,
 
   /* Expression: 320
-   * Referenced by: '<S2>/in_p_VRP'
+   * Referenced by: '<S2>/input_VRP'
    */
   320.0,
 
   /* Expression: 5
-   * Referenced by: '<S2>/in_p_aPaceWidth'
+   * Referenced by: '<S2>/input_aPulseWidth'
    */
   5.0,
 
-  /* Expression: 200
-   * Referenced by: '<S2>/in_p_hysteresisInterval'
+  /* Expression: 666
+   * Referenced by: '<S2>/input_LRL'
    */
-  200.0,
-
-  /* Expression: 1000
-   * Referenced by: '<S2>/in_p_lowrateInterval'
-   */
-  1000.0,
+  666.0,
 
   /* Expression: 5
-   * Referenced by: '<S2>/in_p_vPaceWidth'
+   * Referenced by: '<S2>/input_vPulseWidth'
    */
   5.0,
 
   /* Expression: 3
-   * Referenced by: '<S2>/in_p_aPaceAmp'
+   * Referenced by: '<S2>/input_aPulseAmp'
    */
   3.0,
 
   /* Expression: 3
-   * Referenced by: '<S2>/in_p_vPaceAmp'
+   * Referenced by: '<S2>/input_vPulseAmp'
    */
   3.0,
 
-  /* Expression: 2.75
-   * Referenced by: '<S2>/in_p_vSensitivity'
+  /* Expression: 3.8
+   * Referenced by: '<S2>/input_vSensitivity'
    */
-  2.75,
+  3.8,
 
-  /* Expression: 2.75
-   * Referenced by: '<S2>/in_p_aSensitivity'
+  /* Expression: 3.8
+   * Referenced by: '<S2>/input_aSensitivity'
    */
-  2.75,
+  3.8,
 
   /* Computed Parameter: mode_String
    * Referenced by: '<S2>/mode'
    */
-  "VOO",
-
-  /* Computed Parameter: in_p_hysteresis_Value
-   * Referenced by: '<S2>/in_p_hysteresis'
-   */
-  false
+  "VOO"
 };
 
 /*

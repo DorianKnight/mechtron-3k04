@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.119
+ * Model version                  : 1.134
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Tue Oct 18 13:09:07 2022
+ * C/C++ source code generated on : Wed Oct 19 16:23:49 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -22,7 +22,7 @@
 #include "rtwtypes.h"
 #include "MW_SVD.h"
 
-/* Custom Type definition for MATLABSystem: '<S3>/OUT_Z_VENT_CTRL' */
+/* Custom Type definition for MATLABSystem: '<S3>/Output_Z_VENT_CTRL' */
 #include "MW_SVD.h"
 #ifndef struct_tag_0QIIqIWUIOhUbf1p9QN9pB
 #define struct_tag_0QIIqIWUIOhUbf1p9QN9pB
