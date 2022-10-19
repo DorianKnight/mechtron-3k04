@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import sqlite3
+import pathlib
 from data import createDB
 
 createDB()
@@ -33,7 +34,7 @@ def checkEntries():
 
 window = tk.Tk()
 window.title("Pacemaker | Registration")
-window.iconbitmap("logo.ico")
+window.iconbitmap(str(pathlib.Path(__file__).parent.resolve())+ "\logo.ico")
 #window.geometry('340x440')
 f = ('Trebuchet', 14)
 
