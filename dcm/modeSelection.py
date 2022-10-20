@@ -15,16 +15,16 @@ class ModeSelect:
         self.window.title("Pacemaker | Mode Selection")
         self.mode = None #Will be used to keep track of the mode that is chosen by the user
                    
-        def openMode(mode): 
+        def openMode(): 
             self.window.destroy()
-            if(mode == 'AOO'): 
-                pacingModes.AOO.launchAOO()
-            elif(mode == 'VOO'):
-                pacingModes.VOO.launchVOO()
-            elif(mode == 'AAI'): 
-                pacingModes.AAI.launchAAI()
-            elif(mode == 'VVI'): 
-                pacingModes.VVI.launchVVI()
+            if(self.mode == 'AOO'): 
+                pacingModes.AOO.launchAOO(self.window)
+            elif(self.mode == 'VOO'):
+                pacingModes.VOO.launchVOO(self.window)
+            elif(self.mode == 'AAI'): 
+                pacingModes.AAI.launchAAI(self.window)
+            elif(self.mode == 'VVI'): 
+                pacingModes.VVI.launchVVI(self.window)
             else: 
                 print('This should not be possible. Something has gone wrong')
                 
@@ -35,10 +35,10 @@ class ModeSelect:
         
         #Definition of elements on the page
         self.chooseLabel = Label(self.msFrame, text = "Please choose a pacing mode")
-        self.aooRadio = Radiobutton(self.msFrame, text = "AOO", variable = self.modeVar, value = "AOO")
-        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.modeVar, value = "VOO")
-        self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.modeVar, value = "AAI")
-        self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.modeVar, value = "VVI")
+        self.aooRadio = Radiobutton(self.msFrame, text = "AOO", variable = self.mode, value = "AOO")
+        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO")
+        self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI")
+        self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI")
         self.nextButton = Button(self.msFrame, text = "Next", command = openMode)
         
         #Formatting placement of elements on the page
