@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk, Image
 
 def openMode():
     mode = modeVar.get()
@@ -12,21 +13,29 @@ def openMode():
     elif mode == "VVI":
         vviFrame.grid()
 
-def aooSubmit(): 
-    pass
-
-def vooSubmit(): 
-    pass
-
-def aaiSubmit(): 
-    pass
-def vviSubmit(): 
-    pass
 
 ######
 #Main#
 ######
 root = Tk()
+root.iconbitmap("images\logo.ico")
+root.title("Pacemaker")
+
+connectionChecker = False
+if(connectionChecker == False):
+    connectionBanner = Label(root, text = "Connection Status: Not connected", fg = 'red', font = ("Helvetica", 16))
+    connectionBanner.grid(row = 0, column = 3)
+else:
+    connectionBanner = Label(root, text = "Connection Status: Connected", fg = "green", font = ("Helvetica, 16"))
+    connectionBanner.grid(row = 0, column = 3)
+
+newDeviceChecker = False
+if(newDeviceChecker == False):
+    deviceBanner = Label(root, text = "No new device", fg = 'black', font = ('Helvetica', 16))
+    deviceBanner.grid(row = 0, column = 0)
+else:
+    deviceBanner = Label(root, text = "new device detected", fg = "black", font = ("Helvetica", 16))
+    deviceBanner.grid(row = 0 , column = 0)
 
 chooseFrame = Frame(root)
 chooseLabel = Label(chooseFrame, text = "Please choose a pacing mode")
@@ -66,7 +75,8 @@ apwEntry = Entry(aooFrame, textvariable = apwVar)
 aampLabel = Label(aooFrame, text = "Atrial Amplitude:")
 aampVar = DoubleVar()
 aampEntry = Entry(aooFrame, textvariable = aampVar)
-aoosubmitButton = Button(aooFrame, text = "Confirm changes", command = aooSubmit)
+
+
 
 aooFrame.grid(padx = 50, pady = 50)
 aooLabel.grid(row = 1, column = 1, columnspan = 2)
@@ -80,7 +90,6 @@ apwLabel.grid(row = 6, column = 1, sticky = W)
 apwEntry.grid(row = 6, column = 2, sticky = W)
 aampLabel.grid(row = 7, column = 1, sticky = W)
 aampEntry.grid(row = 7, column = 2, sticky = W)
-aoosubmitButton.grid(row = 8, column = 3, sticky = E)
 aooFrame.grid_remove()
 
 
@@ -229,8 +238,4 @@ rsLabel.grid(row = 10, column = 1, sticky = W)
 rsEntry.grid(row = 10, column = 2, sticky = W)
 vviFrame.grid_remove()
 
-
-
-
-
-
+root.mainloop()
