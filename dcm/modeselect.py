@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk, Image
 
 def openMode():
     mode = modeVar.get()
@@ -17,6 +18,8 @@ def openMode():
 #Main#
 ######
 root = Tk()
+root.iconbitmap("images\logo.ico")
+root.title("Pacemaker")
 
 chooseFrame = Frame(root)
 chooseLabel = Label(chooseFrame, text = "Please choose a pacing mode")
