@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
+import sqlite3
 
 background = 'white'
 class LoginPage:
@@ -31,7 +33,7 @@ class LoginPage:
         self.header = Label(self.login_frame, text = self.header_text, font=('Arial', 24, 'bold'), bg = background, fg='black')
         self.header.grid(row=0, column=0, columnspan=2, pady=(50,10))
 
-        # ========= Login Logo =========
+        # ========= Login =========
         self.logo_image = ImageTk.PhotoImage(Image.open("images/Complogo.png"))
         self.logo = Label(self.login_frame, image = self.logo_image, bg=background)
         self.logo.image = self.logo_image
@@ -42,7 +44,7 @@ class LoginPage:
         self.username_entry = Entry(self.login_frame, bg=background)
         self.password_label = Label(self.login_frame, text="Password", bg=background)
         self.password_entry = Entry(self.login_frame, show="*", bg=background)
-        self.login_button = Button(self.login_frame, text="Login", bg=background)
+        self.login_button = Button(self.login_frame, text="Login", bg=background, command=lambda: self.checkEntries())
 
         # formatting entries
         self.username_label.grid(row=2, column=0, pady=5)
@@ -50,6 +52,40 @@ class LoginPage:
         self.password_label.grid(row=3, column=0, pady=5)
         self.password_entry.grid(row=3, column=1)
         self.login_button.grid(row=4, column=1, columnspan=2, pady=10)
+
+    def checkEntries(self):
+        error_msg = ""
+        login_error = False
+        if (self.username_entry.get() == ''):
+            error_msg = "Username cannot be empty"
+            login_error = True
+        if (not(login_error) and self.password_entry.get() == ''):
+            error_msg = "Password cannot be empty"
+            login_error = True
+
+        if (login_error == False):        
+            try:
+                connection = sqlite3.connect('userdata.db')
+                cursor = connection.cursor()
+                
+                # check if username and password are in database
+                cursor.execute("SELECT COUNT (username) FROM accounts WHERE username = (:username) AND password = (:password)", {
+                                'username': self.username_entry.get(),
+                                'password': self.password_entry.get()
+                })
+                account_exists = cursor.fetchone()[0] == 1
+                
+                if (not(account_exists)):
+                    raise Exception("The login details you entered are incorrect. Please try again.")
+
+                # Go to next screen
+                messagebox.showinfo('confirmation', 'Success!')
+
+            except Exception as ep:
+                messagebox.showerror('', ep) 
+        else:
+            messagebox.showerror('Error', error_msg)
+
 
 def launchLogin():
     window = Tk()

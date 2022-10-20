@@ -38,20 +38,20 @@ class RegistrationPage:
         self.header = Label(self.frame, text = self.header_text, font=('Arial', 24, 'bold'), bg = background, fg='black')
         self.header.grid(row=0, column=0, columnspan=2, pady=(50,10))
 
-        # ========= Login Logo =========
+        # ========= Logo =========
         self.logo_image = ImageTk.PhotoImage(Image.open("images/Complogo.png"))
         self.logo = Label(self.frame, image = self.logo_image, bg=background)
         self.logo.image = self.logo_image
         self.logo.grid(row=1,column=0,columnspan=2,pady=10)
 
-        # ========= Login Entry =========
+        # ========= Registration Entry =========
         self.username_label = Label(self.frame, text="Username", bg=background)
         self.username_entry = Entry(self.frame, bg=background)
         self.password_label = Label(self.frame, text="Password", bg=background)
         self.password_entry = Entry(self.frame, show="*", bg=background)
         self.password2_label = Label(self.frame, text="Re-enter password", bg=background)
         self.password2_entry = Entry(self.frame, show="*", bg=background)
-        self.register_button = Button(self.frame, text="Register", bg=background,command=lambda: self.checkEntries())
+        self.register_button = Button(self.frame, text="Register", bg=background,command=lambda: self.registerUser())
 
         # formatting entries
         self.username_label.grid(row=2, column=0, sticky='w',pady=5, padx=(25,0))
@@ -62,20 +62,11 @@ class RegistrationPage:
         self.password2_entry.grid(row=4, column=1)
         self.register_button.grid(row=5, column=0, columnspan=2, pady=10)
 
-    def checkEntries(self):
-        error_msg = ""
-        register_error = False
-        if (self.username_entry.get() == ''):
-            error_msg = "Username cannot be empty"
-            register_error = True
-        if (not(register_error) and self.password_entry.get() == ''):
-            error_msg = "Password cannot be empty"
-            register_error = True
-        if (not(register_error) and self.password_entry.get() != self.password2_entry.get()):
-            error_msg = "Passwords do not match"
-            register_error = True
+    def registerUser(self):
+        error_msg = self.checkEntryErrors()
 
-        if (register_error == False):        
+        # if there is no error
+        if (error_msg == ""):   
             try:
                 connection = sqlite3.connect('userdata.db')
                 cursor = connection.cursor()
@@ -107,6 +98,25 @@ class RegistrationPage:
                 messagebox.showerror('', ep) 
         else:
             messagebox.showerror('Error', error_msg)
+            
+    def checkEntryErrors(self):
+        if (self.username_entry.get() == ''):
+            return "Username cannot be empty."
+        if (self.password_entry.get() == ''):
+            return "Password cannot be empty."
+        if (self.password_entry.get() != self.password2_entry.get()):
+            return "Passwords do not match."
+        
+        # disallow usernames with spaces
+        if (" " in self.username_entry.get()):
+            return "Username cannot have a space."
+
+        # edge case where password cannot be " "
+        if (self.password_entry.get() == " "):
+            return "Password cannot be just a space."
+
+        # if no errors, return empty string
+        return ""
 
 def launchRegistration():
     window = Tk()
