@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.134
+ * Model version                  : 1.140
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Wed Oct 19 16:23:49 2022
+ * C/C++ source code generated on : Wed Oct 19 19:11:16 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -361,6 +361,10 @@ void Group44PACEMAKER_step(void)
   MW_digitalIO_write(Group44PACEMAKER_DW.obj_d2.MW_DIGITALIO_HANDLE,
                      Group44PACEMAKER_B.ATR_PACE_CTRL);
 
+  /* MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
+  MW_digitalIO_write(Group44PACEMAKER_DW.obj_k.MW_DIGITALIO_HANDLE,
+                     Group44PACEMAKER_B.FRONTEND_CTRL);
+
   /* MATLABSystem: '<S3>/Output_PACE_CHARGE_CTRL' */
   MW_digitalIO_write(Group44PACEMAKER_DW.obj_b.MW_DIGITALIO_HANDLE,
                      Group44PACEMAKER_B.PACE_CHARGE_CTRL);
@@ -396,10 +400,6 @@ void Group44PACEMAKER_step(void)
   /* MATLABSystem: '<S3>/Output_ATR_CMP_REF_PWM' */
   MW_PWM_SetDutyCycle(Group44PACEMAKER_DW.obj_c2.MW_PWM_HANDLE,
                       Group44PACEMAKER_B.cmpDutyCycle);
-
-  /* MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
-  MW_digitalIO_write(Group44PACEMAKER_DW.obj_k.MW_DIGITALIO_HANDLE,
-                     Group44PACEMAKER_B.FRONTEND_CTRL);
 }
 
 /* Model initialize function */
@@ -441,6 +441,13 @@ void Group44PACEMAKER_initialize(void)
     Group44PACEMAKER_DW.obj_d2.isInitialized = 1;
     obj_0->MW_DIGITALIO_HANDLE = MW_digitalIO_open(8U, 1);
     Group44PACEMAKER_DW.obj_d2.isSetupComplete = true;
+
+    /* Start for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
+    Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted = false;
+    obj_0 = &Group44PACEMAKER_DW.obj_k;
+    Group44PACEMAKER_DW.obj_k.isInitialized = 1;
+    obj_0->MW_DIGITALIO_HANDLE = MW_digitalIO_open(13U, 1);
+    Group44PACEMAKER_DW.obj_k.isSetupComplete = true;
 
     /* Start for MATLABSystem: '<S3>/Output_PACE_CHARGE_CTRL' */
     Group44PACEMAKER_DW.obj_b.matlabCodegenIsDeleted = false;
@@ -507,13 +514,6 @@ void Group44PACEMAKER_initialize(void)
     obj_1->MW_PWM_HANDLE = MW_PWM_Open(6U, 2000.0, 0.0);
     MW_PWM_Start(Group44PACEMAKER_DW.obj_c2.MW_PWM_HANDLE);
     Group44PACEMAKER_DW.obj_c2.isSetupComplete = true;
-
-    /* Start for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
-    Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted = false;
-    obj_0 = &Group44PACEMAKER_DW.obj_k;
-    Group44PACEMAKER_DW.obj_k.isInitialized = 1;
-    obj_0->MW_DIGITALIO_HANDLE = MW_digitalIO_open(13U, 1);
-    Group44PACEMAKER_DW.obj_k.isSetupComplete = true;
   }
 }
 
@@ -563,6 +563,17 @@ void Group44PACEMAKER_terminate(void)
   }
 
   /* End of Terminate for MATLABSystem: '<S3>/Output_ATR_PACE_CTRL' */
+
+  /* Terminate for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
+  if (!Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted) {
+    Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted = true;
+    if ((Group44PACEMAKER_DW.obj_k.isInitialized == 1) &&
+        Group44PACEMAKER_DW.obj_k.isSetupComplete) {
+      MW_digitalIO_close(Group44PACEMAKER_DW.obj_k.MW_DIGITALIO_HANDLE);
+    }
+  }
+
+  /* End of Terminate for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
 
   /* Terminate for MATLABSystem: '<S3>/Output_PACE_CHARGE_CTRL' */
   if (!Group44PACEMAKER_DW.obj_b.matlabCodegenIsDeleted) {
@@ -665,17 +676,6 @@ void Group44PACEMAKER_terminate(void)
   }
 
   /* End of Terminate for MATLABSystem: '<S3>/Output_ATR_CMP_REF_PWM' */
-
-  /* Terminate for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
-  if (!Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted) {
-    Group44PACEMAKER_DW.obj_k.matlabCodegenIsDeleted = true;
-    if ((Group44PACEMAKER_DW.obj_k.isInitialized == 1) &&
-        Group44PACEMAKER_DW.obj_k.isSetupComplete) {
-      MW_digitalIO_close(Group44PACEMAKER_DW.obj_k.MW_DIGITALIO_HANDLE);
-    }
-  }
-
-  /* End of Terminate for MATLABSystem: '<S3>/Output_FRONTEND_CTRL' */
 }
 
 /*

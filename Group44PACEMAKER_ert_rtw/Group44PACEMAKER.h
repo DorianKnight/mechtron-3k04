@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.134
+ * Model version                  : 1.140
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Wed Oct 19 16:23:49 2022
+ * C/C++ source code generated on : Wed Oct 19 19:11:16 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -140,13 +140,6 @@ extern volatile boolean_T stopRequested;
 extern volatile boolean_T runModel;
 
 /*-
- * These blocks were eliminated from the model due to optimizations:
- *
- * Block '<S3>/Scope1' : Unused code path elimination
- * Block '<S3>/Scope2' : Unused code path elimination
- */
-
-/*-
  * The generated code includes comments that allow you to trace directly
  * back to the appropriate location in the model.  The basic format
  * is <system>/block_name, where system is the system number (uniquely
@@ -165,8 +158,9 @@ extern volatile boolean_T runModel;
  * '<S2>'   : 'Group44PACEMAKER/Inputs'
  * '<S3>'   : 'Group44PACEMAKER/OutputPins'
  * '<S4>'   : 'Group44PACEMAKER/Stateflow'
- * '<S5>'   : 'Group44PACEMAKER/Subsystem'
- * '<S6>'   : 'Group44PACEMAKER/Stateflow/Chart'
+ * '<S5>'   : 'Group44PACEMAKER/OutputPins/Requirements table'
+ * '<S6>'   : 'Group44PACEMAKER/OutputPins/Requirements table/Requirements Table'
+ * '<S7>'   : 'Group44PACEMAKER/Stateflow/Chart'
  */
 #endif                                 /* RTW_HEADER_Group44PACEMAKER_h_ */
 

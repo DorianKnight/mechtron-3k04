@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.134
+ * Model version                  : 1.140
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Wed Oct 19 16:23:49 2022
+ * C/C++ source code generated on : Wed Oct 19 19:11:16 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -79,7 +79,7 @@ P_Group44PACEMAKER_T Group44PACEMAKER_P = {
   /* Computed Parameter: mode_String
    * Referenced by: '<S2>/mode'
    */
-  "VOO"
+  "AAI"
 };
 
 /*
