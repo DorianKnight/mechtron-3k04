@@ -82,13 +82,13 @@ def launchAOO(window):
     #window.mainloop() #????????????
     
 def launchVOO(window): 
-    pass 
+    VOO(window)
 
 def launchAAI(window): 
-    pass
+    AAI(window)
 
 def launchVVI(window): 
-    pass
+    VVI(window)
 
 if __name__ == '__main__':
     launchAOO() #This has to change probably
