@@ -17,6 +17,7 @@ class RegistrationPage:
         self.height = 400
         self.window.minsize(self.width+30, self.height+30)
         self.max_accounts = max_accounts
+        self.window.title("Pacemaker Register")
 
         # ========= Registration Frame =========
         self.frame = Frame(
