@@ -21,6 +21,22 @@ root = Tk()
 root.iconbitmap("images\logo.ico")
 root.title("Pacemaker")
 
+connectionChecker = False
+if(connectionChecker == False):
+    connectionBanner = Label(root, text = "Connection Status: Not connected", fg = 'red', font = ("Helvetica", 16))
+    connectionBanner.grid(row = 0, column = 3)
+else:
+    connectionBanner = Label(root, text = "Connection Status: Connected", fg = "green", font = ("Helvetica, 16"))
+    connectionBanner.grid(row = 0, column = 3)
+
+newDeviceChecker = False
+if(newDeviceChecker == False):
+    deviceBanner = Label(root, text = "No new device", fg = 'black', font = ('Helvetica', 16))
+    deviceBanner.grid(row = 0, column = 0)
+else:
+    deviceBanner = Label(root, text = "new device detected", fg = "black", font = ("Helvetica", 16))
+    deviceBanner.grid(row = 0 , column = 0)
+
 chooseFrame = Frame(root)
 chooseLabel = Label(chooseFrame, text = "Please choose a pacing mode")
 modeVar = StringVar()
