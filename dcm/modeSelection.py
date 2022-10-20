@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import ImageTk, Image
 import pacingModes
 
-  
 background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
@@ -41,7 +40,7 @@ class ModeSelect:
         #Definition of elements on the page
         self.chooseLabel = Label(self.msFrame, text = "Please choose a pacing mode", bg=background,padx=10,pady=20)
         self.aooRadio = Radiobutton(self.msFrame, text = "AOO", variable = self.mode, value = "AOO", bg=background,padx=10, command=test("AOO"))
-        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10, command=test("vOO"))
+        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10, command=test("VOO"))
         self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI", bg=background,padx=10, command=test("AAI"))
         self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI", bg=background,padx=10, command=test("VVI"))
         self.nextButton = Button(self.msFrame, text = "Next", command = openMode,bg=background, width=8)
