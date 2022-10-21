@@ -38,8 +38,8 @@ class AOO:
         self.apwEntry = Entry(self.aooFrame, bg = background)
         self.aampLabel = Label(self.aooFrame, text = "Atrial Amplitude:", bg = background, padx = 10)
         self.aampEntry = Entry(self.aooFrame, bg = background)
-        self.back = Button(self.aooFrame, text = "Back", command = goBack)
-        self.confirm = Button(self.aooFrame, text = "Confirm changes", command = aooConfirm)
+        self.back = Button(self.aooFrame, text = "Back", width=12, command = goBack)
+        self.confirm = Button(self.aooFrame, text = "Confirm changes", width=12, command = aooConfirm)
         
         self.aooLabel.grid(row = 1, column = 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
@@ -53,8 +53,8 @@ class AOO:
         self.aampLabel.grid(row = 7, column = 1, sticky = W)
         self.aampEntry.grid(row = 7, column = 2, sticky = W)
         self.aooFrame.grid_rowconfigure(8, minsize = 20)
-        self.back.grid(row = 9, column = 1)
-        self.confirm.grid(row = 9, column = 2, sticky = E)
+        self.back.grid(row = 9, column = 1, sticky=S)
+        self.confirm.grid(row = 9, column = 2, sticky = SW)
 
         
     
@@ -92,8 +92,8 @@ class VOO:
         self.vpwEntry = Entry(self.vooFrame)
         self.vampLabel = Label(self.vooFrame, text = "Ventrical Amplitude:", bg = background, padx = 10)
         self.vampEntry = Entry(self.vooFrame)
-        self.back = Button(self.vooFrame, text = "Back", command = goBack)
-        self.confirm = Button(self.vooFrame, text = "Confirm changes", command = vooConfirm)
+        self.back = Button(self.vooFrame, text = "Back", width=12, command = goBack)
+        self.confirm = Button(self.vooFrame, text = "Confirm changes", width=12, command = vooConfirm)
         
         #Positioning all VOO Elements
         self.vooLabel.grid(row = 1, column = 1, columnspan = 2)
@@ -108,8 +108,8 @@ class VOO:
         self.vampLabel.grid(row = 7, column = 1, sticky = W)
         self.vampEntry.grid(row = 7, column = 2, sticky = W)
         self.vooFrame.grid_rowconfigure(8, minsize = 20)
-        self.back.grid(row = 9, column = 1)
-        self.confirm.grid(row = 9, column = 2, sticky = E)
+        self.back.grid(row = 9, column = 1, sticky=S)
+        self.confirm.grid(row = 9, column = 2, sticky = SW)
 
 
 
@@ -117,9 +117,9 @@ class VOO:
 class AAI: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('500x400')
+        self.frame.geometry('500x500')
         self.width = 450
-        self.height = 350
+        self.height = 450
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | AAI Pacing Mode")
         
@@ -158,8 +158,8 @@ class AAI:
         self.hystEntry = Entry(self.aaiFrame)
         self.rsLabel = Label(self.aaiFrame, text = "Rate Smoothing:", bg = background, padx = 10)
         self.rsEntry = Entry(self.aaiFrame)
-        self.back = Button(self.aaiFrame, text = "Back", command = goBack)
-        self.confirm = Button(self.aaiFrame, text = "Confirm changes", command = aaiConfirm)
+        self.back = Button(self.aaiFrame, text = "Back", width=12, command = goBack)
+        self.confirm = Button(self.aaiFrame, text = "Confirm changes", width=12, command = aaiConfirm)
         
         self.aaiLabel.grid(row = 1, column = 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
@@ -183,8 +183,8 @@ class AAI:
         self.rsLabel.grid(row = 12, column = 1, sticky = W)
         self.rsEntry.grid(row = 12, column = 2, sticky = W)
         self.aaiFrame.grid_rowconfigure(13, minsize = 20)
-        self.back.grid(row = 14, column =1)
-        self.confirm.grid(row = 14, column = 2, sticky = E)
+        self.back.grid(row = 14, column =1, sticky=S)
+        self.confirm.grid(row = 14, column = 2, sticky = SW)
 
     
 class VVI: 
@@ -225,8 +225,8 @@ class VVI:
         self.hystEntry = Entry(self.vviFrame)
         self.rsLabel = Label(self.vviFrame, text = "Rate Smoothing:", bg = background, padx = 10) 
         self.rsEntry = Entry(self.vviFrame)
-        self.back = Button(self.vviFrame, text = "Back", command = goBack)
-        self.confirm = Button(self.vviFrame, text = "Confirm changes", command = vviConfirm)
+        self.back = Button(self.vviFrame, text = "Back", width=12, command = goBack)
+        self.confirm = Button(self.vviFrame, text = "Confirm changes", width=12, command = vviConfirm)
         
         
         #Placing the element on the VVI Frame
@@ -248,8 +248,8 @@ class VVI:
         self.rsLabel.grid(row = 10, column = 1, sticky = W)
         self.rsEntry.grid(row = 10, column = 2, sticky = W)
         self.vviFrame.grid_rowconfigure(11, minsize = 20)
-        self.back.grid(row = 12, column = 1)
-        self.confirm.grid(row = 12, column = 2, sticky = W)
+        self.back.grid(row = 12, column = 1, sticky=S)
+        self.confirm.grid(row = 12, column = 2, sticky = SW)
                 
 
     
