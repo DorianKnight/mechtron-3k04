@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+import modeSelection
 
 
 background = 'white'
@@ -18,7 +19,8 @@ class AOO:
             pass
         
         def goBack(): 
-            pass
+            self.aooFrame.destroy()
+            modeSelection.ModeSelect(self.frame).aooRadio.select()
         
         #AOO Frame
         self.aooFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
@@ -40,7 +42,6 @@ class AOO:
         self.back = Button(self.aooFrame, text = "Back", command = goBack)
         self.confirm = Button(self.aooFrame, text = "Confirm changes", command = aooConfirm)
         
-        self.aooFrame.grid()
         self.aooLabel.grid(row = 1, column = 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
         self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
@@ -73,7 +74,8 @@ class VOO:
             pass
         
         def goBack(): 
-            pass
+            self.vooFrame.destroy()
+            modeSelection.ModeSelect(self.frame).vooRadio.select()
         
         #VOO Frame
         self.vooFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
@@ -96,7 +98,6 @@ class VOO:
         self.confirm = Button(self.vooFrame, text = "Confirm changes", command = vooConfirm)
         
         #Positioning all VOO Elements
-        self.vooFrame.grid()
         self.vooLabel.grid(row = 1, column = 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
         self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
@@ -130,7 +131,8 @@ class AAI:
             pass
         
         def goBack(): 
-            pass
+            self.aaiFrame.destroy()
+            modeSelection.ModeSelect(self.frame).aaiRadio.select()
         
         #AAI Frame
         self.aaiFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
@@ -162,7 +164,6 @@ class AAI:
         self.back = Button(self.aaiFrame, text = "Back", command = goBack)
         self.confirm = Button(self.aaiFrame, text = "Confirm changes", command = aaiConfirm)
         
-        self.aaiFrame.grid(padx = 50, pady = 50)
         self.aaiLabel.grid(row = 1, column = 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
         self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
@@ -203,7 +204,8 @@ class VVI:
             pass
         
         def goBack(): 
-            pass
+            self.vviFrame.destroy()
+            modeSelection.ModeSelect(self.frame).vviRadio.select()
         
         #VVI Frame
         self.vviFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
@@ -232,7 +234,6 @@ class VVI:
         self.confirm = Button(self.vviFrame, text = "Confirm changes", command = vviConfirm)
         
         #Placing the element on the VOO Frame
-        self.vviFrame.grid()
         self.vviLabel.grid(row = 1, column= 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
         self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
@@ -266,5 +267,8 @@ def launchAAI(window):
 
 def launchVVI(window): 
     VVI(window)
-   
+'''
+def backToSelect(window):
+    modeSelection.ModeSelect(window)
+'''    
     
