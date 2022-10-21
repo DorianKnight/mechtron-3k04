@@ -1,7 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import login
-import registration 
+import registration
+from data import createDB
 
 background = 'white'
 class WelcomePage:
@@ -59,6 +60,7 @@ class WelcomePage:
         
 
 def launchApp():
+    createDB()
     window = Tk()
     WelcomePage(window)
     window.mainloop()
