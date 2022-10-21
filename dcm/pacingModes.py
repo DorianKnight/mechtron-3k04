@@ -122,6 +122,10 @@ class AAI:
         self.height = 450
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | AAI Pacing Mode")
+
+        #set these to patient specific parameters
+        self.hyst=False
+        
         
         #Methods 
         def aaiConfirm(): 
@@ -131,6 +135,17 @@ class AAI:
             self.aaiFrame.destroy()
             modeSelection.ModeSelect(self.frame).aaiRadio.select()
         
+        def updateFields():
+            print("triggered")
+
+            if(self.hyst==True):
+                self.hyst=False
+                self.hystEntry.config(state= "disabled")
+            else:
+                self.hyst=True
+                self.hystEntry.config(state= "normal")
+
+
         #AAI Frame
         self.aaiFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
         self.aaiFrame.place(anchor="c", relx=0.5, rely=0.5)
@@ -154,10 +169,9 @@ class AAI:
         self.arpEntry = Entry(self.aaiFrame)
         self.pvarpLabel = Label(self.aaiFrame, text = "PVARP:", bg = background, padx = 10)
         self.pvarpEntry = Entry(self.aaiFrame)
+        self.hystBool = Checkbutton(self.aaiFrame,text = "Hysteresis",command=updateFields, bg=background,padx=10)
         self.hystLabel = Label(self.aaiFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.aaiFrame)
-        self.rsLabel = Label(self.aaiFrame, text = "Rate Smoothing:", bg = background, padx = 10)
-        self.rsEntry = Entry(self.aaiFrame)
+        self.hystEntry = Entry(self.aaiFrame, state="disabled")
         self.back = Button(self.aaiFrame, text = "Back", width=12, command = goBack)
         self.confirm = Button(self.aaiFrame, text = "Confirm changes", width=12, command = aaiConfirm)
         
@@ -178,22 +192,24 @@ class AAI:
         self.arpEntry.grid(row = 9, column = 2, sticky = W)
         self.pvarpLabel.grid(row = 10, column = 1, sticky = W)
         self.pvarpEntry.grid(row = 10, column = 2, sticky = W)
-        self.hystLabel.grid(row = 11, column = 1, sticky = W)
-        self.hystEntry.grid(row = 11, column = 2, sticky = W)
-        self.rsLabel.grid(row = 12, column = 1, sticky = W)
-        self.rsEntry.grid(row = 12, column = 2, sticky = W)
-        self.aaiFrame.grid_rowconfigure(13, minsize = 20)
-        self.back.grid(row = 14, column =1, sticky=S)
-        self.confirm.grid(row = 14, column = 2, sticky = SW)
+        self.hystBool.grid(row=11,column=1,sticky=W)
+        self.hystLabel.grid(row = 12, column = 1, sticky = W)
+        self.hystEntry.grid(row = 12, column = 2, sticky = W)
+        self.aaiFrame.grid_rowconfigure(14, minsize = 20)
+        self.back.grid(row = 15, column =1, sticky=S)
+        self.confirm.grid(row = 15, column = 2, sticky = SW)
 
     
 class VVI: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('500x400')
+        self.frame.geometry('500x500')
         self.width = 450
-        self.height = 350
+        self.height = 450
         self.frame.title("Pacemaker | VVI Pacing Mode")
+        
+        #set these to patient specific parameters
+        self.hyst=False
         
         def vviConfirm(): 
             pass
@@ -201,6 +217,16 @@ class VVI:
         def goBack(): 
             self.vviFrame.destroy()
             modeSelection.ModeSelect(self.frame).vviRadio.select()
+
+        def updateFields():
+            print("triggered")
+
+            if(self.hyst==True):
+                self.hyst=False
+                self.hystEntry.config(state= "disabled")
+            else:
+                self.hyst=True
+                self.hystEntry.config(state= "normal")
         
         #VVI Frame
         self.vviFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
@@ -221,10 +247,11 @@ class VVI:
         self.vampEntry = Entry(self.vviFrame)
         self.vsensLabel = Label(self.vviFrame, text = "Ventricular Sensitivity:", bg = background, padx = 10)
         self.vsensEntry = Entry(self.vviFrame)
+        self.vrpLabel = Label(self.vviFrame, text = "VRP:", bg = background, padx = 10)
+        self.vrpEntry = Entry(self.vviFrame)
+        self.hystBool = Checkbutton(self.vviFrame, text = "Hysteresis", command=updateFields,bg=background,padx=10)
         self.hystLabel = Label(self.vviFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.vviFrame)
-        self.rsLabel = Label(self.vviFrame, text = "Rate Smoothing:", bg = background, padx = 10) 
-        self.rsEntry = Entry(self.vviFrame)
+        self.hystEntry = Entry(self.vviFrame, state="disabled")
         self.back = Button(self.vviFrame, text = "Back", width=12, command = goBack)
         self.confirm = Button(self.vviFrame, text = "Confirm changes", width=12, command = vviConfirm)
         
@@ -243,13 +270,15 @@ class VVI:
         self.vampEntry.grid(row = 7, column = 2, sticky = W)
         self.vsensLabel.grid(row = 8, column = 1, sticky = W)
         self.vsensEntry.grid(row = 8, column = 2, sticky = W)
-        self.hystLabel.grid(row = 9, column = 1, sticky = W)
-        self.hystEntry.grid(row = 9, column = 2, sticky = W)
-        self.rsLabel.grid(row = 10, column = 1, sticky = W)
-        self.rsEntry.grid(row = 10, column = 2, sticky = W)
-        self.vviFrame.grid_rowconfigure(11, minsize = 20)
-        self.back.grid(row = 12, column = 1, sticky=S)
-        self.confirm.grid(row = 12, column = 2, sticky = SW)
+        self.vrpLabel.grid(row = 9, column = 1, sticky = W)
+        self.vrpEntry.grid(row = 9, column = 2, sticky = W)
+        self.hystBool.grid(row=10,column=1, sticky=W)
+        self.hystLabel.grid(row = 11, column = 1, sticky = W)
+        self.hystEntry.grid(row = 11, column = 2, sticky = W)
+        self.vviFrame.grid_rowconfigure(13, minsize = 20)
+        self.back.grid(row = 14, column = 1, sticky=S)
+        self.confirm.grid(row = 14, column = 2, sticky = SW)
+
                 
 
     

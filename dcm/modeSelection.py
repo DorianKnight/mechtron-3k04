@@ -108,7 +108,7 @@ class ModeSelect:
     
 def launchModeSelect(): 
     window = Tk()
-    ModeSelect(window).aooRadio.select()
+    ModeSelect(window).aooRadio.select() #select another radio depending on what the patient has by default
     window.mainloop()
     
 if __name__ == '__main__':
