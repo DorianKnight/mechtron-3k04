@@ -56,7 +56,7 @@ class RegistrationPage:
         self.password_entry = Entry(self.frame, show="*", bg=background)
         self.password2_label = Label(self.frame, text="Re-enter password", bg=background)
         self.password2_entry = Entry(self.frame, show="*", bg=background)
-        self.register_button = Button(self.frame, text="Register", bg=background,command=lambda: self.registerUser())
+        self.register_button = Button(self.frame, text="Register", bg=background,command= self.registerUser)
         self.back_button = Button(self.frame, text = "Back", bg = background, command = goBack)
 
         # formatting entries
@@ -66,7 +66,7 @@ class RegistrationPage:
         self.password_entry.grid(row=3, column=1)
         self.password2_label.grid(row=4, column=0, pady=5, sticky='w', padx=(25,0))
         self.password2_entry.grid(row=4, column=1)
-        self.register_button.grid(row=5, column=1, pady=10, sticky = E, padx = 64)
+        self.register_button.grid(row=5, column=1, pady=10, sticky = E, padx = 25)
         self.back_button.grid(row = 5, column = 0, pady = 10, sticky = W, padx = 25)
 
     def registerUser(self):
