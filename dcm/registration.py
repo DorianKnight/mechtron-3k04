@@ -4,6 +4,7 @@ import sqlite3
 import pathlib
 from data import createDB
 from PIL import ImageTk, Image
+import main
 
 
 createDB()
@@ -18,6 +19,10 @@ class RegistrationPage:
         self.window.minsize(self.width+30, self.height+30)
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
+
+        def goBack(): 
+            self.frame.destroy()
+            main.WelcomePage(self.window)
 
         # ========= Registration Frame =========
         self.frame = Frame(
@@ -52,6 +57,7 @@ class RegistrationPage:
         self.password2_label = Label(self.frame, text="Re-enter password", bg=background)
         self.password2_entry = Entry(self.frame, show="*", bg=background)
         self.register_button = Button(self.frame, text="Register", bg=background,command=lambda: self.registerUser())
+        self.back_button = Button(self.frame, text = "Back", bg = background, command = goBack)
 
         # formatting entries
         self.username_label.grid(row=2, column=0, sticky='w',pady=5, padx=(25,0))
@@ -60,7 +66,8 @@ class RegistrationPage:
         self.password_entry.grid(row=3, column=1)
         self.password2_label.grid(row=4, column=0, pady=5, sticky='w', padx=(25,0))
         self.password2_entry.grid(row=4, column=1)
-        self.register_button.grid(row=5, column=0, columnspan=2, pady=10)
+        self.register_button.grid(row=5, column=1, pady=10, sticky = E, padx = 64)
+        self.back_button.grid(row = 5, column = 0, pady = 10, sticky = W, padx = 25)
 
     def registerUser(self):
         error_msg = self.checkEntryErrors()

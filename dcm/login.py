@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import sqlite3
+import main
 
 background = 'white'
 class LoginPage:
@@ -13,6 +14,10 @@ class LoginPage:
         self.window.minsize(self.width+30, self.height+30)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker Login")
+        
+        def goBack(): 
+            self.login_frame.destroy()
+            main.WelcomePage(self.window)
 
         # ========= Login Frame =========
         self.login_frame = Frame(
@@ -45,13 +50,15 @@ class LoginPage:
         self.password_label = Label(self.login_frame, text="Password", bg=background)
         self.password_entry = Entry(self.login_frame, show="*", bg=background)
         self.login_button = Button(self.login_frame, text="Login", bg=background, command=lambda: self.checkEntries())
+        self.back_button = Button(self.login_frame, text = "Back", bg = background, command = goBack)
 
         # formatting entries
         self.username_label.grid(row=2, column=0, pady=5)
         self.username_entry.grid(row=2, column=1)
         self.password_label.grid(row=3, column=0, pady=5)
         self.password_entry.grid(row=3, column=1)
-        self.login_button.grid(row=4, column=1, columnspan=2, pady=10)
+        self.login_button.grid(row=4, column=1, columnspan=2, pady=10, sticky = E, padx = 83)
+        self.back_button.grid(row = 4, column = 0, pady = 10, sticky = W, padx = 25)
 
     def checkEntries(self):
         error_msg = ""
