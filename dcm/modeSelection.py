@@ -9,11 +9,27 @@ class ModeSelect:
         self.window.geometry('350x280')
         self.width = 300
         self.height = 220
-        self.window.minsize(self.width+30, self.height+30)
+        self.window.minsize(self.width+30, self.height+50)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker | Mode Selection")
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
+
+        connectionChecker=False
+        if(connectionChecker==False):
+            connectionBanner=Label(self.window,text="Connection Status: Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+        else:
+            connectionBanner=Label(self.window,text="Connection Status: Connected - ",fg="green", font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+
+        newDeviceChecker=True
+        if(newDeviceChecker==False):
+            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
+        else:
+            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
 
         def openMode(): 
             self.msFrame.destroy()
