@@ -156,22 +156,60 @@ class AAI:
 class VVI: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('450x500')
-        self.width = 400
-        self.height = 450
+        self.frame.geometry('425x350')
+        self.width = 375
+        self.height = 300
         self.frame.minsize(self.width+30, self.height+30)
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | VVI Pacing Mode")
         
-        #VOO Frame
+        #VVI Frame
         self.vviFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
         self.vviFrame.place(anchor="c", relx=0.5, rely=0.5)
         self.vviFrame.grid_propagate(False)
         
+        #Creating the elements for the VVI Frame
+        self.vviLabel = Label(self.vviFrame, text = "VVI", font = ("Arial", 25), bg = background, padx = 10)
+        self.instructionLabel = Label(self.vviFrame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
+        self.instructionLabel2 = Label(self.vviFrame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
+        self.lrlLabel = Label(self.vviFrame, text = "Lower Rate Limit:", bg = background, padx = 10)
+        self.lrlEntry = Entry(self.vviFrame)
+        self.urlLabel = Label(self.vviFrame, text = "Upper Rate Limit:", bg = background, padx = 10)
+        self.urlEntry = Entry(self.vviFrame)
+        self.vpwLabel = Label(self.vviFrame, text = "Ventricular Pulse Width:", bg = background, padx = 10)
+        self.vpwEntry = Entry(self.vviFrame)
+        self.vampLabel = Label(self.vviFrame, text = "Ventricular Amplitude:", bg = background, padx = 10)
+        self.vampEntry = Entry(self.vviFrame)
+        self.vsensLabel = Label(self.vviFrame, text = "Ventricular Sensitivity:", bg = background, padx = 10)
+        self.vsensEntry = Entry(self.vviFrame)
+        self.hystLabel = Label(self.vviFrame, text = "Hysteresis:", bg = background, padx = 10)
+        self.hystEntry = Entry(self.vviFrame)
+        self.rsLabel = Label(self.vviFrame, text = "Rate Smoothing:", bg = background, padx = 10) 
+        self.rsEntry = Entry(self.vviFrame)
+        
+        #Placing the element on the VOO Frame
+        self.vviFrame.grid()
+        self.vviLabel.grid(row = 1, column= 1)
+        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
+        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
+        self.lrlLabel.grid(row = 4, column = 1, sticky = W)
+        self.lrlEntry.grid(row = 4, column = 2, sticky = W)
+        self.urlLabel.grid(row = 5, column = 1, sticky = W)
+        self.urlEntry.grid(row = 5, column = 2, sticky = W)
+        self.vpwLabel.grid(row = 6, column = 1, sticky = W)
+        self.vpwEntry.grid(row = 6, column = 2, sticky = W)
+        self.vampLabel.grid(row = 7, column = 1, sticky = W)
+        self.vampEntry.grid(row = 7, column = 2, sticky = W)
+        self.vsensLabel.grid(row = 8, column = 1, sticky = W)
+        self.vsensEntry.grid(row = 8, column = 2, sticky = W)
+        self.hystLabel.grid(row = 9, column = 1, sticky = W)
+        self.hystEntry.grid(row = 9, column = 2, sticky = W)
+        self.rsLabel.grid(row = 10, column = 1, sticky = W)
+        self.rsEntry.grid(row = 10, column = 2, sticky = W)
+
     
 def launchAOO(window): 
     AOO(window)
-    #window.mainloop() #????????????
     
 def launchVOO(window): 
     VOO(window)
