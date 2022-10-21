@@ -49,7 +49,7 @@ class LoginPage:
         self.username_entry = Entry(self.login_frame, bg=background)
         self.password_label = Label(self.login_frame, text="Password", bg=background)
         self.password_entry = Entry(self.login_frame, show="*", bg=background)
-        self.login_button = Button(self.login_frame, text="Login", bg=background, command=lambda: self.checkEntries())
+        self.login_button = Button(self.login_frame, text="Login", bg=background, command= self.loginUser)
         self.back_button = Button(self.login_frame, text = "Back", bg = background, command = goBack)
 
         # formatting entries
@@ -57,20 +57,25 @@ class LoginPage:
         self.username_entry.grid(row=2, column=1)
         self.password_label.grid(row=3, column=0, pady=5)
         self.password_entry.grid(row=3, column=1)
-        self.login_button.grid(row=4, column=1, columnspan=2, pady=10, sticky = E, padx = 83)
+        self.login_button.grid(row=4, column=1, pady=10, sticky=E, padx = 25)
         self.back_button.grid(row = 4, column = 0, pady = 10, sticky = W, padx = 25)
 
-    def checkEntries(self):
+    def loginUser(self):
+        if(self.entriesCorrect()):
+            pass
+            # go to mode select
+
+    def entriesCorrect(self):
         error_msg = ""
-        login_error = False
+        no_error = True
         if (self.username_entry.get() == ''):
             error_msg = "Username cannot be empty"
-            login_error = True
-        if (not(login_error) and self.password_entry.get() == ''):
+            no_error = False
+        elif (self.password_entry.get() == ''):
             error_msg = "Password cannot be empty"
-            login_error = True
+            no_error = False
 
-        if (login_error == False):        
+        if (no_error):        
             try:
                 connection = sqlite3.connect('userdata.db')
                 cursor = connection.cursor()
@@ -90,8 +95,11 @@ class LoginPage:
 
             except Exception as ep:
                 messagebox.showerror('', ep) 
+                no_error = False
         else:
             messagebox.showerror('Error', error_msg)
+
+        return no_error
 
 
 def launchLogin():
