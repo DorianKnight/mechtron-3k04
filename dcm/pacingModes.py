@@ -7,10 +7,9 @@ background = 'white'
 class AOO: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('450x275')
-        self.width = 400
-        self.height = 225
-        self.frame.minsize(self.width+30, self.height+30)
+        self.frame.geometry('500x400')
+        self.width = 450
+        self.height = 350
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | AOO Pacing Mode")
         
@@ -62,10 +61,9 @@ class AOO:
 class VOO: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('450x300')
-        self.width = 400
-        self.height = 250
-        self.frame.minsize(self.width+30, self.height+30)
+        self.frame.geometry('500x400')
+        self.width = 450
+        self.height = 350
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | VOO Pacing Mode")
         
@@ -122,7 +120,6 @@ class AAI:
         self.frame.geometry('500x400')
         self.width = 450
         self.height = 350
-        self.frame.minsize(self.width+30, self.height+30)
         self.frame.iconbitmap("images\logo.ico")
         self.frame.title("Pacemaker | AAI Pacing Mode")
         
@@ -193,11 +190,9 @@ class AAI:
 class VVI: 
     def __init__(self, frame):
         self.frame = frame
-        self.frame.geometry('425x350')
-        self.width = 375
-        self.height = 300
-        self.frame.minsize(self.width+30, self.height+30)
-        self.frame.iconbitmap("images\logo.ico")
+        self.frame.geometry('500x400')
+        self.width = 450
+        self.height = 350
         self.frame.title("Pacemaker | VVI Pacing Mode")
         
         def vviConfirm(): 

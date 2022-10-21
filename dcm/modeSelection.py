@@ -6,9 +6,9 @@ background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
         self.window = window
-        self.window.geometry('350x280')
-        self.width = 300
-        self.height = 220
+        self.window.geometry('500x400')
+        self.width = 450
+        self.height = 350
         self.window.minsize(self.width+30, self.height+30)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker | Mode Selection")
