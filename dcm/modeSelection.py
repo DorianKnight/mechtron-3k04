@@ -15,9 +15,6 @@ class ModeSelect:
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
 
-        def test(myStr):
-            print("you selected "+myStr)  
-
         def openMode(): 
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
@@ -38,11 +35,11 @@ class ModeSelect:
         self.msFrame.grid_propagate(False)
         
         #Definition of elements on the page
-        self.chooseLabel = Label(self.msFrame, text = "Please choose a pacing mode", bg=background,padx=10,pady=20)
-        self.aooRadio = Radiobutton(self.msFrame, text = "AOO", variable = self.mode, value = "AOO", bg=background,padx=10, command=test("AOO"))
-        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10, command=test("VOO"))
-        self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI", bg=background,padx=10, command=test("AAI"))
-        self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI", bg=background,padx=10, command=test("VVI"))
+        self.chooseLabel = Label(self.msFrame, text = "Please choose a pacing mode", font = ("Arial",15), bg = background, padx = 10, pady = 20)
+        self.aooRadio = Radiobutton(self.msFrame, text = "AOO", variable = self.mode, value = "AOO", bg=background,padx=10)
+        self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10)
+        self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI", bg=background,padx=10)
+        self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI", bg=background,padx=10)
         self.nextButton = Button(self.msFrame, text = "Next", command = openMode,bg=background, width=8)
         
         #Formatting placement of elements on the page
