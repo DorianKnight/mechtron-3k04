@@ -233,7 +233,8 @@ class VVI:
         self.back = Button(self.vviFrame, text = "Back", command = goBack)
         self.confirm = Button(self.vviFrame, text = "Confirm changes", command = vviConfirm)
         
-        #Placing the element on the VOO Frame
+        
+        #Placing the element on the VVI Frame
         self.vviLabel.grid(row = 1, column= 1, columnspan = 2)
         self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
         self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
@@ -252,8 +253,9 @@ class VVI:
         self.rsLabel.grid(row = 10, column = 1, sticky = W)
         self.rsEntry.grid(row = 10, column = 2, sticky = W)
         self.vviFrame.grid_rowconfigure(11, minsize = 20)
-        self.back.grid(row = 12, column = 1, sticky = W)
-        self.confirm.grid(row = 12, column = 2)
+        self.back.grid(row = 12, column = 1)
+        self.confirm.grid(row = 12, column = 2, sticky = W)
+                
 
     
 def launchAOO(window): 
