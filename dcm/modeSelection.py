@@ -2,6 +2,43 @@ from tkinter import *
 from PIL import ImageTk, Image
 import pacingModes
 
+class Patient:
+    def __init__(self):
+        self.username="NONE"
+
+        #AOO vars
+        self.aooLRL=0.0
+        self.aooURL=0.0
+        self.aooAPW=0.0
+        self.aooAA=0.0
+
+        #VOO vars
+        self.vooLRL=0.0
+        self.vooURL=0.0
+        self.vooVPW=0.0
+        self.vooVA=0.0
+
+        #AAI vars
+        self.aaiLRL=0.0
+        self.aaiURL=0.0
+        self.aaiAPW=0.0
+        self.aaiAA=0.0
+        self.aaiASens=0.0
+        self.aaiARP=0.0
+        self.aaiPVARP=0.0
+        self.aaiHys=0.0
+        self.aaiRateSmoothing=0.0
+
+        #VVI vars
+        self.vviLRL=0.0
+        self.vviURL=0.0
+        self.vviVPW=0.0
+        self.vviVA=0.0
+        self.vviVSens=0.0
+        self.vviHys=0.0
+        self.vviRateSmoothing=0.0
+
+
 background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
@@ -14,6 +51,7 @@ class ModeSelect:
         self.window.title("Pacemaker | Mode Selection")
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
+        self.patient=Patient()
 
         connectionChecker=False
         if(connectionChecker==False):
