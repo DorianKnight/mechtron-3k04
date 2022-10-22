@@ -3,6 +3,44 @@ from PIL import ImageTk, Image
 import pacingModes
 import main
 
+class Patient:
+    def __init__(self):
+        self.username="NONE"
+        
+
+        #AOO vars
+        self.aooLRL=0.0
+        self.aooURL=0.0
+        self.aooAPW=0.0
+        self.aooAA=0.0
+
+        #VOO vars
+        self.vooLRL=0.0
+        self.vooURL=0.0
+        self.vooVPW=0.0
+        self.vooVA=0.0
+
+        #AAI vars
+        self.aaiLRL=0.0
+        self.aaiURL=0.0
+        self.aaiAPW=0.0
+        self.aaiAA=0.0
+        self.aaiASens=0.0
+        self.aaiARP=0.0
+        self.aaiPVARP=0.0
+        self.aaiHys=0.0
+        self.aaiRateSmoothing=0.0
+
+        #VVI vars
+        self.vviLRL=0.0
+        self.vviURL=0.0
+        self.vviVPW=0.0
+        self.vviVA=0.0
+        self.vviVSens=0.0
+        self.vviHys=0.0
+        self.vviRateSmoothing=0.0
+
+
 background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
@@ -10,11 +48,28 @@ class ModeSelect:
         self.window.geometry('350x280')
         self.width = 300
         self.height = 220
-        self.window.minsize(self.width+30, self.height+30)
+        self.window.minsize(self.width+30, self.height+50)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker | Mode Selection")
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
+        self.patient=Patient()
+
+        connectionChecker=False
+        if(connectionChecker==False):
+            connectionBanner=Label(self.window,text="Connection Status: Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+        else:
+            connectionBanner=Label(self.window,text="Connection Status: Connected - ",fg="green", font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+
+        newDeviceChecker=True
+        if(newDeviceChecker==False):
+            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
+        else:
+            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
 
         def openMode(): 
             self.msFrame.destroy()
@@ -61,7 +116,7 @@ class ModeSelect:
     
 def launchModeSelect(): 
     window = Tk()
-    ModeSelect(window).aooRadio.select()
+    ModeSelect(window).aooRadio.select() #select another radio depending on what the patient has by default
     window.mainloop()
     
 if __name__ == '__main__':

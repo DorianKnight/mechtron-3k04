@@ -164,6 +164,10 @@ class AAI(PacingMode):
         self.width = 450
         self.height = 450
         self.window.title("Pacemaker | AAI Pacing Mode")
+
+        #set these to patient specific parameters
+        self.hyst=False
+        
         
         #Methods 
         def aaiConfirm(): 
@@ -172,6 +176,17 @@ class AAI(PacingMode):
         def goBack(): 
             self.goBack("aaiRadio")
         
+        def updateFields():
+            print("triggered")
+
+            if(self.hyst==True):
+                self.hyst=False
+                self.hystEntry.config(state= "disabled")
+            else:
+                self.hyst=True
+                self.hystEntry.config(state= "normal")
+
+
         #AAI Frame
         self.initFrame()
         
@@ -184,9 +199,16 @@ class AAI(PacingMode):
         self.addAsens(8)
         self.addArp(9)
         self.addPvarp(10)
-        self.addHyst(11)
-        self.addRs(12)
-        self.addBackAndConfirm(13, goBack, aaiConfirm)
+        self.addHyst(12)
+
+        self.hystBool = Checkbutton(self.aaiFrame,text = "Hysteresis",command=updateFields, bg=background,padx=10)
+        self.hystLabel = Label(self.aaiFrame, text = "Hysteresis:", bg = background, padx = 10)
+        self.hystEntry = Entry(self.aaiFrame, state="disabled")
+        
+    
+        self.hystBool.grid(row=11,column=1,sticky=W)
+        self.addRs(13)
+        self.addBackAndConfirm(14, goBack, aaiConfirm)
     
 class VVI(PacingMode): 
     def __init__(self, window):
@@ -195,11 +217,24 @@ class VVI(PacingMode):
         self.height = 450
         self.window.title("Pacemaker | VVI Pacing Mode")
 
+        #set these to patient specific parameters
+        self.hyst=False
+        
         def vviConfirm(): 
             pass
         
         def goBack(): 
             self.goBack("vviRadio")
+
+        def updateFields():
+            print("triggered")
+
+            if(self.hyst==True):
+                self.hyst=False
+                self.hystEntry.config(state= "disabled")
+            else:
+                self.hyst=True
+                self.hystEntry.config(state= "normal")
         
         #VVI Frame
         self.initFrame()
@@ -214,6 +249,17 @@ class VVI(PacingMode):
         self.addHyst(9)
         self.addRs(10)
         self.addBackAndConfirm(11, goBack, vviConfirm)
+
+        self.hystBool = Checkbutton(self.vviFrame, text = "Hysteresis", command=updateFields,bg=background,padx=10)
+        self.hystLabel = Label(self.vviFrame, text = "Hysteresis:", bg = background, padx = 10)
+        self.hystEntry = Entry(self.vviFrame, state="disabled")
+
+
+        self.hystBool.grid(row=10,column=1, sticky=W)
+        self.hystLabel.grid(row = 11, column = 1, sticky = W)
+        self.hystEntry.grid(row = 11, column = 2, sticky = W)
+
+
                 
     
 def launchAOO(window): 
