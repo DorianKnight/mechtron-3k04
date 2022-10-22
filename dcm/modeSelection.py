@@ -19,7 +19,7 @@ class ModeSelect:
         self.window.title("Pacemaker | Mode Selection")
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
-        self.patient=Patient()
+        self.patient=P.Patient()
 
         connectionChecker=False
         if(connectionChecker==False):
