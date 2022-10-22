@@ -2,256 +2,219 @@ from tkinter import *
 from PIL import ImageTk, Image
 import modeSelection
 
-
 background = 'white'
-class AOO: 
-    def __init__(self, frame):
-        self.frame = frame
-        self.frame.geometry('500x400')
+class PacingMode:
+    def __init__(self, window):
+        self.window = window
+        self.window.geometry('500x500')
+        self.window.iconbitmap("images\logo.ico")
+
+    def initFrame(self):
+        self.frame = Frame(self.window, bg = background, width = self.width, height = self.height)
+        self.frame.place(anchor="c", relx=0.5, rely=0.5)
+        self.frame.grid_propagate(False)
+        
+    def goBack(self, radioBtn): 
+            self.frame.destroy()
+            getattr(modeSelection.ModeSelect(self.window), radioBtn).select()
+
+    def addTitleAndInstructions(self, mode):
+        # title and instructions
+        self.titleLabel = Label(self.frame, text = mode, font = ("Arial", 25), bg = background, padx = 10)
+        self.instructionLabel = Label(self.frame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
+        self.instructionLabel2 = Label(self.frame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
+
+        self.titleLabel.grid(row = 1, column = 1, columnspan = 2)
+        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
+        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
+
+    def addLrl(self, r):
+        self.lrlLabel = Label(self.frame, text = "Lower Rate Limit:", bg = background, padx = 10)
+        self.lrlEntry = Entry(self.frame, bg = background)
+        self.lrlLabel.grid(row = r, column = 1, sticky = W)
+        self.lrlEntry.grid(row = r, column = 2, sticky = W)
+
+    def addUrl(self, r):
+        self.urlLabel = Label(self.frame, text = "Upper Rate Limit:", bg = background, padx = 10)
+        self.urlEntry = Entry(self.frame, bg = background)
+        self.urlLabel.grid(row = r, column = 1, sticky = W)
+        self.urlEntry.grid(row = r, column = 2, sticky = W)
+
+    def addApw(self, r):
+        self.apwLabel = Label(self.frame, text = "Atrial Pulse Width:", bg = background, padx = 10)
+        self.apwEntry = Entry(self.frame, bg = background)
+        self.apwLabel.grid(row = r, column = 1, sticky = W)
+        self.apwEntry.grid(row = r, column = 2, sticky = W)
+
+    def addAamp(self, r):
+        self.aampLabel = Label(self.frame, text = "Atrial Amplitude:", bg = background, padx = 10)
+        self.aampEntry = Entry(self.frame, bg = background)
+        self.aampLabel.grid(row = r, column = 1, sticky = W)
+        self.aampEntry.grid(row = r, column = 2, sticky = W)
+
+    def addBackAndConfirm(self, r, cmdBack, cmdConfirm):
+        # add blank row before back and confirm buttons
+        self.frame.grid_rowconfigure(r, minsize = 20)
+
+        self.back = Button(self.frame, text = "Back", width=12, command = cmdBack)
+        self.back.grid(row = r+1, column = 1, sticky=S)
+        self.confirm = Button(self.frame, text = "Confirm changes", width=12, command = cmdConfirm)
+        self.confirm.grid(row = r+1, column = 2, sticky = SW)
+
+    def addVpw(self, r):
+        self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width:", bg = background, padx = 10)
+        self.vpwEntry = Entry(self.frame, bg = background)
+        self.vpwLabel.grid(row = r, column = 1, sticky = W)
+        self.vpwEntry.grid(row = r, column = 2, sticky = W)
+
+    def addVamp(self, r):
+        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude:", bg = background, padx = 10)
+        self.vampEntry = Entry(self.frame, bg=background)
+        self.vampLabel.grid(row = r, column = 1, sticky = W)
+        self.vampEntry.grid(row = r, column = 2, sticky = W)
+
+    def addAsens(self, r):
+        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity:", bg = background, padx = 10)
+        self.asensEntry = Entry(self.frame, bg=background)
+        self.asensLabel.grid(row = r, column = 1, sticky = W)
+        self.asensEntry.grid(row = r, column = 2, sticky = W)
+
+    def addArp(self, r):
+        self.arpLabel = Label(self.frame, text = "ARP:", bg = background, padx = 10)
+        self.arpEntry = Entry(self.frame, bg=background)
+        self.arpLabel.grid(row = r, column = 1, sticky = W)
+        self.arpEntry.grid(row = r, column = 2, sticky = W)
+
+    def addPvarp(self, r):
+        self.pvarpLabel = Label(self.frame, text = "PVARP:", bg = background, padx = 10)
+        self.pvarpEntry = Entry(self.frame, bg=background)
+        self.pvarpLabel.grid(row = r, column = 1, sticky = W)
+        self.pvarpEntry.grid(row = r, column = 2, sticky = W)
+
+    def addHyst(self, r):
+        self.hystLabel = Label(self.frame, text = "Hysteresis:", bg = background, padx = 10)
+        self.hystEntry = Entry(self.frame, bg=background)
+        self.hystLabel.grid(row = r, column = 1, sticky = W)
+        self.hystEntry.grid(row = r, column = 2, sticky = W)
+
+    def addRs(self, r):
+        self.rsLabel = Label(self.frame, text = "Rate Smoothing:", bg = background, padx = 10)
+        self.rsEntry = Entry(self.frame, bg=background)
+        self.rsLabel.grid(row = r, column = 1, sticky = W)
+        self.rsEntry.grid(row = r, column = 2, sticky = W)
+    
+    def addVsens(self, r):
+        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity:", bg = background, padx  = 10)
+        self.vsensEntry = Entry(self.frame, bg=background)
+        self.vsensLabel.grid(row = r, column = 1, sticky = W)
+        self.vsensEntry.grid(row = r, column = 2, sticky = W)
+class AOO(PacingMode): 
+    def __init__(self, window):
+        super().__init__(window)
         self.width = 450
         self.height = 350
-        self.frame.iconbitmap("images\logo.ico")
-        self.frame.title("Pacemaker | AOO Pacing Mode")
+        self.window.title("Pacemaker | AOO Pacing Mode")
         
         #Methods
         def aooConfirm(): 
             pass
         
         def goBack(): 
-            self.aooFrame.destroy()
-            modeSelection.ModeSelect(self.frame).aooRadio.select()
+            self.goBack("aooRadio")
         
         #AOO Frame
-        self.aooFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
-        self.aooFrame.place(anchor="c", relx=0.5, rely=0.5)
-        self.aooFrame.grid_propagate(False)
+        self.initFrame()
         
         #Elements on the page
-        self.aooLabel = Label(self.aooFrame, text = "AOO", font = ("Arial", 25), bg = background, padx = 10)
-        self.instructionLabel = Label(self.aooFrame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
-        self.instructionLabel2 = Label(self.aooFrame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
-        self.lrlLabel = Label(self.aooFrame, text = "Lower Rate Limit:", bg = background, padx = 10)
-        self.lrlEntry = Entry(self.aooFrame, bg = background)
-        self.urlLabel = Label(self.aooFrame, text = "Upper Rate Limit:", bg = background, padx = 10)
-        self.urlEntry = Entry(self.aooFrame, bg = background)
-        self.apwLabel = Label(self.aooFrame, text = "Atrial Pulse Width:", bg = background, padx = 10)
-        self.apwEntry = Entry(self.aooFrame, bg = background)
-        self.aampLabel = Label(self.aooFrame, text = "Atrial Amplitude:", bg = background, padx = 10)
-        self.aampEntry = Entry(self.aooFrame, bg = background)
-        self.back = Button(self.aooFrame, text = "Back", width=12, command = goBack)
-        self.confirm = Button(self.aooFrame, text = "Confirm changes", width=12, command = aooConfirm)
-        
-        self.aooLabel.grid(row = 1, column = 1, columnspan = 2)
-        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
-        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
-        self.lrlLabel.grid(row = 4, column = 1, sticky = W)
-        self.lrlEntry.grid(row = 4, column = 2, sticky = W)
-        self.urlLabel.grid(row = 5, column = 1, sticky = W)
-        self.urlEntry.grid(row = 5, column = 2, sticky = W)
-        self.apwLabel.grid(row = 6, column = 1, sticky = W)
-        self.apwEntry.grid(row = 6, column = 2, sticky = W)
-        self.aampLabel.grid(row = 7, column = 1, sticky = W)
-        self.aampEntry.grid(row = 7, column = 2, sticky = W)
-        self.aooFrame.grid_rowconfigure(8, minsize = 20)
-        self.back.grid(row = 9, column = 1, sticky=S)
-        self.confirm.grid(row = 9, column = 2, sticky = SW)
+        self.addTitleAndInstructions("AOO")
+        self.addLrl(4)
+        self.addUrl(5)
+        self.addApw(6)
+        self.addAamp(7)
+        self.addBackAndConfirm(8, goBack, aooConfirm)
 
-        
-    
-class VOO: 
-    def __init__(self, frame):
-        self.frame = frame
-        self.frame.geometry('500x400')
+class VOO(PacingMode): 
+    def __init__(self, window):
+        super().__init__(window)
         self.width = 450
         self.height = 350
-        self.frame.iconbitmap("images\logo.ico")
-        self.frame.title("Pacemaker | VOO Pacing Mode")
+        self.window.title("Pacemaker | VOO Pacing Mode")
         
         #Methods
         def vooConfirm(): 
             pass
         
         def goBack(): 
-            self.vooFrame.destroy()
-            modeSelection.ModeSelect(self.frame).vooRadio.select()
+            self.goBack("vooRadio")
         
         #VOO Frame
-        self.vooFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
-        self.vooFrame.place(anchor="c", relx=0.5, rely=0.5)
-        self.vooFrame.grid_propagate(False)
+        self.initFrame()
         
         #Elements on the page
-        self.vooLabel = Label(self.vooFrame, text = "VOO", font = ("Arial", 25), bg = background, padx = 10)
-        self.instructionLabel = Label(self.vooFrame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
-        self.instructionLabel2 = Label(self.vooFrame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
-        self.lrlLabel = Label(self.vooFrame, text = "Lower Rate Limit:", bg = background, padx = 10)
-        self.lrlEntry = Entry(self.vooFrame)
-        self.urlLabel = Label(self.vooFrame, text = "Upper Rate Limit:", bg = background, padx = 10)
-        self.urlEntry = Entry(self.vooFrame)
-        self.vpwLabel = Label(self.vooFrame, text = "Ventrical Pulse Width:", bg = background, padx = 10)
-        self.vpwEntry = Entry(self.vooFrame)
-        self.vampLabel = Label(self.vooFrame, text = "Ventrical Amplitude:", bg = background, padx = 10)
-        self.vampEntry = Entry(self.vooFrame)
-        self.back = Button(self.vooFrame, text = "Back", width=12, command = goBack)
-        self.confirm = Button(self.vooFrame, text = "Confirm changes", width=12, command = vooConfirm)
-        
-        #Positioning all VOO Elements
-        self.vooLabel.grid(row = 1, column = 1, columnspan = 2)
-        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
-        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
-        self.lrlLabel.grid(row = 4, column = 1, sticky = W)
-        self.lrlEntry.grid(row = 4, column = 2, sticky = W)
-        self.urlLabel.grid(row = 5, column = 1, sticky = W)
-        self.urlEntry.grid(row = 5, column = 2, sticky = W)
-        self.vpwLabel.grid(row = 6, column = 1, sticky = W)
-        self.vpwEntry.grid(row = 6, column = 2, sticky = W)
-        self.vampLabel.grid(row = 7, column = 1, sticky = W)
-        self.vampEntry.grid(row = 7, column = 2, sticky = W)
-        self.vooFrame.grid_rowconfigure(8, minsize = 20)
-        self.back.grid(row = 9, column = 1, sticky=S)
-        self.confirm.grid(row = 9, column = 2, sticky = SW)
+        self.addTitleAndInstructions("VOO")
+        self.addLrl(4)
+        self.addUrl(5)
+        self.addVpw(6)
+        self.addVamp(7)
+        self.addBackAndConfirm(8, goBack, vooConfirm)
 
-
-
-    
-class AAI: 
-    def __init__(self, frame):
-        self.frame = frame
-        self.frame.geometry('500x500')
+class AAI(PacingMode): 
+    def __init__(self, window):
+        super().__init__(window)
         self.width = 450
         self.height = 450
-        self.frame.iconbitmap("images\logo.ico")
-        self.frame.title("Pacemaker | AAI Pacing Mode")
+        self.window.title("Pacemaker | AAI Pacing Mode")
         
         #Methods 
         def aaiConfirm(): 
             pass
         
         def goBack(): 
-            self.aaiFrame.destroy()
-            modeSelection.ModeSelect(self.frame).aaiRadio.select()
+            self.goBack("aaiRadio")
         
         #AAI Frame
-        self.aaiFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
-        self.aaiFrame.place(anchor="c", relx=0.5, rely=0.5)
-        self.aaiFrame.grid_propagate(False)
+        self.initFrame()
         
         #Creating all the elements for the AAI Page
-        self.aaiLabel = Label(self.aaiFrame, text = "AAI", font = ("Arial", 25), bg = background, padx = 10)
-        self.instructionLabel = Label(self.aaiFrame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
-        self.instructionLabel2 = Label(self.aaiFrame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
-        self.lrlLabel = Label(self.aaiFrame, text = "Lower Rate Limit:", bg = background, padx = 10)
-        self.lrlEntry = Entry(self.aaiFrame)
-        self.urlLabel = Label(self.aaiFrame, text = "Upper Rate Limit:", bg = background, padx = 10)
-        self.urlEntry = Entry(self.aaiFrame)
-        self.apwLabel = Label(self.aaiFrame, text = "Atrial Pulse Width:", bg = background, padx = 10)
-        self.apwEntry = Entry(self.aaiFrame)
-        self.aampLabel = Label(self.aaiFrame, text = "Atrial Amplitude:", bg = background, padx = 10)
-        self.aampEntry = Entry(self.aaiFrame)
-        self.asensLabel = Label(self.aaiFrame, text = "Atrial Sensitivity:", bg = background, padx = 10)
-        self.asensEntry = Entry(self.aaiFrame)
-        self.arpLabel = Label(self.aaiFrame, text = "ARP:", bg = background, padx = 10)
-        self.arpEntry = Entry(self.aaiFrame)
-        self.pvarpLabel = Label(self.aaiFrame, text = "PVARP:", bg = background, padx = 10)
-        self.pvarpEntry = Entry(self.aaiFrame)
-        self.hystLabel = Label(self.aaiFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.aaiFrame)
-        self.rsLabel = Label(self.aaiFrame, text = "Rate Smoothing:", bg = background, padx = 10)
-        self.rsEntry = Entry(self.aaiFrame)
-        self.back = Button(self.aaiFrame, text = "Back", width=12, command = goBack)
-        self.confirm = Button(self.aaiFrame, text = "Confirm changes", width=12, command = aaiConfirm)
-        
-        self.aaiLabel.grid(row = 1, column = 1, columnspan = 2)
-        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
-        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
-        self.lrlLabel.grid(row = 4, column = 1, sticky = W)
-        self.lrlEntry.grid(row = 4, column = 2, sticky = W)
-        self.urlLabel.grid(row = 5, column = 1, sticky = W)
-        self.urlEntry.grid(row = 5, column = 2, sticky = W)
-        self.apwLabel.grid(row = 6, column = 1, sticky = W)
-        self.apwEntry.grid(row = 6, column = 2, sticky = W)
-        self.aampLabel.grid(row = 7, column = 1, sticky = W)
-        self.aampEntry.grid(row = 7, column = 2, sticky = W)
-        self.asensLabel.grid(row = 8, column = 1, sticky = W)
-        self.asensEntry.grid(row = 8, column = 2, sticky = W)
-        self.arpLabel.grid(row = 9, column = 1, sticky = W)
-        self.arpEntry.grid(row = 9, column = 2, sticky = W)
-        self.pvarpLabel.grid(row = 10, column = 1, sticky = W)
-        self.pvarpEntry.grid(row = 10, column = 2, sticky = W)
-        self.hystLabel.grid(row = 11, column = 1, sticky = W)
-        self.hystEntry.grid(row = 11, column = 2, sticky = W)
-        self.rsLabel.grid(row = 12, column = 1, sticky = W)
-        self.rsEntry.grid(row = 12, column = 2, sticky = W)
-        self.aaiFrame.grid_rowconfigure(13, minsize = 20)
-        self.back.grid(row = 14, column =1, sticky=S)
-        self.confirm.grid(row = 14, column = 2, sticky = SW)
-
+        self.addTitleAndInstructions("AAI")
+        self.addLrl(4)
+        self.addUrl(5)
+        self.addApw(6)
+        self.addAamp(7)
+        self.addAsens(8)
+        self.addArp(9)
+        self.addPvarp(10)
+        self.addHyst(11)
+        self.addRs(12)
+        self.addBackAndConfirm(13, goBack, aaiConfirm)
     
-class VVI: 
-    def __init__(self, frame):
-        self.frame = frame
-        self.frame.geometry('500x400')
+class VVI(PacingMode): 
+    def __init__(self, window):
+        super().__init__(window)
         self.width = 450
-        self.height = 350
-        self.frame.title("Pacemaker | VVI Pacing Mode")
-        
+        self.height = 450
+        self.window.title("Pacemaker | VVI Pacing Mode")
+
         def vviConfirm(): 
             pass
         
         def goBack(): 
-            self.vviFrame.destroy()
-            modeSelection.ModeSelect(self.frame).vviRadio.select()
+            self.goBack("vviRadio")
         
         #VVI Frame
-        self.vviFrame = Frame(self.frame, bg = background, width = self.width, height = self.height)
-        self.vviFrame.place(anchor="c", relx=0.5, rely=0.5)
-        self.vviFrame.grid_propagate(False)
+        self.initFrame()
         
         #Creating the elements for the VVI Frame
-        self.vviLabel = Label(self.vviFrame, text = "VVI", font = ("Arial", 25), bg = background, padx = 10)
-        self.instructionLabel = Label(self.vviFrame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
-        self.instructionLabel2 = Label(self.vviFrame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
-        self.lrlLabel = Label(self.vviFrame, text = "Lower Rate Limit:", bg = background, padx = 10)
-        self.lrlEntry = Entry(self.vviFrame)
-        self.urlLabel = Label(self.vviFrame, text = "Upper Rate Limit:", bg = background, padx = 10)
-        self.urlEntry = Entry(self.vviFrame)
-        self.vpwLabel = Label(self.vviFrame, text = "Ventricular Pulse Width:", bg = background, padx = 10)
-        self.vpwEntry = Entry(self.vviFrame)
-        self.vampLabel = Label(self.vviFrame, text = "Ventricular Amplitude:", bg = background, padx = 10)
-        self.vampEntry = Entry(self.vviFrame)
-        self.vsensLabel = Label(self.vviFrame, text = "Ventricular Sensitivity:", bg = background, padx = 10)
-        self.vsensEntry = Entry(self.vviFrame)
-        self.hystLabel = Label(self.vviFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.vviFrame)
-        self.rsLabel = Label(self.vviFrame, text = "Rate Smoothing:", bg = background, padx = 10) 
-        self.rsEntry = Entry(self.vviFrame)
-        self.back = Button(self.vviFrame, text = "Back", width=12, command = goBack)
-        self.confirm = Button(self.vviFrame, text = "Confirm changes", width=12, command = vviConfirm)
-        
-        
-        #Placing the element on the VVI Frame
-        self.vviLabel.grid(row = 1, column= 1, columnspan = 2)
-        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
-        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
-        self.lrlLabel.grid(row = 4, column = 1, sticky = W)
-        self.lrlEntry.grid(row = 4, column = 2, sticky = W)
-        self.urlLabel.grid(row = 5, column = 1, sticky = W)
-        self.urlEntry.grid(row = 5, column = 2, sticky = W)
-        self.vpwLabel.grid(row = 6, column = 1, sticky = W)
-        self.vpwEntry.grid(row = 6, column = 2, sticky = W)
-        self.vampLabel.grid(row = 7, column = 1, sticky = W)
-        self.vampEntry.grid(row = 7, column = 2, sticky = W)
-        self.vsensLabel.grid(row = 8, column = 1, sticky = W)
-        self.vsensEntry.grid(row = 8, column = 2, sticky = W)
-        self.hystLabel.grid(row = 9, column = 1, sticky = W)
-        self.hystEntry.grid(row = 9, column = 2, sticky = W)
-        self.rsLabel.grid(row = 10, column = 1, sticky = W)
-        self.rsEntry.grid(row = 10, column = 2, sticky = W)
-        self.vviFrame.grid_rowconfigure(11, minsize = 20)
-        self.back.grid(row = 12, column = 1, sticky=S)
-        self.confirm.grid(row = 12, column = 2, sticky = SW)
+        self.addTitleAndInstructions("VVI")
+        self.addLrl(4)
+        self.addUrl(5)
+        self.addVpw(6)
+        self.addVamp(7)
+        self.addVsens(8)
+        self.addHyst(9)
+        self.addRs(10)
+        self.addBackAndConfirm(11, goBack, vviConfirm)
                 
-
     
 def launchAOO(window): 
     AOO(window)
