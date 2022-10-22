@@ -91,9 +91,13 @@ class PacingMode:
         self.pvarpLabel.grid(row = r, column = 1, sticky = W)
         self.pvarpEntry.grid(row = r, column = 2, sticky = W)
 
+    def addHystBool(self, r):
+        self.hystBool = Checkbutton(self.frame,text = "Hysteresis",command=self.updateFields, bg=background,padx=10)
+        self.hystBool.grid(row=r,column=1,sticky=W)
+
     def addHyst(self, r):
         self.hystLabel = Label(self.frame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.frame, bg=background)
+        self.hystEntry = Entry(self.frame, bg=background, state="disabled")
         self.hystLabel.grid(row = r, column = 1, sticky = W)
         self.hystEntry.grid(row = r, column = 2, sticky = W)
 
@@ -108,6 +112,17 @@ class PacingMode:
         self.vsensEntry = Entry(self.frame, bg=background)
         self.vsensLabel.grid(row = r, column = 1, sticky = W)
         self.vsensEntry.grid(row = r, column = 2, sticky = W)
+
+    def updateFields(self):
+        print("triggered")
+
+        if(self.hyst==True):
+            self.hyst=False
+            self.hystEntry.config(state= "disabled")
+        else:
+            self.hyst=True
+            self.hystEntry.config(state= "normal")
+
 class AOO(PacingMode): 
     def __init__(self, window):
         super().__init__(window)
@@ -168,24 +183,12 @@ class AAI(PacingMode):
         #set these to patient specific parameters
         self.hyst=False
         
-        
         #Methods 
         def aaiConfirm(): 
             pass
         
         def goBack(): 
             self.goBack("aaiRadio")
-        
-        def updateFields():
-            print("triggered")
-
-            if(self.hyst==True):
-                self.hyst=False
-                self.hystEntry.config(state= "disabled")
-            else:
-                self.hyst=True
-                self.hystEntry.config(state= "normal")
-
 
         #AAI Frame
         self.initFrame()
@@ -199,14 +202,8 @@ class AAI(PacingMode):
         self.addAsens(8)
         self.addArp(9)
         self.addPvarp(10)
+        self.addHystBool(11)
         self.addHyst(12)
-
-        self.hystBool = Checkbutton(self.aaiFrame,text = "Hysteresis",command=updateFields, bg=background,padx=10)
-        self.hystLabel = Label(self.aaiFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.aaiFrame, state="disabled")
-        
-    
-        self.hystBool.grid(row=11,column=1,sticky=W)
         self.addRs(13)
         self.addBackAndConfirm(14, goBack, aaiConfirm)
     
@@ -225,16 +222,6 @@ class VVI(PacingMode):
         
         def goBack(): 
             self.goBack("vviRadio")
-
-        def updateFields():
-            print("triggered")
-
-            if(self.hyst==True):
-                self.hyst=False
-                self.hystEntry.config(state= "disabled")
-            else:
-                self.hyst=True
-                self.hystEntry.config(state= "normal")
         
         #VVI Frame
         self.initFrame()
@@ -246,20 +233,10 @@ class VVI(PacingMode):
         self.addVpw(6)
         self.addVamp(7)
         self.addVsens(8)
-        self.addHyst(9)
-        self.addRs(10)
-        self.addBackAndConfirm(11, goBack, vviConfirm)
-
-        self.hystBool = Checkbutton(self.vviFrame, text = "Hysteresis", command=updateFields,bg=background,padx=10)
-        self.hystLabel = Label(self.vviFrame, text = "Hysteresis:", bg = background, padx = 10)
-        self.hystEntry = Entry(self.vviFrame, state="disabled")
-
-
-        self.hystBool.grid(row=10,column=1, sticky=W)
-        self.hystLabel.grid(row = 11, column = 1, sticky = W)
-        self.hystEntry.grid(row = 11, column = 2, sticky = W)
-
-
+        self.addHystBool(9)
+        self.addHyst(10)
+        self.addRs(11)
+        self.addBackAndConfirm(12, goBack, vviConfirm)
                 
     
 def launchAOO(window): 
