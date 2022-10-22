@@ -10,7 +10,7 @@ class Patient:
 
         self.lrl = 0
         self.url = 0
-        self.pacingMode = "None"
+        self.pacingMode = "NONE"
         self.apw = 0.0
         self.vpw = 0.0
         self.aamp = 0.0
