@@ -8,37 +8,21 @@ class Patient:
         self.username="NONE"
         
 
-        #AOO vars
-        self.aooLRL=0.0
-        self.aooURL=0.0
-        self.aooAPW=0.0
-        self.aooAA=0.0
+        self.lrl = 0
+        self.url = 0
+        self.pacingMode = "None"
+        self.apw = 0.0
+        self.vpw = 0.0
+        self.aamp = 0.0
+        self.vamp = 0.0
+        self.asens = 0.0
+        self.vsens = 0.0
+        self.arp = 0
+        self.vrp = 0
+        self.pvarp = 0
+        self.hrl = 0
+        self.rs = 0
 
-        #VOO vars
-        self.vooLRL=0.0
-        self.vooURL=0.0
-        self.vooVPW=0.0
-        self.vooVA=0.0
-
-        #AAI vars
-        self.aaiLRL=0.0
-        self.aaiURL=0.0
-        self.aaiAPW=0.0
-        self.aaiAA=0.0
-        self.aaiASens=0.0
-        self.aaiARP=0.0
-        self.aaiPVARP=0.0
-        self.aaiHys=0.0
-        self.aaiRateSmoothing=0.0
-
-        #VVI vars
-        self.vviLRL=0.0
-        self.vviURL=0.0
-        self.vviVPW=0.0
-        self.vviVA=0.0
-        self.vviVSens=0.0
-        self.vviHys=0.0
-        self.vviRateSmoothing=0.0
 
 
 background = 'white'

@@ -8,6 +8,7 @@ def createDB():
     cursor.execute('''CREATE TABLE IF NOT EXISTS accounts (
                         username text,
                         password text,
+                        pacingMode TEXT,
                         lrl INTEGER,
                         url INTEGER,
                         apw REAL,
@@ -19,7 +20,6 @@ def createDB():
                         arp INTEGER,
                         vrp INTEGER,
                         pvarp INTEGER,
-                        hyst boolean,
                         hrl INTEGER,
                         rs INTEGER
                 )
