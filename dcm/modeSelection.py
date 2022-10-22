@@ -6,6 +6,7 @@ import main
 class Patient:
     def __init__(self):
         self.username="NONE"
+        
 
         #AOO vars
         self.aooLRL=0.0
