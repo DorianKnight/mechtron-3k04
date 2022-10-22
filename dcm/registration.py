@@ -5,6 +5,7 @@ import pathlib
 from data import createDB
 from PIL import ImageTk, Image
 import main
+import modeSelection
 
 
 createDB()
@@ -99,7 +100,8 @@ class RegistrationPage:
                                 'password': self.password_entry.get()
                 })
                 connection.commit()
-                messagebox.showinfo('confirmation', 'User Saved')
+                self.goToModeSelect()
+                #messagebox.showinfo('confirmation', 'User Saved')
 
             except Exception as ep:
                 messagebox.showerror('', ep) 
@@ -124,6 +126,10 @@ class RegistrationPage:
 
         # if no errors, return empty string
         return ""
+    
+    def goToModeSelect(self): 
+        self.window.destroy()
+        modeSelection.launchModeSelect()
 
 def launchRegistration():
     window = Tk()

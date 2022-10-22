@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import pacingModes
+import main
 
 class Patient:
     def __init__(self):
@@ -83,6 +84,10 @@ class ModeSelect:
                 print('This should not be possible. Something has gone wrong')
                 print(self.mode.get())
                 
+        def backToWelcome(): 
+            self.msFrame.destroy()
+            main.WelcomePage(self.window)
+                
         #MS Frame
         self.msFrame = Frame(self.window, bg = background, width = self.width, height = self.height)
         self.msFrame.place(anchor="c", relx=0.5, rely=0.5)
@@ -94,6 +99,7 @@ class ModeSelect:
         self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10)
         self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI", bg=background,padx=10)
         self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI", bg=background,padx=10)
+        self.backButton = Button(self.msFrame, text = "Back to Welcome Page", command = backToWelcome, bg = background)
         self.nextButton = Button(self.msFrame, text = "Next", command = openMode,bg=background, width=8)
         
         #Formatting placement of elements on the page
@@ -102,6 +108,7 @@ class ModeSelect:
         self.vooRadio.grid(row = 2, column = 0, sticky = W)
         self.aaiRadio.grid(row = 3, column = 0, sticky = W)
         self.vviRadio.grid(row = 4, column = 0, sticky = W)
+        self.backButton.grid(row = 5,column = 0, sticky = W, padx = 10)
         self.nextButton.grid(row = 5, column = 1, columnspan=2, sticky = W)
                 
         

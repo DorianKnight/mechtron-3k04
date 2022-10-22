@@ -3,6 +3,7 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 import sqlite3
 import main
+import modeSelection
 
 background = 'white'
 class LoginPage:
@@ -62,8 +63,8 @@ class LoginPage:
 
     def loginUser(self):
         if(self.entriesCorrect()):
-            pass
-            # go to mode select
+            self.window.destroy()
+            modeSelection.launchModeSelect()
 
     def entriesCorrect(self):
         error_msg = ""
@@ -89,9 +90,6 @@ class LoginPage:
                 
                 if (not(account_exists)):
                     raise Exception("The login details you entered are incorrect. Please try again.")
-
-                # Go to next screen
-                messagebox.showinfo('confirmation', 'Success!')
 
             except Exception as ep:
                 messagebox.showerror('', ep) 
