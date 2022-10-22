@@ -91,9 +91,6 @@ class LoginPage:
                 if (not(account_exists)):
                     raise Exception("The login details you entered are incorrect. Please try again.")
 
-                # Go to next screen
-                #messagebox.showinfo('confirmation', 'Success!')
-
             except Exception as ep:
                 messagebox.showerror('', ep) 
                 no_error = False
