@@ -80,3 +80,44 @@ class Patient:
             'username': self.username
         })
         self.rs = cursor.fetchone()[0]
+
+    def saveToDB(self):
+        try:
+            print("hi")
+            connection = sqlite3.connect('userdata.db')
+            cursor = connection.cursor()
+            cursor.execute('''UPDATE accounts 
+                            SET pacingMode = (:pacingMode),
+                                lrl = (:lrl),
+                                url = (:url),
+                                apw = (:apw),
+                                vpw = (:vpw),
+                                aamp = (:aamp),
+                                vamp = (:vamp),
+                                asens = (:asens),
+                                vsens = (:vsens),
+                                arp = (:arp),
+                                vrp = (:vrp),
+                                pvarp = (:pvarp),
+                                hrl = (:hrl),
+                                rs = (:rs) 
+                            WHERE username = (:username)''', {
+                                'pacingMode': "NONE",
+                                'lrl': self.lrl,
+                                'url': self.url,
+                                'apw': self.apw,
+                                'vpw': self.vpw,
+                                'aamp': self.aamp,
+                                'vamp': self.vamp,
+                                'asens': self.asens,
+                                'vsens': self.vsens,
+                                'arp': self.arp,
+                                'vrp': self.vrp,
+                                'pvarp': self.pvarp,
+                                'hrl': self.hrl,
+                                'rs': self.rs,
+                                'username': self.username
+                })
+            connection.commit()
+        except Exception as ep:
+            print(ep)
