@@ -105,6 +105,13 @@ class PacingMode:
         self.arpEntry.grid(row = r, column = 1)
         self.arpEntry.insert(0,self.patient.arp)
 
+    def addVrp(self, r):
+        self.vrpLabel = Label(self.frame, text = "VRP:", bg = background, padx = 20)
+        self.vrpEntry = Entry(self.frame, bg=background)
+        self.vrpLabel.grid(row = r, column = 0, sticky = W)
+        self.vrpEntry.grid(row = r, column = 1)
+        self.vrpEntry.insert(0,self.patient.vrp)
+
     def addPvarp(self, r):
         self.pvarpLabel = Label(self.frame, text = "PVARP:", bg = background, padx = 20)
         self.pvarpEntry = Entry(self.frame, bg=background)
@@ -296,7 +303,7 @@ class VVI(PacingMode):
             self.patient.vpw=self.vpwEntry.get()
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
-            #self.patient.vrp=self.vrpEntry.get()
+            self.patient.vrp=self.vrpEntry.get()
             self.patient.hystBool=self.hystBool
             self.patient.hrl=self.hystEntry.get()
             self.patient.rs=self.rsEntry.get()
@@ -311,9 +318,10 @@ class VVI(PacingMode):
         self.addVpw(7)
         self.addVamp(8)
         self.addVsens(9)
-        self.addHyst(10)
-        self.addRs(11)
-        self.addBackAndConfirm(12, goBack, vviConfirm)
+        self.addVrp(10)
+        self.addHyst(11)
+        self.addRs(12)
+        self.addBackAndConfirm(13, goBack, vviConfirm)
                 
     
 def launchAOO(window, patient): 
