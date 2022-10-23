@@ -198,7 +198,6 @@ class Patient:
 
     def saveToDB(self):
         try:
-            print("hi")
             connection = sqlite3.connect('userdata.db')
             cursor = connection.cursor()
             cursor.execute('''UPDATE accounts 

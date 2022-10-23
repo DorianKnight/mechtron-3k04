@@ -16,6 +16,8 @@ class PacingMode:
         self.frame = Frame(self.window, bg = background, width = self.width, height = self.height)
         self.frame.place(anchor="c", relx=0.5, rely=0.5)
         self.frame.grid_propagate(False)
+        self.frame.columnconfigure(0,weight=1)
+        self.frame.columnconfigure(1,weight=3)
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
@@ -25,40 +27,45 @@ class PacingMode:
 
     def addTitleAndInstructions(self, mode):
         # title and instructions
-        self.titleLabel = Label(self.frame, text = mode, font = ("Arial", 25), bg = background, padx = 10)
-        self.instructionLabel = Label(self.frame, text = "Please enter the values for the following parameters", bg = background, padx = 10)
-        self.instructionLabel2 = Label(self.frame, text  = "These values will be checked to ensure that they are valid entries", bg = background, padx = 10)
+        self.titleLabel = Label(self.frame, text = mode, font = ("Arial", 24), bg = background, padx = 20, pady = 10)
+        self.instructionLabel = Label(self.frame, text = "Please enter the values for the following parameters.", bg = background, padx = 20)
+        self.instructionLabel2 = Label(self.frame, text  = "These values will be checked to ensure that they are valid entries.", bg = background, padx = 20)
+        self.instructionLabel3 = Label(self.frame, text  = "If you have not set any values yet, they will be set to default.", bg = background, padx = 20)
 
-        self.titleLabel.grid(row = 1, column = 1, columnspan = 2)
-        self.instructionLabel.grid(row = 2, column = 1, columnspan = 2)
-        self.instructionLabel2.grid(row = 3, column = 1, columnspan = 2)
+        self.titleLabel.grid(row = 0, column = 0, columnspan = 2)
+        self.instructionLabel.grid(row = 1, column = 0, columnspan = 2)
+        self.instructionLabel2.grid(row = 2, column = 0, columnspan = 2)
+        self.instructionLabel3.grid(row = 3, column = 0, columnspan = 2)
+
+        # add blank row before back and confirm buttons
+        self.frame.grid_rowconfigure(4, minsize = 20)
 
     def addLrl(self, r):
-        self.lrlLabel = Label(self.frame, text = "Lower Rate Limit:", bg = background, padx = 10)
+        self.lrlLabel = Label(self.frame, text = "Lower Rate Limit:", bg = background, padx = 20)
         self.lrlEntry = Entry(self.frame, bg = background)
-        self.lrlLabel.grid(row = r, column = 1, sticky = W)
-        self.lrlEntry.grid(row = r, column = 2, sticky = W)
+        self.lrlLabel.grid(row = r, column = 0, sticky = W)
+        self.lrlEntry.grid(row = r, column = 1)
         self.lrlEntry.insert(0,self.patient.lrl)
 
     def addUrl(self, r):
-        self.urlLabel = Label(self.frame, text = "Upper Rate Limit:", bg = background, padx = 10)
+        self.urlLabel = Label(self.frame, text = "Upper Rate Limit:", bg = background, padx = 20)
         self.urlEntry = Entry(self.frame, bg = background)
-        self.urlLabel.grid(row = r, column = 1, sticky = W)
-        self.urlEntry.grid(row = r, column = 2, sticky = W)
+        self.urlLabel.grid(row = r, column = 0, sticky = W)
+        self.urlEntry.grid(row = r, column = 1)
         self.urlEntry.insert(0,self.patient.url)
 
     def addApw(self, r):
-        self.apwLabel = Label(self.frame, text = "Atrial Pulse Width:", bg = background, padx = 10)
+        self.apwLabel = Label(self.frame, text = "Atrial Pulse Width:", bg = background, padx = 20)
         self.apwEntry = Entry(self.frame, bg = background)
-        self.apwLabel.grid(row = r, column = 1, sticky = W)
-        self.apwEntry.grid(row = r, column = 2, sticky = W)
+        self.apwLabel.grid(row = r, column = 0, sticky = W)
+        self.apwEntry.grid(row = r, column = 1)
         self.apwEntry.insert(0,self.patient.apw)
 
     def addAamp(self, r):
-        self.aampLabel = Label(self.frame, text = "Atrial Amplitude:", bg = background, padx = 10)
+        self.aampLabel = Label(self.frame, text = "Atrial Amplitude:", bg = background, padx = 20)
         self.aampEntry = Entry(self.frame, bg = background)
-        self.aampLabel.grid(row = r, column = 1, sticky = W)
-        self.aampEntry.grid(row = r, column = 2, sticky = W)
+        self.aampLabel.grid(row = r, column = 0, sticky = W)
+        self.aampEntry.grid(row = r, column = 1)
         self.aampEntry.insert(0,self.patient.aamp)
 
     def addBackAndConfirm(self, r, cmdBack, cmdConfirm):
@@ -66,43 +73,43 @@ class PacingMode:
         self.frame.grid_rowconfigure(r, minsize = 20)
 
         self.back = Button(self.frame, text = "Back", width=12, command = cmdBack)
-        self.back.grid(row = r+1, column = 1, sticky=S)
+        self.back.grid(row = r+1, column = 0, sticky=S)
         self.confirm = Button(self.frame, text = "Confirm changes", width=12, command = cmdConfirm)
-        self.confirm.grid(row = r+1, column = 2, sticky = SW)
+        self.confirm.grid(row = r+1, column = 1, sticky=SE, padx = 40)
 
     def addVpw(self, r):
-        self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width:", bg = background, padx = 10)
+        self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width:", bg = background, padx = 20)
         self.vpwEntry = Entry(self.frame, bg = background)
-        self.vpwLabel.grid(row = r, column = 1, sticky = W)
-        self.vpwEntry.grid(row = r, column = 2, sticky = W)
+        self.vpwLabel.grid(row = r, column = 0, sticky = W)
+        self.vpwEntry.grid(row = r, column = 1)
         self.vpwEntry.insert(0,self.patient.vpw)
 
     def addVamp(self, r):
-        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude:", bg = background, padx = 10)
+        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude:", bg = background, padx = 20)
         self.vampEntry = Entry(self.frame, bg=background)
-        self.vampLabel.grid(row = r, column = 1, sticky = W)
-        self.vampEntry.grid(row = r, column = 2, sticky = W)
+        self.vampLabel.grid(row = r, column = 0, sticky = W)
+        self.vampEntry.grid(row = r, column = 1)
         self.vampEntry.insert(0,self.patient.vamp)
 
     def addAsens(self, r):
-        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity:", bg = background, padx = 10)
+        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity:", bg = background, padx = 20)
         self.asensEntry = Entry(self.frame, bg=background)
-        self.asensLabel.grid(row = r, column = 1, sticky = W)
-        self.asensEntry.grid(row = r, column = 2, sticky = W)
+        self.asensLabel.grid(row = r, column = 0, sticky = W)
+        self.asensEntry.grid(row = r, column = 1)
         self.asensEntry.insert(0,self.patient.asens)
 
     def addArp(self, r):
-        self.arpLabel = Label(self.frame, text = "ARP:", bg = background, padx = 10)
+        self.arpLabel = Label(self.frame, text = "ARP:", bg = background, padx = 20)
         self.arpEntry = Entry(self.frame, bg=background)
-        self.arpLabel.grid(row = r, column = 1, sticky = W)
-        self.arpEntry.grid(row = r, column = 2, sticky = W)
+        self.arpLabel.grid(row = r, column = 0, sticky = W)
+        self.arpEntry.grid(row = r, column = 1)
         self.arpEntry.insert(0,self.patient.arp)
 
     def addPvarp(self, r):
-        self.pvarpLabel = Label(self.frame, text = "PVARP:", bg = background, padx = 10)
+        self.pvarpLabel = Label(self.frame, text = "PVARP:", bg = background, padx = 20)
         self.pvarpEntry = Entry(self.frame, bg=background)
-        self.pvarpLabel.grid(row = r, column = 1, sticky = W)
-        self.pvarpEntry.grid(row = r, column = 2, sticky = W)
+        self.pvarpLabel.grid(row = r, column = 0, sticky = W)
+        self.pvarpEntry.grid(row = r, column = 1)
         self.pvarpEntry.insert(0,self.patient.pvarp)        
 
     def addHyst(self, r):
@@ -112,8 +119,8 @@ class PacingMode:
     
         self.hystBool=bool(self.patient.hystBool)
 
-        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx=10)
-        self.hystCheck.grid(row=r,column=1,sticky=W, padx=10)
+        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx = 20)
+        self.hystCheck.grid(row=r,column=0,sticky=W, padx = 20)
 
         # set whether checkmark is initially selected based on saved values
         if(self.patient.hystBool==0):
@@ -122,25 +129,24 @@ class PacingMode:
             self.hystCheck.select()
 
         self.hystEntry = Entry(self.frame, bg=background, state=boolState)
-        self.hystEntry.grid(row = r, column = 2, sticky = W)
+        self.hystEntry.grid(row = r, column = 1)
         self.hystEntry.insert(0,self.patient.hrl)
 
     def addRs(self, r):
-        self.rsLabel = Label(self.frame, text = "Rate Smoothing:", bg = background, padx = 10)
+        self.rsLabel = Label(self.frame, text = "Rate Smoothing:", bg = background, padx = 20)
         self.rsEntry = Entry(self.frame, bg=background)
-        self.rsLabel.grid(row = r, column = 1, sticky = W)
-        self.rsEntry.grid(row = r, column = 2, sticky = W)
+        self.rsLabel.grid(row = r, column = 0, sticky = W)
+        self.rsEntry.grid(row = r, column = 1)
         self.rsEntry.insert(0,self.patient.rs)
     
     def addVsens(self, r):
-        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity:", bg = background, padx  = 10)
+        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity:", bg = background, padx = 20)
         self.vsensEntry = Entry(self.frame, bg=background)
-        self.vsensLabel.grid(row = r, column = 1, sticky = W)
-        self.vsensEntry.grid(row = r, column = 2, sticky = W)
+        self.vsensLabel.grid(row = r, column = 0, sticky = W)
+        self.vsensEntry.grid(row = r, column = 1)
         self.vsensEntry.insert(0,self.patient.vsens)
 
     def updateFields(self):
-        print("triggered")
         self.hystBool = not(self.hystBool)
         if(self.hystBool):
             self.hystEntry.config(state= "normal")
@@ -177,11 +183,11 @@ class AOO(PacingMode):
         
         #Elements on the page
         self.addTitleAndInstructions("AOO")
-        self.addLrl(4)
-        self.addUrl(5)
-        self.addApw(6)
-        self.addAamp(7)
-        self.addBackAndConfirm(8, goBack, aooConfirm)
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addBackAndConfirm(9, goBack, aooConfirm)
 
 class VOO(PacingMode): 
     def __init__(self, window, patient):
@@ -212,11 +218,11 @@ class VOO(PacingMode):
         
         #Elements on the page
         self.addTitleAndInstructions("VOO")
-        self.addLrl(4)
-        self.addUrl(5)
-        self.addVpw(6)
-        self.addVamp(7)
-        self.addBackAndConfirm(8, goBack, vooConfirm)
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addVpw(7)
+        self.addVamp(8)
+        self.addBackAndConfirm(9, goBack, vooConfirm)
 
 class AAI(PacingMode): 
     def __init__(self, window, patient):
@@ -255,16 +261,16 @@ class AAI(PacingMode):
         
         #Creating all the elements for the AAI Page
         self.addTitleAndInstructions("AAI")
-        self.addLrl(4)
-        self.addUrl(5)
-        self.addApw(6)
-        self.addAamp(7)
-        self.addAsens(8)
-        self.addArp(9)
-        self.addPvarp(10)
-        self.addHyst(11)
-        self.addRs(12)
-        self.addBackAndConfirm(13, goBack, aaiConfirm)
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addAsens(9)
+        self.addArp(10)
+        self.addPvarp(11)
+        self.addHyst(12)
+        self.addRs(13)
+        self.addBackAndConfirm(14, goBack, aaiConfirm)
     
 class VVI(PacingMode): 
     def __init__(self, window, patient):
@@ -300,14 +306,14 @@ class VVI(PacingMode):
         
         #Creating the elements for the VVI Frame
         self.addTitleAndInstructions("VVI")
-        self.addLrl(4)
-        self.addUrl(5)
-        self.addVpw(6)
-        self.addVamp(7)
-        self.addVsens(8)
-        self.addHyst(9)
-        self.addRs(10)
-        self.addBackAndConfirm(11, goBack, vviConfirm)
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addVpw(7)
+        self.addVamp(8)
+        self.addVsens(9)
+        self.addHyst(10)
+        self.addRs(11)
+        self.addBackAndConfirm(12, goBack, vviConfirm)
                 
     
 def launchAOO(window, patient): 
