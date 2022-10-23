@@ -25,4 +25,8 @@ If you wish to switch the operating mode, navigate to the inputs subsystem and f
 
 ### Documentation
 For additional information about the structure of the DCM program and what each of the files do, view the PDF in DCM_group44 called "documentation.pdf"
+
 For even further explanations, please refer to this video we created walking through our entire project: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+## Group Members
+Noor Al-Rajab, Kailin Chu, Kabir Gupta, Dorian Knight, Mathew Nacev
