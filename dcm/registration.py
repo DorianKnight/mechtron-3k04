@@ -159,14 +159,15 @@ class RegistrationPage:
     
     def goToModeSelect(self): 
         usernameEntry=self.username_entry.get()
-        self.window.destroy()
-        modeSelection.launchModeSelect(usernameEntry)
+        self.frame.destroy()
+        modeSelection.launchModeSelect(self.window, usernameEntry)
 
-def launchRegistration():
+def launchRegistration(window):
+    RegistrationPage(window,10)
+
+if __name__ == '__main__':
     window = Tk()
     RegistrationPage(window,10)
     window.iconbitmap("images\logo.ico")
+    launchRegistration(window)
     window.mainloop()
-
-if __name__ == '__main__':
-    launchRegistration()

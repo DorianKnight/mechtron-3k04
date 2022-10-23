@@ -117,10 +117,10 @@ class LoginPage:
         return no_error
 
 
-def launchLogin():
-    window = Tk()
+def launchLogin(window):
     LoginPage(window)
-    window.mainloop()
 
 if __name__ == '__main__':
-    launchLogin()
+    window = Tk()
+    launchLogin(window)
+    window.mainloop()
