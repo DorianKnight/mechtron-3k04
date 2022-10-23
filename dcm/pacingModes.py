@@ -101,24 +101,21 @@ class PacingMode:
         self.pvarpEntry = Entry(self.frame, bg=background)
         self.pvarpLabel.grid(row = r, column = 1, sticky = W)
         self.pvarpEntry.grid(row = r, column = 2, sticky = W)
-        self.pvarpEntry.insert(0,self.patient.pvarp)
-
-    def addHystBool(self, r):
-        self.hystBool = Checkbutton(self.frame,text = "Hysteresis",command=self.updateFields, bg=background,padx=10)
-        self.hystBool.grid(row=r,column=1,sticky=W)
-        if(self.patient.hrl==0):
-            self.hystBool.deselect()
-        else:
-            self.hystBool.select()
+        self.pvarpEntry.insert(0,self.patient.pvarp)        
 
     def addHyst(self, r):
         boolState="normal"
         if(self.patient.hrl==0):
             boolState="disabled"
     
-        self.hystLabel = Label(self.frame, text = "Hysteresis:", bg = background, padx = 10)
+        self.hystBool = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx=10)
+        self.hystBool.grid(row=r,column=1,sticky=W, padx=10)
+        if(self.patient.hrl==0):
+            self.hystBool.deselect()
+        else:
+            self.hystBool.select()
+
         self.hystEntry = Entry(self.frame, bg=background, state=boolState)
-        self.hystLabel.grid(row = r, column = 1, sticky = W)
         self.hystEntry.grid(row = r, column = 2, sticky = W)
         self.hystEntry.insert(0,self.patient.hrl)
 
@@ -228,10 +225,9 @@ class AAI(PacingMode):
         self.addAsens(8)
         self.addArp(9)
         self.addPvarp(10)
-        self.addHystBool(11)
-        self.addHyst(12)
-        self.addRs(13)
-        self.addBackAndConfirm(14, goBack, aaiConfirm)
+        self.addHyst(11)
+        self.addRs(12)
+        self.addBackAndConfirm(13, goBack, aaiConfirm)
     
 class VVI(PacingMode): 
     def __init__(self, window, patient):
@@ -260,10 +256,9 @@ class VVI(PacingMode):
         self.addVpw(6)
         self.addVamp(7)
         self.addVsens(8)
-        self.addHystBool(9)
-        self.addHyst(10)
-        self.addRs(11)
-        self.addBackAndConfirm(12, goBack, vviConfirm)
+        self.addHyst(9)
+        self.addRs(10)
+        self.addBackAndConfirm(11, goBack, vviConfirm)
                 
     
 def launchAOO(window, patient): 
