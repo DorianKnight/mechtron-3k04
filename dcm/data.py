@@ -1,4 +1,5 @@
 import sqlite3
+import Patient as P
 
 def createDB():
     connection = sqlite3.connect('userdata.db')
@@ -25,3 +26,6 @@ def createDB():
                 )
                 ''')
     connection.commit()
+
+
+

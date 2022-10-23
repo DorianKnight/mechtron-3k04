@@ -142,8 +142,9 @@ class RegistrationPage:
         return ""
     
     def goToModeSelect(self): 
+        usernameEntry=self.username_entry.get()
         self.window.destroy()
-        modeSelection.launchModeSelect()
+        modeSelection.launchModeSelect(usernameEntry)
 
 def launchRegistration():
     window = Tk()

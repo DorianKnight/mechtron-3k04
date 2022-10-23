@@ -63,8 +63,9 @@ class LoginPage:
 
     def loginUser(self):
         if(self.entriesCorrect()):
+            usernameEntry = self.username_entry.get()
             self.window.destroy()
-            modeSelection.launchModeSelect()
+            modeSelection.launchModeSelect(usernameEntry)
 
     def entriesCorrect(self):
         error_msg = ""

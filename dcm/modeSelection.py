@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 import pacingModes
 import main
 import Patient as P
+import data
 
 
 
@@ -40,13 +41,13 @@ class ModeSelect:
         def openMode(): 
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
-                pacingModes.launchAOO(self.window)
+                pacingModes.launchAOO(self.window,self.patient)
             elif(self.mode.get() == 'VOO'):
-                pacingModes.launchVOO(self.window)
+                pacingModes.launchVOO(self.window,self.patient)
             elif(self.mode.get() == 'AAI'): 
-                pacingModes.launchAAI(self.window)
+                pacingModes.launchAAI(self.window,self.patient)
             elif(self.mode.get() == 'VVI'): 
-                pacingModes.launchVVI(self.window)
+                pacingModes.launchVVI(self.window,self.patient)
             else: 
                 print('This should not be possible. Something has gone wrong')
                 print(self.mode.get())
@@ -80,11 +81,26 @@ class ModeSelect:
                 
         
     
-def launchModeSelect(): 
+def launchModeSelect(username): 
     window = Tk()
-    ModeSelect(window).aooRadio.select() #select another radio depending on what the patient has by default
+    MS=ModeSelect(window)
+    MS.patient.username=username
+    MS.patient.copyFromDB()
+    
+    
+    
+    if(MS.patient.pacingMode=="VOO"):
+        MS.vooRadio.select()
+    elif(MS.patient.pacingMode=="AAI"):
+        MS.aaiRadio.select()
+    elif(MS.patient.pacingMode=="VVI"):
+        MS.vviRadio.select()
+    else:
+        MS.aooRadio.select() 
+    
+
     window.mainloop()
     
 if __name__ == '__main__':
-    launchModeSelect()
+    launchModeSelect("alrajabn")
 
