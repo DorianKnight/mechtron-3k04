@@ -111,7 +111,7 @@ class RegistrationPage:
                 if (not(new_user)):
                     raise Exception("This username is already in use")
 
-                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:hrl,:rs)", {
+                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:hystBool,:hrl,:rs)", {
                                 'username': self.username_entry.get(),
                                 'password': self.password_entry.get(),
                                 'lrl': 0,
@@ -126,6 +126,7 @@ class RegistrationPage:
                                 'arp': 0,
                                 'vrp': 0,
                                 'pvarp': 0,
+                                'hystBool': 0,
                                 'hrl': 0,
                                 'rs': 0
                 })

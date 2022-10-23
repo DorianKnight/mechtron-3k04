@@ -37,6 +37,7 @@ class Patient:
         self.arp = 0
         self.vrp = 0
         self.pvarp = 0
+        self.hystBool = 0 # use 0 for false and 1 for true because SQLite doesn't support boolean
         self.hrl = 0
         self.rs = 0
 
@@ -147,6 +148,10 @@ class Patient:
             'username': self.username
         })
         self.pvarp = cursor.fetchone()[0]
+        cursor.execute("SELECT hystBool FROM accounts WHERE username = (:username)", {
+            'username': self.username
+        })
+        self.hystBool = cursor.fetchone()[0]
         cursor.execute("SELECT hrl FROM accounts WHERE username = (:username)", {
             'username': self.username
         })
@@ -155,6 +160,7 @@ class Patient:
             'username': self.username
         })
         self.rs = cursor.fetchone()[0]
+        
         connection.commit()
 
     def saveToDB(self):
@@ -175,6 +181,7 @@ class Patient:
                                 arp = (:arp),
                                 vrp = (:vrp),
                                 pvarp = (:pvarp),
+                                hystBool = (:hystBool),
                                 hrl = (:hrl),
                                 rs = (:rs) 
                             WHERE username = (:username)''', {
@@ -190,6 +197,7 @@ class Patient:
                                 'arp': self.arp,
                                 'vrp': self.vrp,
                                 'pvarp': self.pvarp,
+                                'hystBool': self.hystBool,
                                 'hrl': self.hrl,
                                 'rs': self.rs,
                                 'username': self.username

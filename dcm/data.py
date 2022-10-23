@@ -22,7 +22,8 @@ def createDB():
                         vrp INTEGER,
                         pvarp INTEGER,
                         hrl INTEGER,
-                        rs INTEGER
+                        rs INTEGER,
+                        hystBool INTEGER
                 )
                 ''')
     connection.commit()

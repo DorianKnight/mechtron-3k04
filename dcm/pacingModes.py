@@ -107,13 +107,16 @@ class PacingMode:
 
     def addHyst(self, r):
         boolState="normal"
-        self.hyst=(self.patient.hrl==0)
-        if(self.patient.hrl==0):
+        if(self.patient.hystBool==0):
             boolState="disabled"
     
+        self.hystBool=bool(self.patient.hystBool)
+
         self.hystCheck = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx=10)
         self.hystCheck.grid(row=r,column=1,sticky=W, padx=10)
-        if(self.patient.hrl==0):
+
+        # set whether checkmark is initially selected based on saved values
+        if(self.patient.hystBool==0):
             self.hystCheck.deselect()
         else:
             self.hystCheck.select()
@@ -138,14 +141,11 @@ class PacingMode:
 
     def updateFields(self):
         print("triggered")
-
-        if(self.hyst==True):
-            self.hyst=False
-            self.hystEntry.config(state= "disabled")
-            self.patient.hrl=0
-        else:
-            self.hyst=True
+        self.hystBool = not(self.hystBool)
+        if(self.hystBool):
             self.hystEntry.config(state= "normal")
+        else:
+            self.hystEntry.config(state= "disabled")
 
 class AOO(PacingMode): 
     def __init__(self, window, patient):
@@ -227,7 +227,6 @@ class AAI(PacingMode):
         self.patient=patient
 
         #set these to patient specific parameters
-        self.hyst=False
         
         #Methods 
         def aaiConfirm(): 
@@ -247,6 +246,7 @@ class AAI(PacingMode):
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
             self.patient.pvarp=self.pvarpEntry.get()
+            self.patient.hystBool=self.hystBool
             self.patient.hrl=self.hystEntry.get()
             self.patient.rs=self.rsEntry.get()
 
@@ -274,9 +274,7 @@ class VVI(PacingMode):
         self.window.title("Pacemaker | VVI Pacing Mode")
         self.patient=patient
 
-        #set these to patient specific parameters
-        self.hyst=False
-        
+        #set these to patient specific parameters        
         def vviConfirm(): 
             updatePatient()
             if(self.patient.numsValid("VVI")):
@@ -293,6 +291,7 @@ class VVI(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             #self.patient.vrp=self.vrpEntry.get()
+            self.patient.hystBool=self.hystBool
             self.patient.hrl=self.hystEntry.get()
             self.patient.rs=self.rsEntry.get()
         
