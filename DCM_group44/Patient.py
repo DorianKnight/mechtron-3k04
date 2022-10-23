@@ -5,8 +5,9 @@ lrl_range1 = [30,50]
 lrl_range2 = [51,90]
 lrl_range3 = [95,175]
 url_range = [50,175]
-apw_vpw_low = 0.05
+apw_low = 0.05
 apw_range = [0.1,1.9]
+vpw_low = 0.05
 vpw_range = [0.1,1.9]
 aamp_range1 = [0.5,3.2]
 aamp_range2 = [3.5,7]
@@ -47,6 +48,7 @@ hrl_r1_inc = lrl_r1_inc
 hrl_r2_inc = lrl_r2_inc
 hrl_r3_inc = lrl_r3_inc
 rs_inc = 3
+errorTolerance = 0.00000001 #This is a value to account for the inaccuracy of computer calculations (specifically modulo of floats)
 
 def isBetween(N, smallNum, bigNum):
     if(float(N)<float(smallNum) or float(N)>float(bigNum)):
@@ -74,30 +76,181 @@ class Patient:
         self.hrl = 0
         self.rs = 0
 
-    def numsValid(self,pMode):
-        if(not isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
+    def checkLRL(self):
+        #Checking Lower Rate Limit
+        try: 
+            self.lrl = int(self.lrl)
+            if(isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
+                if(not self.lrl % lrl_r1_inc == 0): 
+                    print("false 1")
+                    return False
+            elif(isBetween(self.lrl, lrl_range2[0], lrl_range2[1])):
+                pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
+            elif(isBetween(self.lrl, lrl_range3[0], lrl_range3[1])):
+                if(not self.lrl % lrl_r3_inc == 0): 
+                    print("false 3")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+                print("LRL Conversion to integer error")
+                return False
+
+    def checkURL(self): 
+        #Checking Upper Rate Limit
+        try: 
+            self.url = int(self.url)
+            if(isBetween(self.url,url_range[0],url_range[1])):
+                if(not self.url % url_inc == 0): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("URL Conversion to integer error")
             return False
-        if(not isBetween(self.url,url_range[0],url_range[1])):
+        return True
+    
+    def checkAPW(self): 
+        #Checking Atrial Pulse Width
+        try: 
+            self.apw = float(self.apw)
+            if(self.apw == apw_low): 
+                pass #This is a good thing so it shouldn't do anything
+            elif(isBetween(self.apw,apw_range[0],apw_range[1])):
+                if(self.apw % apw_inc != 0 and (apw_inc - (self.apw % apw_inc) > errorTolerance)): 
+                    print(apw_inc - (self.apw % apw_inc))
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("APW Conversion to float error")
+            return False
+
+    def checkAAmp(self): 
+        #Checking Atrial Amplitude
+        try: 
+            self.aamp = float(self.aamp)
+            if(isBetween(self.aamp,aamp_range1[0],aamp_range1[1])): 
+                if(self.aamp % aamp_r1_inc != 0 and (aamp_r1_inc - (self.aamp % aamp_r1_inc) > errorTolerance)):
+                    print("false 1")
+                    return False 
+            elif(isBetween(self.aamp,aamp_range2[0],aamp_range2[1])):
+                if(self.aamp % aamp_r2_inc != 0 and (aamp_r2_inc - (self.aamp % aamp_r2_inc) > errorTolerance)): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("AAMP Conversion to float error")
+            return False
+    
+    def checkVPW(self): 
+        #Checking Ventricular Pulse Width
+        try: 
+            self.vpw = float(self.vpw)
+            if(self.vpw == vpw_low): 
+                pass #This is a good thing so it shouldn't do anything
+            elif(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
+                if(self.vpw % vpw_inc != 0 and (vpw_inc - (self.vpw % vpw_inc) > errorTolerance)): 
+                    print(vpw_inc - (self.vpw % vpw_inc))
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("APW Conversion to float error")
             return False
         
-        if(pMode=="AOO"):
-            if(not isBetween(self.apw,apw_range[0],apw_range[1])):
+    def checkVAmp(self): 
+        #Checking Ventricular Amplitude
+        try: 
+            self.vamp = float(self.vamp)
+            if(isBetween(self.vamp,vamp_range1[0],vamp_range1[1])): 
+                if(self.vamp % vamp_r1_inc != 0 and (vamp_r1_inc - (self.vamp % vamp_r1_inc) > errorTolerance)):
+                    print("false 1")
+                    return False 
+            elif(isBetween(self.vamp,vamp_range2[0],vamp_range2[1])):
+                if(self.vamp % vamp_r2_inc != 0 and (vamp_r2_inc - (self.vamp % vamp_r2_inc) > errorTolerance)): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
                 return False
-            if(not isBetween(self.aamp,aamp_range1[0],aamp_range1[1])):
+        except: 
+            print("AAMP Conversion to float error")
+            return False
+
+    def numsValid(self,pMode):
+        if(self.checkLRL() == False):
+            return False
+             
+        if(self.checkURL() == False):
+            return False
+        
+        
+        #Checking validity of input parameters for AOO
+        if(pMode=="AOO"):
+
+            if(self.checkAPW() == False):
                 return False
             
-
+            if(self.checkAAmp() == False):
+                return False
+            
+            
+        #Checking validity of input parameteres for VOO
         elif(pMode=="VOO"):
-            if(not isBetween(self.vpw,vpw_range[0],vpw_range[1])):
-                return False
-            if(not isBetween(self.vamp,vamp_range1[0],vamp_range1[1])):
+            
+            if(self.checkVPW() == False): 
                 return False
 
+            if(self.checkVAmp() == False):
+                return False
+
+        #Checking validity of input parameters for AAI
         elif(pMode=="AAI"):
-            if(not isBetween(self.apw,apw_range[0],apw_range[1])):
+            #Checking Atrial Pulse Width
+            try: 
+                self.apw = float(self.apw)
+                if(self.apw == apw_low): 
+                    pass #This is a good thing so it shouldn't do anything
+                elif(isBetween(self.apw,apw_range[0],apw_range[1])):
+                    if(self.apw % apw_inc != 0 and (apw_inc - (self.apw % apw_inc) > errorTolerance)): 
+                        print(apw_inc - (self.apw % apw_inc))
+                        print("false 1")
+                        return False
+                else: 
+                    print("FALSE")
+                    return False
+            except: 
+                print("APW Conversion to float error")
                 return False
-            if(not isBetween(self.aamp,aamp_range1[0],aamp_range1[1])):
+            
+            #Checking Atrial Amplitude
+            try: 
+                self.aamp = float(self.aamp)
+                if(isBetween(self.aamp,aamp_range1[0],aamp_range1[1])): 
+                    if(self.aamp % aamp_r1_inc != 0 and (aamp_r1_inc - (self.aamp % aamp_r1_inc) > errorTolerance)):
+                        print("false 1")
+                        return False 
+                elif(isBetween(self.aamp,aamp_range2[0],aamp_range2[1])):
+                    if(self.aamp % aamp_r2_inc != 0 and (aamp_r2_inc - (self.aamp % aamp_r2_inc) > errorTolerance)): 
+                        print("false 1")
+                        return False
+                else: 
+                    print("FALSE")
+                    return False
+            except: 
+                print("AAMP Conversion to float error")
                 return False
+            
             if(not isBetween(self.asens,asens_range1[0],asens_range1[1])):
                 return False
             if(not isBetween(self.arp,arp_range[0],arp_range[1])):
@@ -110,6 +263,7 @@ class Patient:
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False
 
+        #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
             if(not isBetween(self.vpw,vpw_range[0],vpw_range[1])):
                 return False
