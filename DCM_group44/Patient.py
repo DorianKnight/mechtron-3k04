@@ -1,19 +1,52 @@
 import data
 import sqlite3
 
-lrl_range = [0,10]
-url_range = [0,10]
-apw_range = [0,10]
-vpw_range = [0,10]
-aamp_range = [0,10]
-vamp_range = [0,10]
-asens_range = [0,10]
-vsens_range = [0,10]
-arp_range = [0,10]
-vrp_range = [0,10]
-pvarp_range = [0,10]
-hrl_range = [0,10]
-rs_range = [0,10]
+lrl_range1 = [30,50]
+lrl_range2 = [51,90]
+lrl_range3 = [95,175]
+url_range = [50,175]
+apw_vpw_low = 0.05
+apw_range = [0.1,1.9]
+vpw_range = [0.1,1.9]
+aamp_range1 = [0.5,3.2]
+aamp_range2 = [3.5,7]
+vamp_range1 = [0.5,3.2]
+vamp_range2 = [3.5,7]
+asens_range1 = [0.25, 0.75]
+asens_range2 = [1,10]
+vsens_range1 = [0.25,0.75]
+vsens_range2 = [1,10]
+arp_range = [150,500]
+vrp_range = [15,500]
+pvarp_range = [150,500]
+hrl_low = 0
+hrl_range1 = lrl_range1
+hrl_range2 = lrl_range2
+hrl_range3 = lrl_range3
+rs_range = [0,21]
+rs_multiplier = 0.25 #The highest value of rate smoothing is 25% 
+
+lrl_r1_inc = 5
+lrl_r2_inc = 1
+lrl_r3_inc = 5
+url_inc = 5
+apw_inc = 0.1
+vpw_inc = 0.1
+aamp_r1_inc = 0.1
+aamp_r2_inc = 0.5
+vamp_r1_inc = 0.1
+vamp_r2_inc = 0.5
+asens_r1_inc = 0.25
+asens_r2_inc = 0.5  
+vsens_r1_inc = 0.25
+vsens_r2_inc = 0.5
+arp_inc = 10
+vrp_inc = 10
+pvarp_inc = 10
+hrl_r1_inc = lrl_r1_inc
+hrl_r2_inc = lrl_r2_inc
+hrl_r3_inc = lrl_r3_inc
+rs_inc = 3
 
 def isBetween(N, smallNum, bigNum):
     if(float(N)<float(smallNum) or float(N)>float(bigNum)):
