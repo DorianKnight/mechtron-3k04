@@ -32,13 +32,13 @@ class WelcomePage:
             deviceBanner.grid(row=0,column=2, sticky=E)
 
         def openLoginWin():
-            self.window.destroy()
-            login.launchLogin()
+            self.welcome_frame.destroy()
+            login.launchLogin(self.window)
 
 
         def openRegisterWin():
-            self.window.destroy()
-            registration.launchRegistration()
+            self.welcome_frame.destroy()
+            registration.launchRegistration(self.window)
 
         # ========= Welcome Frame =========
         self.welcome_frame = Frame(
