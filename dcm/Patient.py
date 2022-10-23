@@ -102,7 +102,7 @@ class Patient:
                                 hrl = (:hrl),
                                 rs = (:rs) 
                             WHERE username = (:username)''', {
-                                'pacingMode': "NONE",
+                                'pacingMode': self.pacingMode,
                                 'lrl': self.lrl,
                                 'url': self.url,
                                 'apw': self.apw,

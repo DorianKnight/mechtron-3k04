@@ -24,10 +24,10 @@ class ModeSelect:
 
         connectionChecker=False
         if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Connection Status: Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
+            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
             connectionBanner.grid(row=0,column=0, sticky=W)
         else:
-            connectionBanner=Label(self.window,text="Connection Status: Connected - ",fg="green", font=("Helvetica",12), padx=10)
+            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
             connectionBanner.grid(row=0,column=0, sticky=W)
 
         newDeviceChecker=True

@@ -21,6 +21,22 @@ class RegistrationPage:
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
 
+        connectionChecker=False
+        if(connectionChecker==False):
+            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+        else:
+            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
+            connectionBanner.grid(row=0,column=0, sticky=W)
+
+        newDeviceChecker=True
+        if(newDeviceChecker==False):
+            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
+        else:
+            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
+            deviceBanner.grid(row=0,column=2, sticky=E)
+
         def goBack(): 
             self.frame.destroy()
             main.WelcomePage(self.window)
