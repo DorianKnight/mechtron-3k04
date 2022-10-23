@@ -161,6 +161,7 @@ class AOO(PacingMode):
             self.goBack("aooRadio")
 
         def updatePatient():
+            self.patient.pacingMode="AOO"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
@@ -196,10 +197,11 @@ class VOO(PacingMode):
             self.goBack("vooRadio")
 
         def updatePatient():
+            self.patient.pacingMode="VOO"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
-            self.patient.vpw=self.apwEntry.get()
-            self.patient.vamp=self.aampEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
         
         #VOO Frame
         self.initFrame()
@@ -233,6 +235,7 @@ class AAI(PacingMode):
             self.goBack("aaiRadio")
 
         def updatePatient():
+            self.patient.pacingMode="AAI"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
@@ -279,12 +282,13 @@ class VVI(PacingMode):
             self.goBack("vviRadio")
 
         def updatePatient():
+            self.patient.pacingMode="VVI"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
-            self.patient.vpw=self.apwEntry.get()
-            self.patient.vamp=self.aampEntry.get()
-            self.patient.vsens=self.asensEntry.get()
-            self.patient.vrp=self.arpEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
+            self.patient.vsens=self.vsensEntry.get()
+            #self.patient.vrp=self.vrpEntry.get()
             self.patient.hrl=self.hystEntry.get()
             self.patient.rs=self.rsEntry.get()
         

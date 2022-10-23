@@ -70,8 +70,9 @@ class Patient:
                 return False
             if(not isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
                 return False
-            if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
-                return False
+            if(self.hrl!=0 and self.hrl!=""):
+                if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
+                    return False
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False
 
@@ -84,8 +85,9 @@ class Patient:
                 return False
             if(not isBetween(self.vrp,vrp_range[0],vrp_range[1])):
                 return False
-            if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
-                return False
+            if(self.hrl!=0 and self.hrl!=""):
+                if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
+                    return False
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False
 
