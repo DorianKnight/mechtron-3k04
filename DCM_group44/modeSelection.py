@@ -12,8 +12,8 @@ background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
         self.window = window
-        self.window.geometry('350x280')
-        self.width = 300
+        self.window.geometry('500x500')
+        self.width = 350
         self.height = 220
         self.window.minsize(self.width+30, self.height+50)
         self.window.iconbitmap("images\logo.ico")
@@ -39,7 +39,6 @@ class ModeSelect:
             deviceBanner.grid(row=0,column=2, sticky=E)
 
         def openMode(): 
-            print(self.patient.username)
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
                 pacingModes.launchAOO(self.window,self.patient)
@@ -73,11 +72,11 @@ class ModeSelect:
         
         #Formatting placement of elements on the page
         self.chooseLabel.grid(row = 0, column = 0, columnspan = 2)
-        self.aooRadio.grid(row = 1, column = 0, sticky = W)
-        self.vooRadio.grid(row = 2, column = 0, sticky = W)
-        self.aaiRadio.grid(row = 3, column = 0, sticky = W)
-        self.vviRadio.grid(row = 4, column = 0, sticky = W)
-        self.backButton.grid(row = 5,column = 0, sticky = W, padx = 10)
+        self.aooRadio.grid(row = 1, column = 0, sticky = W, padx = 20)
+        self.vooRadio.grid(row = 2, column = 0, sticky = W, padx = 20)
+        self.aaiRadio.grid(row = 3, column = 0, sticky = W, padx = 20)
+        self.vviRadio.grid(row = 4, column = 0, sticky = W, padx = 20)
+        self.backButton.grid(row = 5,column = 0, sticky = W, padx = 20)
         self.nextButton.grid(row = 5, column = 1, columnspan=2, sticky = W)
                 
         
