@@ -19,7 +19,9 @@ class PacingMode:
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
-            getattr(modeSelection.ModeSelect(self.window), radioBtn).select()
+            MS=modeSelection.ModeSelect(self.window)
+            getattr(MS, radioBtn).select()
+            MS.patient=self.patient
 
     def addTitleAndInstructions(self, mode):
         # title and instructions

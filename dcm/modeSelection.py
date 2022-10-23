@@ -39,6 +39,7 @@ class ModeSelect:
             deviceBanner.grid(row=0,column=2, sticky=E)
 
         def openMode(): 
+            print(self.patient.username)
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
                 pacingModes.launchAOO(self.window,self.patient)
