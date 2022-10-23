@@ -159,7 +159,7 @@ class RegistrationPage:
     
     def goToModeSelect(self): 
         usernameEntry=self.username_entry.get()
-        self.frame.destroy()
+        self.window.destroy()
         modeSelection.launchModeSelect(usernameEntry)
 
 def launchRegistration(window):

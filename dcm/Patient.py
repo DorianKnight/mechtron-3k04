@@ -98,6 +98,7 @@ class Patient:
         connection = sqlite3.connect('userdata.db')
         cursor = connection.cursor()
 
+
         cursor.execute("SELECT lrl FROM accounts WHERE username = (:username)", {
             'username': self.username
         })
@@ -154,6 +155,7 @@ class Patient:
             'username': self.username
         })
         self.rs = cursor.fetchone()[0]
+        connection.commit()
 
     def saveToDB(self):
         try:
