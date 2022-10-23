@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.140
+ * Model version                  : 1.157
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Wed Oct 19 19:11:16 2022
+ * C/C++ source code generated on : Fri Oct 21 13:17:20 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -31,40 +31,40 @@ P_Group44PACEMAKER_T Group44PACEMAKER_P = {
    */
   -1.0,
 
-  /* Expression: 320
+  /* Expression: 250
    * Referenced by: '<S2>/input_ARP'
    */
-  320.0,
+  250.0,
 
   /* Expression: 320
    * Referenced by: '<S2>/input_VRP'
    */
   320.0,
 
-  /* Expression: 5
+  /* Expression: 1
    * Referenced by: '<S2>/input_aPulseWidth'
    */
-  5.0,
+  1.0,
 
   /* Expression: 666
    * Referenced by: '<S2>/input_LRL'
    */
   666.0,
 
-  /* Expression: 5
+  /* Expression: 1
    * Referenced by: '<S2>/input_vPulseWidth'
    */
-  5.0,
+  1.0,
 
-  /* Expression: 3
+  /* Expression: 3.75
    * Referenced by: '<S2>/input_aPulseAmp'
    */
-  3.0,
+  3.75,
 
-  /* Expression: 3
+  /* Expression: 3.75
    * Referenced by: '<S2>/input_vPulseAmp'
    */
-  3.0,
+  3.75,
 
   /* Expression: 3.8
    * Referenced by: '<S2>/input_vSensitivity'
@@ -79,7 +79,7 @@ P_Group44PACEMAKER_T Group44PACEMAKER_P = {
   /* Computed Parameter: mode_String
    * Referenced by: '<S2>/mode'
    */
-  "AAI"
+  "VVI"
 };
 
 /*

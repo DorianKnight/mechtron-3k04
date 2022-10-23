@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Group44PACEMAKER'.
  *
- * Model version                  : 1.140
+ * Model version                  : 1.157
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Wed Oct 19 19:11:16 2022
+ * C/C++ source code generated on : Fri Oct 21 13:17:20 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -83,25 +83,25 @@ struct P_Group44PACEMAKER_T_ {
   real_T input_VENT_CMP_DETECT_SampleTim;/* Expression: SampleTime
                                           * Referenced by: '<S1>/input_VENT_CMP_DETECT'
                                           */
-  real_T input_ARP_Value;              /* Expression: 320
+  real_T input_ARP_Value;              /* Expression: 250
                                         * Referenced by: '<S2>/input_ARP'
                                         */
   real_T input_VRP_Value;              /* Expression: 320
                                         * Referenced by: '<S2>/input_VRP'
                                         */
-  real_T input_aPulseWidth_Value;      /* Expression: 5
+  real_T input_aPulseWidth_Value;      /* Expression: 1
                                         * Referenced by: '<S2>/input_aPulseWidth'
                                         */
   real_T input_LRL_Value;              /* Expression: 666
                                         * Referenced by: '<S2>/input_LRL'
                                         */
-  real_T input_vPulseWidth_Value;      /* Expression: 5
+  real_T input_vPulseWidth_Value;      /* Expression: 1
                                         * Referenced by: '<S2>/input_vPulseWidth'
                                         */
-  real_T input_aPulseAmp_Value;        /* Expression: 3
+  real_T input_aPulseAmp_Value;        /* Expression: 3.75
                                         * Referenced by: '<S2>/input_aPulseAmp'
                                         */
-  real_T input_vPulseAmp_Value;        /* Expression: 3
+  real_T input_vPulseAmp_Value;        /* Expression: 3.75
                                         * Referenced by: '<S2>/input_vPulseAmp'
                                         */
   real_T input_vSensitivity_Value;     /* Expression: 3.8
@@ -156,11 +156,10 @@ extern volatile boolean_T runModel;
  * '<Root>' : 'Group44PACEMAKER'
  * '<S1>'   : 'Group44PACEMAKER/InputPins'
  * '<S2>'   : 'Group44PACEMAKER/Inputs'
- * '<S3>'   : 'Group44PACEMAKER/OutputPins'
+ * '<S3>'   : 'Group44PACEMAKER/OutputPins & Requirements'
  * '<S4>'   : 'Group44PACEMAKER/Stateflow'
- * '<S5>'   : 'Group44PACEMAKER/OutputPins/Requirements table'
- * '<S6>'   : 'Group44PACEMAKER/OutputPins/Requirements table/Requirements Table'
- * '<S7>'   : 'Group44PACEMAKER/Stateflow/Chart'
+ * '<S5>'   : 'Group44PACEMAKER/OutputPins & Requirements/Requirements Table Subsystem'
+ * '<S6>'   : 'Group44PACEMAKER/Stateflow/Chart'
  */
 #endif                                 /* RTW_HEADER_Group44PACEMAKER_h_ */
 
