@@ -16,7 +16,7 @@ hrl_range = [0,10]
 rs_range = [0,10]
 
 def isBetween(N, smallNum, bigNum):
-    if(N<smallNum or N>bigNum):
+    if(float(N)<float(smallNum) or float(N)>float(bigNum)):
         return False
     else:
         return True
@@ -89,6 +89,7 @@ class Patient:
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False
 
+        print("Nums valid")
         return True
 
     def copyFromDB(self): #Takes a username string and returns a patient instance

@@ -156,10 +156,19 @@ class AOO(PacingMode):
         
         #Methods
         def aooConfirm(): 
-            pass
+            updatePatient()
+            if(self.patient.numsValid("AOO")):
+                self.patient.saveToDB()
         
         def goBack(): 
             self.goBack("aooRadio")
+
+        def updatePatient():
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+
         
         #AOO Frame
         self.initFrame()
@@ -182,10 +191,18 @@ class VOO(PacingMode):
         
         #Methods
         def vooConfirm(): 
-            pass
+            updatePatient()
+            if(self.patient.numsValid("VOO")):
+                self.patient.saveToDB()
         
         def goBack(): 
             self.goBack("vooRadio")
+
+        def updatePatient():
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.vpw=self.apwEntry.get()
+            self.patient.vamp=self.aampEntry.get()
         
         #VOO Frame
         self.initFrame()
@@ -211,10 +228,23 @@ class AAI(PacingMode):
         
         #Methods 
         def aaiConfirm(): 
-            pass
+            updatePatient()
+            if(self.patient.numsValid("AAI")):
+                self.patient.saveToDB()
         
         def goBack(): 
             self.goBack("aaiRadio")
+
+        def updatePatient():
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+            self.patient.asens=self.asensEntry.get()
+            self.patient.arp=self.arpEntry.get()
+            self.patient.pvarp=self.pvarpEntry.get()
+            self.patient.hrl=self.hystEntry.get()
+            self.patient.rs=self.rsEntry.get()
 
         #AAI Frame
         self.initFrame()
@@ -245,10 +275,22 @@ class VVI(PacingMode):
         self.hyst=False
         
         def vviConfirm(): 
-            pass
+            updatePatient()
+            if(self.patient.numsValid("VVI")):
+                self.patient.saveToDB()
         
         def goBack(): 
             self.goBack("vviRadio")
+
+        def updatePatient():
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.vpw=self.apwEntry.get()
+            self.patient.vamp=self.aampEntry.get()
+            self.patient.vsens=self.asensEntry.get()
+            self.patient.vrp=self.arpEntry.get()
+            self.patient.hrl=self.hystEntry.get()
+            self.patient.rs=self.rsEntry.get()
         
         #VVI Frame
         self.initFrame()
