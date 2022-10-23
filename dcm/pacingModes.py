@@ -4,6 +4,7 @@ import modeSelection
 import Patient as P
 
 background = 'white'
+
 class PacingMode:
     def __init__(self, window):
         self.window = window
