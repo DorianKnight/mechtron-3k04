@@ -107,15 +107,16 @@ class PacingMode:
 
     def addHyst(self, r):
         boolState="normal"
+        self.hyst=(self.patient.hrl==0)
         if(self.patient.hrl==0):
             boolState="disabled"
     
-        self.hystBool = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx=10)
-        self.hystBool.grid(row=r,column=1,sticky=W, padx=10)
+        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx=10)
+        self.hystCheck.grid(row=r,column=1,sticky=W, padx=10)
         if(self.patient.hrl==0):
-            self.hystBool.deselect()
+            self.hystCheck.deselect()
         else:
-            self.hystBool.select()
+            self.hystCheck.select()
 
         self.hystEntry = Entry(self.frame, bg=background, state=boolState)
         self.hystEntry.grid(row = r, column = 2, sticky = W)
@@ -141,6 +142,7 @@ class PacingMode:
         if(self.hyst==True):
             self.hyst=False
             self.hystEntry.config(state= "disabled")
+            self.patient.hrl=0
         else:
             self.hyst=True
             self.hystEntry.config(state= "normal")
