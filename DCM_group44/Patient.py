@@ -75,7 +75,7 @@ class Patient:
         self.rs = 0
 
     def numsValid(self,pMode):
-        if(not isBetween(self.lrl,lrl_range[0],lrl_range[1])):
+        if(not isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
             return False
         if(not isBetween(self.url,url_range[0],url_range[1])):
             return False
@@ -83,29 +83,29 @@ class Patient:
         if(pMode=="AOO"):
             if(not isBetween(self.apw,apw_range[0],apw_range[1])):
                 return False
-            if(not isBetween(self.aamp,aamp_range[0],aamp_range[1])):
+            if(not isBetween(self.aamp,aamp_range1[0],aamp_range1[1])):
                 return False
             
 
         elif(pMode=="VOO"):
             if(not isBetween(self.vpw,vpw_range[0],vpw_range[1])):
                 return False
-            if(not isBetween(self.vamp,vamp_range[0],vamp_range[1])):
+            if(not isBetween(self.vamp,vamp_range1[0],vamp_range1[1])):
                 return False
 
         elif(pMode=="AAI"):
             if(not isBetween(self.apw,apw_range[0],apw_range[1])):
                 return False
-            if(not isBetween(self.aamp,aamp_range[0],aamp_range[1])):
+            if(not isBetween(self.aamp,aamp_range1[0],aamp_range1[1])):
                 return False
-            if(not isBetween(self.asens,asens_range[0],asens_range[1])):
+            if(not isBetween(self.asens,asens_range1[0],asens_range1[1])):
                 return False
             if(not isBetween(self.arp,arp_range[0],arp_range[1])):
                 return False
             if(not isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
                 return False
             if(self.hrl!=0 and self.hrl!=""):
-                if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
+                if(not isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
                     return False
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False
@@ -113,14 +113,14 @@ class Patient:
         elif(pMode=="VVI"):
             if(not isBetween(self.vpw,vpw_range[0],vpw_range[1])):
                 return False
-            if(not isBetween(self.vamp,vamp_range[0],vamp_range[1])):
+            if(not isBetween(self.vamp,vamp_range1[0],vamp_range1[1])):
                 return False
-            if(not isBetween(self.vsens,vsens_range[0],vsens_range[1])):
+            if(not isBetween(self.vsens,vsens_range1[0],vsens_range1[1])):
                 return False
             if(not isBetween(self.vrp,vrp_range[0],vrp_range[1])):
                 return False
             if(self.hrl!=0 and self.hrl!=""):
-                if(not isBetween(self.hrl,hrl_range[0],hrl_range[1])):
+                if(not isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
                     return False
             if(not isBetween(self.rs,rs_range[0],rs_range[1])):
                 return False

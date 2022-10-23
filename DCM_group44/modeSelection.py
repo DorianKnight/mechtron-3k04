@@ -30,7 +30,7 @@ class ModeSelect:
             connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
             connectionBanner.grid(row=0,column=0, sticky=W)
 
-        newDeviceChecker=True
+        newDeviceChecker=False
         if(newDeviceChecker==False):
             deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
             deviceBanner.grid(row=0,column=2, sticky=E)
