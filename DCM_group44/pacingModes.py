@@ -173,6 +173,8 @@ class AOO(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AOO")):
                 self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
         
         def goBack(): 
             self.goBack("aooRadio")
@@ -209,6 +211,8 @@ class VOO(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VOO")):
                 self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
         
         def goBack(): 
             self.goBack("vooRadio")
@@ -246,6 +250,8 @@ class AAI(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AAI")):
                 self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
         
         def goBack(): 
             self.goBack("aaiRadio")
@@ -292,6 +298,8 @@ class VVI(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VVI")):
                 self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
         
         def goBack(): 
             self.goBack("vviRadio")
