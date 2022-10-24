@@ -1,13 +1,15 @@
+from asyncio import format_helpers
 import data
 import sqlite3
+import pacingModes
 
 lrl_range1 = [30,50]
 lrl_range2 = [51,90]
 lrl_range3 = [95,175]
 url_range = [50,175]
-apw_low = 0.05
+apw_low = 0.05 #The lowest value atrial pulse width can be is 0.05 which is different from the range for the rest hence why it is it's own variable
 apw_range = [0.1,1.9]
-vpw_low = 0.05
+vpw_low = 0.05 #The lowest value vpw can be is 0.05
 vpw_range = [0.1,1.9]
 aamp_range1 = [0.5,3.2]
 aamp_range2 = [3.5,7]
@@ -18,14 +20,14 @@ asens_range2 = [1,10]
 vsens_range1 = [0.25,0.75]
 vsens_range2 = [1,10]
 arp_range = [150,500]
-vrp_range = [15,500]
+vrp_range = [150,500]
 pvarp_range = [150,500]
-hrl_low = 0
+hrl_low = 0 #The lowest value that hrl can be is off = 0
 hrl_range1 = lrl_range1
 hrl_range2 = lrl_range2
 hrl_range3 = lrl_range3
 rs_range = [0,21]
-rs_multiplier = 0.25 #The highest value of rate smoothing is 25% 
+rs_high = 25 #The highest value of rate smoothing is 25% 
 
 lrl_r1_inc = 5
 lrl_r2_inc = 1
@@ -118,7 +120,7 @@ class Patient:
         try: 
             self.apw = float(self.apw)
             if(self.apw == apw_low): 
-                pass #This is a good thing so it shouldn't do anything
+                pass #This is a good thing so it shouldn't return false and it can't return true just yet - just skip all the elifs and else
             elif(isBetween(self.apw,apw_range[0],apw_range[1])):
                 if(self.apw % apw_inc != 0 and (apw_inc - (self.apw % apw_inc) > errorTolerance)): 
                     print(apw_inc - (self.apw % apw_inc))
@@ -155,7 +157,7 @@ class Patient:
         try: 
             self.vpw = float(self.vpw)
             if(self.vpw == vpw_low): 
-                pass #This is a good thing so it shouldn't do anything
+                pass #This is a good thing so it shouldn't return false and it can't return true just yet - just skip all the elifs and else
             elif(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
                 if(self.vpw % vpw_inc != 0 and (vpw_inc - (self.vpw % vpw_inc) > errorTolerance)): 
                     print(vpw_inc - (self.vpw % vpw_inc))
@@ -186,7 +188,140 @@ class Patient:
         except: 
             print("AAMP Conversion to float error")
             return False
+        
+    def checkASens(self): 
+        #Checking Atrial Sensitivity
+        try: 
+            self.asens = float(self.asens)
+            if(isBetween(self.asens,asens_range1[0],asens_range1[1])): 
+                if(self.asens % asens_r1_inc != 0 and (asens_r1_inc - (self.asens % asens_r1_inc) > errorTolerance)):
+                    print("false 1")
+                    return False 
+            elif(isBetween(self.asens,asens_range2[0],asens_range2[1])):
+                if(self.asens % asens_r2_inc != 0 and (asens_r2_inc - (self.asens % asens_r2_inc) > errorTolerance)): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("Atrial Sensivity Conversion to Float Error")
+            return False
 
+    def checkARP(self): 
+        #Checking Atrial Refractory Period
+        try: 
+            self.arp = int(self.arp)
+            if(isBetween(self.arp,arp_range[0],arp_range[1])):
+                if(not self.arp % arp_inc == 0): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("ARP Conversion to integer error")
+            return False
+        return True
+
+    def checkPVARP(self): 
+        #Checking PVARP
+        try: 
+            self.pvarp = int(self.pvarp)
+            if(isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
+                if(not self.pvarp % pvarp_inc == 0): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("PVARP Conversion to integer error")
+            return False
+        return True       
+
+    def checkHyst(self): 
+        #Checking Hysteresis 
+        if(self.hystBool):
+            try: 
+                self.hrl = int(self.hrl)
+                if(self.hrl!=0 and self.hrl!="" and self.hrl != None):
+                    if(isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
+                        if(self.hrl % hrl_r1_inc != 0): 
+                            print("false 1")
+                            return False
+                    elif(isBetween(self.hrl, hrl_range2[0], hrl_range2[1])):
+                        pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
+                    elif(isBetween(self.hrl, hrl_range3[0], hrl_range3[1])):
+                        if(self.hrl % hrl_r3_inc != 0): 
+                            print("false 3")
+                            return False
+                    else: 
+                        print("FALSE")
+                        return False
+                else: 
+                    print("Hysteresis Disabled")
+                    return False
+            except: 
+                print("HRL conversion to integer error")
+                return False
+        else: 
+            print("Hysteresis disabled")
+            return True
+    
+    def checkRs(self): 
+        #Checking Rate Smoothing
+        try: 
+            self.rs = int(self.rs)
+            if(self.rs == rs_high): 
+                pass #This is a good thing so it shouldn't return false and it can't return true just yet - just skip all the elifs and else
+            elif(isBetween(self.rs,rs_range[0],rs_range[1])):
+                if(self.rs % rs_inc != 0): 
+                    print(rs_inc - (self.rs % rs_inc))
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("RS Conversion to int error")
+            return False
+        
+    def checkVSens(self): 
+        #Checking Ventricular Sensitivity
+        try: 
+            self.vsens = float(self.vsens)
+            if(isBetween(self.vsens,vsens_range1[0],vsens_range1[1])): 
+                if(self.vsens % vsens_r1_inc != 0 and (vsens_r1_inc - (self.vsens % vsens_r1_inc) > errorTolerance)):
+                    print("false 1")
+                    return False 
+            elif(isBetween(self.vsens,vsens_range2[0],vsens_range2[1])):
+                if(self.vsens % vsens_r2_inc != 0 and (vsens_r2_inc - (self.vsens % vsens_r2_inc) > errorTolerance)): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("Ventriculular Sensivity Conversion to Float Error")
+            return False
+
+    def checkVRP(self): 
+        #Checking VRP
+        try: 
+            self.vrp = int(self.vrp)
+            if(isBetween(self.vrp,vrp_range[0],vrp_range[1])):
+                if(not self.vrp % vrp_inc == 0): 
+                    print("false 1")
+                    return False
+            else: 
+                print("FALSE")
+                return False
+        except: 
+            print("VRP Conversion to integer error")
+            return False
+        return True
+    
     def numsValid(self,pMode):
         if(self.checkLRL() == False):
             return False
@@ -216,67 +351,47 @@ class Patient:
 
         #Checking validity of input parameters for AAI
         elif(pMode=="AAI"):
-            #Checking Atrial Pulse Width
-            try: 
-                self.apw = float(self.apw)
-                if(self.apw == apw_low): 
-                    pass #This is a good thing so it shouldn't do anything
-                elif(isBetween(self.apw,apw_range[0],apw_range[1])):
-                    if(self.apw % apw_inc != 0 and (apw_inc - (self.apw % apw_inc) > errorTolerance)): 
-                        print(apw_inc - (self.apw % apw_inc))
-                        print("false 1")
-                        return False
-                else: 
-                    print("FALSE")
-                    return False
-            except: 
-                print("APW Conversion to float error")
+            
+            if(self.checkAPW() == False):
                 return False
             
-            #Checking Atrial Amplitude
-            try: 
-                self.aamp = float(self.aamp)
-                if(isBetween(self.aamp,aamp_range1[0],aamp_range1[1])): 
-                    if(self.aamp % aamp_r1_inc != 0 and (aamp_r1_inc - (self.aamp % aamp_r1_inc) > errorTolerance)):
-                        print("false 1")
-                        return False 
-                elif(isBetween(self.aamp,aamp_range2[0],aamp_range2[1])):
-                    if(self.aamp % aamp_r2_inc != 0 and (aamp_r2_inc - (self.aamp % aamp_r2_inc) > errorTolerance)): 
-                        print("false 1")
-                        return False
-                else: 
-                    print("FALSE")
-                    return False
-            except: 
-                print("AAMP Conversion to float error")
+            if(self.checkAAmp() == False):
                 return False
             
-            if(not isBetween(self.asens,asens_range1[0],asens_range1[1])):
+            if(self.checkASens() == False): 
                 return False
-            if(not isBetween(self.arp,arp_range[0],arp_range[1])):
+            
+            if(self.checkARP() == False): 
                 return False
-            if(not isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
+            
+            if(self.checkPVARP() == False): 
                 return False
-            if(self.hrl!=0 and self.hrl!=""):
-                if(not isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
-                    return False
-            if(not isBetween(self.rs,rs_range[0],rs_range[1])):
+            
+            if(self.checkHyst() == False): 
+                return False
+                
+            if(self.checkRs() == False): 
                 return False
 
         #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
-            if(not isBetween(self.vpw,vpw_range[0],vpw_range[1])):
+            
+            if(self.checkVPW() == False):
                 return False
-            if(not isBetween(self.vamp,vamp_range1[0],vamp_range1[1])):
+            
+            if(self.checkVAmp() == False): 
                 return False
-            if(not isBetween(self.vsens,vsens_range1[0],vsens_range1[1])):
+
+            if(self.checkVSens() == False): 
+                return False 
+            
+            if(self.checkVRP() == False): 
                 return False
-            if(not isBetween(self.vrp,vrp_range[0],vrp_range[1])):
+            
+            if(self.checkHyst() == False): 
                 return False
-            if(self.hrl!=0 and self.hrl!=""):
-                if(not isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
-                    return False
-            if(not isBetween(self.rs,rs_range[0],rs_range[1])):
+            
+            if(self.checkRs() == False): 
                 return False
 
         print("Nums valid")
