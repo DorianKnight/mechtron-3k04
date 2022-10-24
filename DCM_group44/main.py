@@ -72,7 +72,6 @@ class WelcomePage:
         # formatting entries
         self.login_button.grid(row=2, column=0, columnspan=2, pady=10)
         self.register_button.grid(row=3, column=0, columnspan=2)
-
         
 
 def launchApp():

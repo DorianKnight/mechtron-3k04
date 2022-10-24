@@ -507,4 +507,3 @@ class Patient:
             connection.commit()
         except Exception as ep:
             print(ep)
-            

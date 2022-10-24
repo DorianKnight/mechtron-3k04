@@ -5,9 +5,6 @@ import main
 import Patient as P
 import data
 
-
-
-
 background = 'white'
 class ModeSelect: 
     def __init__(self, window): 

@@ -27,6 +27,3 @@ def createDB():
                 )
                 ''')
     connection.commit()
-
-
-
