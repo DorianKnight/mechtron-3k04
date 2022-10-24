@@ -1,7 +1,6 @@
 from asyncio import format_helpers
 import data
 import sqlite3
-import pacingModes
 
 lrl_range1 = [30,50]
 lrl_range2 = [51,90]
