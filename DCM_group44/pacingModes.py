@@ -30,7 +30,7 @@ class PacingMode:
         self.titleLabel = Label(self.frame, text = mode, font = ("Arial", 24), bg = background, padx = 20, pady = 10)
         self.instructionLabel = Label(self.frame, text = "Please enter the values for the following parameters.", bg = background, padx = 20)
         self.instructionLabel2 = Label(self.frame, text  = "These values will be checked to ensure that they are valid entries.", bg = background, padx = 20)
-        self.instructionLabel3 = Label(self.frame, text  = "If you have not set any values yet, they will be set to default.", bg = background, padx = 20)
+        self.instructionLabel3 = Label(self.frame, text  = "If you have not set any values yet, they will be set to the nominal values.", bg = background, padx = 20)
 
         self.titleLabel.grid(row = 0, column = 0, columnspan = 2)
         self.instructionLabel.grid(row = 1, column = 0, columnspan = 2)
@@ -41,28 +41,28 @@ class PacingMode:
         self.frame.grid_rowconfigure(4, minsize = 20)
 
     def addLrl(self, r):
-        self.lrlLabel = Label(self.frame, text = "Lower Rate Limit:", bg = background, padx = 20)
+        self.lrlLabel = Label(self.frame, text = "Lower Rate Limit (ppm):", bg = background, padx = 20)
         self.lrlEntry = Entry(self.frame, bg = background)
         self.lrlLabel.grid(row = r, column = 0, sticky = W)
         self.lrlEntry.grid(row = r, column = 1)
         self.lrlEntry.insert(0,self.patient.lrl)
 
     def addUrl(self, r):
-        self.urlLabel = Label(self.frame, text = "Upper Rate Limit:", bg = background, padx = 20)
+        self.urlLabel = Label(self.frame, text = "Upper Rate Limit (ppm):", bg = background, padx = 20)
         self.urlEntry = Entry(self.frame, bg = background)
         self.urlLabel.grid(row = r, column = 0, sticky = W)
         self.urlEntry.grid(row = r, column = 1)
         self.urlEntry.insert(0,self.patient.url)
 
     def addApw(self, r):
-        self.apwLabel = Label(self.frame, text = "Atrial Pulse Width:", bg = background, padx = 20)
+        self.apwLabel = Label(self.frame, text = "Atrial Pulse Width (ms):", bg = background, padx = 20)
         self.apwEntry = Entry(self.frame, bg = background)
         self.apwLabel.grid(row = r, column = 0, sticky = W)
         self.apwEntry.grid(row = r, column = 1)
         self.apwEntry.insert(0,self.patient.apw)
 
     def addAamp(self, r):
-        self.aampLabel = Label(self.frame, text = "Atrial Amplitude:", bg = background, padx = 20)
+        self.aampLabel = Label(self.frame, text = "Atrial Amplitude (V):", bg = background, padx = 20)
         self.aampEntry = Entry(self.frame, bg = background)
         self.aampLabel.grid(row = r, column = 0, sticky = W)
         self.aampEntry.grid(row = r, column = 1)
@@ -78,42 +78,42 @@ class PacingMode:
         self.confirm.grid(row = r+1, column = 1, sticky=SE, padx = 40)
 
     def addVpw(self, r):
-        self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width:", bg = background, padx = 20)
+        self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width (ms):", bg = background, padx = 20)
         self.vpwEntry = Entry(self.frame, bg = background)
         self.vpwLabel.grid(row = r, column = 0, sticky = W)
         self.vpwEntry.grid(row = r, column = 1)
         self.vpwEntry.insert(0,self.patient.vpw)
 
     def addVamp(self, r):
-        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude:", bg = background, padx = 20)
+        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude (V):", bg = background, padx = 20)
         self.vampEntry = Entry(self.frame, bg=background)
         self.vampLabel.grid(row = r, column = 0, sticky = W)
         self.vampEntry.grid(row = r, column = 1)
         self.vampEntry.insert(0,self.patient.vamp)
 
     def addAsens(self, r):
-        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity:", bg = background, padx = 20)
+        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (mV):", bg = background, padx = 20)
         self.asensEntry = Entry(self.frame, bg=background)
         self.asensLabel.grid(row = r, column = 0, sticky = W)
         self.asensEntry.grid(row = r, column = 1)
         self.asensEntry.insert(0,self.patient.asens)
 
     def addArp(self, r):
-        self.arpLabel = Label(self.frame, text = "ARP:", bg = background, padx = 20)
+        self.arpLabel = Label(self.frame, text = "Atrial Refractory Period (ms):", bg = background, padx = 20)
         self.arpEntry = Entry(self.frame, bg=background)
         self.arpLabel.grid(row = r, column = 0, sticky = W)
         self.arpEntry.grid(row = r, column = 1)
         self.arpEntry.insert(0,self.patient.arp)
 
     def addVrp(self, r):
-        self.vrpLabel = Label(self.frame, text = "VRP:", bg = background, padx = 20)
+        self.vrpLabel = Label(self.frame, text = "Ventricular Refractory Period (ms):", bg = background, padx = 20)
         self.vrpEntry = Entry(self.frame, bg=background)
         self.vrpLabel.grid(row = r, column = 0, sticky = W)
         self.vrpEntry.grid(row = r, column = 1)
         self.vrpEntry.insert(0,self.patient.vrp)
 
     def addPvarp(self, r):
-        self.pvarpLabel = Label(self.frame, text = "PVARP:", bg = background, padx = 20)
+        self.pvarpLabel = Label(self.frame, text = "PVARP (ms):", bg = background, padx = 20)
         self.pvarpEntry = Entry(self.frame, bg=background)
         self.pvarpLabel.grid(row = r, column = 0, sticky = W)
         self.pvarpEntry.grid(row = r, column = 1)
@@ -126,7 +126,7 @@ class PacingMode:
     
         self.hystBool=bool(self.patient.hystBool)
 
-        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis:",command=self.updateFields, bg=background,padx = 20)
+        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis (ppm):",command=self.updateFields, bg=background,padx = 20)
         self.hystCheck.grid(row=r,column=0,sticky=W, padx = 20)
 
         # set whether checkmark is initially selected based on saved values
@@ -140,14 +140,14 @@ class PacingMode:
         self.hystEntry.insert(0,self.patient.hrl)
 
     def addRs(self, r):
-        self.rsLabel = Label(self.frame, text = "Rate Smoothing:", bg = background, padx = 20)
+        self.rsLabel = Label(self.frame, text = "Rate Smoothing (%):", bg = background, padx = 20)
         self.rsEntry = Entry(self.frame, bg=background)
         self.rsLabel.grid(row = r, column = 0, sticky = W)
         self.rsEntry.grid(row = r, column = 1)
         self.rsEntry.insert(0,self.patient.rs)
     
     def addVsens(self, r):
-        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity:", bg = background, padx = 20)
+        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (mV):", bg = background, padx = 20)
         self.vsensEntry = Entry(self.frame, bg=background)
         self.vsensLabel.grid(row = r, column = 0, sticky = W)
         self.vsensEntry.grid(row = r, column = 1)
