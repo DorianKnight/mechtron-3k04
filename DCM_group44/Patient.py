@@ -106,6 +106,12 @@ class Patient:
                 if(not self.url % url_inc == 0): 
                     messagebox.showerror(title="Error", message="Invalid increment for URL. Increment should be "+str(url_inc))
                     return False
+                if(self.url < self.lrl): 
+                    messagebox.showerror(title = "Error", message = "The Upper Rate Limit cannot be less the Lower Rate Limit. Please input a valid value")
+                    return False
+                elif(self.url == self.lrl): 
+                    messagebox.showerror(title = "Error", message = "The Upper Rate Limit cannot be equal to the Lower Rate Limit. Please input a valid value")
+                    return False
             else: 
                 messagebox.showerror(title="Error", message=" URL Out of range. Acceptable range is ["+str(url_range[0])+", "+str(url_range[1])+"]")
                 return False
@@ -214,6 +220,10 @@ class Patient:
             if(isBetween(self.arp,arp_range[0],arp_range[1])):
                 if(not self.arp % arp_inc == 0): 
                     messagebox.showerror(title="Error", message="Invalid increment for ARP. Increment should be "+str(arp_inc))
+                    return False
+                lrlTime = (1/self.lrl)*1000 #The time between pulses in ms
+                if(self.arp > lrlTime): 
+                    messagebox.showerror(title = "Error", message = "Invalid input for Atrial Refractory Period. Time cannot be greater than the time between pulses at Lower Rate Limit. In this case that is " + str(round(lrlTime, 2)) + "ms so please input a value smaller than this.")                
                     return False
             else: 
                 messagebox.showerror(title="Error", message="ARP Out of range. Acceptable range is ["+str(arp_range[0])+", "+str(arp_range[1])+"]")
