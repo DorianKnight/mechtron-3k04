@@ -1,0 +1,1 @@
+serial for python needs to be installed. Do this with pip install pyserial
