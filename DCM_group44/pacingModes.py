@@ -330,7 +330,90 @@ class VVI(PacingMode):
         self.addRs(12)
         self.addBackAndConfirm(13, goBack, vviConfirm)
                 
+class AOOR(PacingMode): 
+    def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | AOOR Pacing Mode")
+        self.patient=patient
+        
+        #AOOR Frame
+        self.initFrame()
+        
+        #Creating the elements for the AOOR Frame
+        self.addTitleAndInstructions("AOOR")
+        
+class VOOR(PacingMode): 
+    def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | VOOR Pacing Mode")
+        self.patient=patient
+        
+        #VOOR Frame
+        self.initFrame()
+        
+        #Creating the elements for the VOOR Frame
+        self.addTitleAndInstructions("VOOR")
+        
+class AAIR(PacingMode): 
+     def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | AAIR Pacing Mode")
+        self.patient=patient
+        
+        #AAIR Frame
+        self.initFrame()
+        
+        #Creating the elements for the AAIR Frame
+        self.addTitleAndInstructions("AAIR")
+        
+class VVIR(PacingMode): 
+     def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | VVIR Pacing Mode")
+        self.patient=patient
+        
+        #VVIR Frame
+        self.initFrame()
+        
+        #Creating the elements for the VVIR Frame
+        self.addTitleAndInstructions("VVIR")
     
+class DDD(PacingMode): 
+     def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | DDD Pacing Mode")
+        self.patient=patient
+        
+        #DDD Frame
+        self.initFrame()
+        
+        #Creating the elements for the DDD Frame
+        self.addTitleAndInstructions("DDD")
+        
+class DDDR(PacingMode): 
+     def __init__(self, window, patient):
+        super().__init__(window)
+        self.width = 450
+        self.height = 450
+        self.window.title("Pacemaker | DDDDR Pacing Mode")
+        self.patient=patient
+        
+        #DDDR Frame
+        self.initFrame()
+        
+        #Creating the elements for the DDDR Frame
+        self.addTitleAndInstructions("DDDR")
+
 def launchAOO(window, patient): 
     AOO(window, patient)
     
@@ -342,6 +425,24 @@ def launchAAI(window, patient):
 
 def launchVVI(window, patient): 
     VVI(window, patient)
+    
+def launchAOOR(window, patient): 
+    AOOR(window, patient)
+    
+def launchVOOR(window, patient): 
+    VOOR(window, patient)
+
+def launchAAIR(window, patient): 
+    AAIR(window, patient)
+    
+def launchVVIR(window, patient): 
+    VVIR(window, patient)
+    
+def launchDDD(window, patient): 
+    DDD(window, patient)
+    
+def launchDDDR(window, patient): 
+    DDDR(window, patient)
 '''
 def backToSelect(window):
     modeSelection.ModeSelect(window)

@@ -11,7 +11,7 @@ class ModeSelect:
         self.window = window
         self.window.geometry('500x500')
         self.width = 350
-        self.height = 220
+        self.height = 250
         self.window.minsize(self.width+30, self.height+50)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker | Mode Selection")
@@ -64,6 +64,12 @@ class ModeSelect:
         self.vooRadio = Radiobutton(self.msFrame, text = "VOO", variable = self.mode, value = "VOO", bg=background,padx=10)
         self.aaiRadio = Radiobutton(self.msFrame, text = "AAI", variable = self.mode, value = "AAI", bg=background,padx=10)
         self.vviRadio = Radiobutton(self.msFrame, text = "VVI", variable = self.mode, value = "VVI", bg=background,padx=10)
+        self.aoorRadio = Radiobutton(self.msFrame, text = "AOOR", variable = self.mode, value = "AOOR", bg = background, padx = 10)
+        self.voorRadio = Radiobutton(self.msFrame, text = "VOOR", variable = self.mode, value = "VOOR", bg = background, padx = 10)
+        self.aairRadio = Radiobutton(self.msFrame, text = "AAIR", variable = self.mode, value = "AAIR", bg = background, padx = 10)
+        self.vvirRadio = Radiobutton(self.msFrame, text = "VVIR", variable = self.mode, value = "VVIR", bg = background, padx = 10)
+        self.dddRadio = Radiobutton(self.msFrame, text = "DDD", variable = self.mode, value = "DDD", bg = background, padx = 10)
+        self.dddrRadio = Radiobutton(self.msFrame, text = "DDDR", variable = self.mode, value = "DDDR", bg = background, padx = 10)
         self.backButton = Button(self.msFrame, text = "Back to Welcome Page", command = backToWelcome, bg = background)
         self.nextButton = Button(self.msFrame, text = "Next", command = openMode,bg=background, width=8)
         
@@ -72,9 +78,15 @@ class ModeSelect:
         self.aooRadio.grid(row = 1, column = 0, sticky = W, padx = 20)
         self.vooRadio.grid(row = 2, column = 0, sticky = W, padx = 20)
         self.aaiRadio.grid(row = 3, column = 0, sticky = W, padx = 20)
-        self.vviRadio.grid(row = 4, column = 0, sticky = W, padx = 20)
-        self.backButton.grid(row = 5,column = 0, sticky = W, padx = 20)
-        self.nextButton.grid(row = 5, column = 1, columnspan=2, sticky = W)
+        self.vviRadio.grid(row = 4,column = 0, sticky = W, padx = 20)
+        self.aoorRadio.grid(row = 1, column = 1, sticky = W, padx = 20)
+        self.voorRadio.grid(row = 2, column = 1, sticky = W, padx = 20)
+        self.aairRadio.grid(row = 3, column = 1, sticky = W, padx = 20) 
+        self.vvirRadio.grid(row = 4, column = 1, sticky = W, padx = 20)
+        self.dddRadio.grid(row = 5, column = 0, sticky = W, padx = 20)
+        self.dddrRadio.grid(row = 5, column = 1, sticky = W, padx = 20)
+        self.backButton.grid(row = 6,column = 0, sticky = W, padx = 20, pady = 20)
+        self.nextButton.grid(row = 6, column = 1, columnspan=2, sticky = E, pady = 20)
                 
         
     
