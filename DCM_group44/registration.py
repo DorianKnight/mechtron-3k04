@@ -126,9 +126,11 @@ class RegistrationPage:
                                 'arp': 250,
                                 'vrp': 320,
                                 'pvarp': 250,
-                                'hystBool': 0,
-                                'hrl': 0,
-                                'rs': 0
+                                'reactTime_inc': 10,
+                                'respFactor_inc': 1,
+                                'recoveryTime_inc': 1,
+                                'maxSensRate_inc': 5,
+                                'fixedAVdelay_inc': 10
                 })
                 connection.commit()
                 self.goToModeSelect()

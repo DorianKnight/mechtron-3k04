@@ -254,52 +254,8 @@ class Patient:
             return False
         return True       
 
-    def checkHyst(self): 
-        #Checking Hysteresis 
-        if(self.hystBool):
-            try: 
-                self.hrl = int(self.hrl)
-                if(self.hrl!=0 and self.hrl!="" and self.hrl != None):
-                    if(isBetween(self.hrl,hrl_range1[0],hrl_range1[1])):
-                        if(self.hrl % hrl_r1_inc != 0): 
-                            messagebox.showerror(title="Error", message="Invalid increment for HRL. Increment should be "+str(hrl_r1_inc))
-                            return False
-                    elif(isBetween(self.hrl, hrl_range2[0], hrl_range2[1])):
-                        pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
-                    elif(isBetween(self.hrl, hrl_range3[0], hrl_range3[1])):
-                        if(self.hrl % hrl_r3_inc != 0): 
-                            messagebox.showerror(title="Error", message="Invalid increment for HRL. Increment should be "+str(hrl_r3_inc))
-                            return False
-                    else: 
-                        messagebox.showerror(title="Error", message="HRL Out of range. Acceptable range is ["+str(hrl_range1[0])+", "+str(hrl_range3[1])+"]")
-                        return False
-                else: 
-                    print("Hysteresis Disabled")
-                    return False
-            except: 
-                messagebox.showerror(title="Error", message="HRL must be an integer.")
-                return False
-        else: 
-            print("Hysteresis disabled")
-            return True
     
-    def checkRs(self): 
-        #Checking Rate Smoothing
-        try: 
-            self.rs = int(self.rs)
-            if(self.rs == rs_high): 
-                pass #This is a good thing so it shouldn't return false and it can't return true just yet - just skip all the elifs and else
-            elif(isBetween(self.rs,rs_range[0],rs_range[1])):
-                if(self.rs % rs_inc != 0): 
-                    print(rs_inc - (self.rs % rs_inc))
-                    messagebox.showerror(title="Error", message="Invalid increment for RS. Increment should be "+str(rs_inc))
-                    return False
-            else: 
-                messagebox.showerror(title="Error", message="RS Out of range. Acceptable range is ["+str(rs_range[0])+", "+str(rs_range[1])+"]")
-                return False
-        except: 
-            messagebox.showerror(title="Error", message="RS must be an integer.")
-            return False
+    
         
     def checkVSens(self): 
         #Checking Ventricular Sensitivity
