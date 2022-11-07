@@ -21,12 +21,12 @@ vsens_range2 = [0.75,10]
 arp_range = [150,500]
 vrp_range = [15,500]
 pvarp_range = [150,500]
-hrl_low = 0
-hrl_range1 = lrl_range1
-hrl_range2 = lrl_range2
-hrl_range3 = lrl_range3
-rs_range = [0,21]
-rs_high = 25 #The highest value of rate smoothing is 25% 
+actThr_range = ["V-Low", "Low", "Med-Low", "Med", "Med-High","High","V-High"]
+reactTime_range = [10,50]
+respFactor_range = [1,16]
+recoveryTime_range = [2,16]
+maxSensRate_range = [50,175]
+fixedAVdelay_range = [70,300]
 
 lrl_r1_inc = 5
 lrl_r2_inc = 1
@@ -45,10 +45,12 @@ vsens_r2_inc = 0.5
 arp_inc = 10
 vrp_inc = 10
 pvarp_inc = 10
-hrl_r1_inc = lrl_r1_inc
-hrl_r2_inc = lrl_r2_inc
-hrl_r3_inc = lrl_r3_inc
-rs_inc = 3
+reactTime_inc = 10
+respFactor_inc = 1
+recoveryTime_inc = 1
+maxSensRate_inc = 5
+fixedAVdelay_inc = 10
+
 errorTolerance = 0.00000001 #This is a value to account for the inaccuracy of computer calculations (specifically modulo of floats)
 
 def isBetween(N, smallNum, bigNum):
@@ -73,9 +75,12 @@ class Patient:
         self.arp = 250
         self.vrp = 320
         self.pvarp = 250
-        self.hystBool = 0 # use 0 for false and 1 for true because SQLite doesn't support boolean
-        self.hrl = 0
-        self.rs = 0
+        self.actThr = "Med"
+        self.reactTime = 30
+        self.respFactor = 8
+        self.recoveryTime = 5
+        self.maxSensRate = 120
+        self.fixedAVdelay = 150
 
     def checkLRL(self):
         #Checking Lower Rate Limit
@@ -461,18 +466,30 @@ class Patient:
             'username': self.username
         })
         self.pvarp = cursor.fetchone()[0]
-        cursor.execute("SELECT hystBool FROM accounts WHERE username = (:username)", {
+        cursor.execute("SELECT actThr FROM accounts WHERE username = (:username)", {
             'username': self.username
         })
-        self.hystBool = cursor.fetchone()[0]
-        cursor.execute("SELECT hrl FROM accounts WHERE username = (:username)", {
+        self.actThr = cursor.fetchone()[0]
+        cursor.execute("SELECT reactTime FROM accounts WHERE username = (:username)", {
             'username': self.username
         })
-        self.hrl = cursor.fetchone()[0]
-        cursor.execute("SELECT rs FROM accounts WHERE username = (:username)", {
+        self.reactTime = cursor.fetchone()[0]
+        cursor.execute("SELECT respFactor FROM accounts WHERE username = (:username)", {
             'username': self.username
         })
-        self.rs = cursor.fetchone()[0]
+        self.respFactor = cursor.fetchone()[0]
+        cursor.execute("SELECT recoveryTime FROM accounts WHERE username = (:username)", {
+            'username': self.username
+        })
+        self.recoveryTime = cursor.fetchone()[0]
+        cursor.execute("SELECT maxSensRate FROM accounts WHERE username = (:username)", {
+            'username': self.username
+        })
+        self.maxSensRate = cursor.fetchone()[0]
+        cursor.execute("SELECT fixedAVdelay FROM accounts WHERE username = (:username)", {
+            'username': self.username
+        })
+        self.fixedAVdelay = cursor.fetchone()[0]
         
         connection.commit()
 
@@ -493,9 +510,12 @@ class Patient:
                                 arp = (:arp),
                                 vrp = (:vrp),
                                 pvarp = (:pvarp),
-                                hystBool = (:hystBool),
-                                hrl = (:hrl),
-                                rs = (:rs) 
+                                actThr = (:actThr),
+                                reactTime = (:reactTime),
+                                respFactor = (:respFactor),
+                                recoveryTime = (:recoveryTime),
+                                maxSensRate = (:maxSensRate),
+                                fixedAVdelay = (:fixedAVdelay)     
                             WHERE username = (:username)''', {
                                 'pacingMode': self.pacingMode,
                                 'lrl': self.lrl,
@@ -509,9 +529,12 @@ class Patient:
                                 'arp': self.arp,
                                 'vrp': self.vrp,
                                 'pvarp': self.pvarp,
-                                'hystBool': self.hystBool,
-                                'hrl': self.hrl,
-                                'rs': self.rs,
+                                'actThr': self.actThr,
+                                'reactTime': self.reactTime,
+                                'respFactor': self.respFactor,
+                                'recoveryTime': self.recoveryTime,
+                                'maxSensRate': self.maxSensRate,
+                                'fixedAVdelay': self.fixedAVdelay,
                                 'username': self.username
                 })
             connection.commit()

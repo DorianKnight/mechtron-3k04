@@ -7,8 +7,8 @@ def createDB():
 
     # create database table
     cursor.execute('''CREATE TABLE IF NOT EXISTS accounts (
-                        username text,
-                        password text,
+                        username TEXT,
+                        password TEXT,
                         pacingMode TEXT,
                         lrl INTEGER,
                         url INTEGER,
@@ -21,9 +21,12 @@ def createDB():
                         arp INTEGER,
                         vrp INTEGER,
                         pvarp INTEGER,
-                        hrl INTEGER,
-                        rs INTEGER,
-                        hystBool INTEGER
+                        actThr TEXT,
+                        reactTime INTEGER,
+                        respFactor INTEGER,
+                        recoveryTime INTEGER,
+                        maxSensRate INTEGER,
+                        fixedAVdelay INTEGER
                 )
                 ''')
     connection.commit()
