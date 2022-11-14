@@ -351,7 +351,7 @@ class AOOR(PacingMode):
             self.goBack("aoorRadio")
 
         def updatePatient():
-            self.patient.pacingMode="AOO"
+            self.patient.pacingMode="AOOR"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
@@ -361,7 +361,6 @@ class AOOR(PacingMode):
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
             self.patient.maxSensRate=self.maxSensRateEntry.get()
-            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
 
         #AOOR Frame
         self.initFrame()
@@ -377,8 +376,7 @@ class AOOR(PacingMode):
         self.addRespFactor(11)
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
-        self.addFixedAVdelay(14)
-        self.addBackAndConfirm(15, goBack, aoorConfirm)
+        self.addBackAndConfirm(16, goBack, aoorConfirm)
         
 class VOOR(PacingMode): 
     def __init__(self, window, patient):
@@ -410,7 +408,6 @@ class VOOR(PacingMode):
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
             self.patient.maxSensRate=self.maxSensRateEntry.get()
-            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #VOOR Frame
         self.initFrame()
@@ -426,8 +423,7 @@ class VOOR(PacingMode):
         self.addRespFactor(11)
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
-        self.addFixedAVdelay(14)
-        self.addBackAndConfirm(15, goBack, voorConfirm)
+        self.addBackAndConfirm(16, goBack, voorConfirm)
         
 class AAIR(PacingMode): 
      def __init__(self, window, patient):
@@ -462,7 +458,6 @@ class AAIR(PacingMode):
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
             self.patient.maxSensRate=self.maxSensRateEntry.get()
-            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #AAIR Frame
         self.initFrame()
@@ -481,8 +476,7 @@ class AAIR(PacingMode):
         self.addRespFactor(14)
         self.addRecoveryTime(15)
         self.addMaxSensRate(16)
-        self.addFixedAVdelay(17)
-        self.addBackAndConfirm(18, goBack, aairConfirm)
+        self.addBackAndConfirm(19, goBack, aairConfirm)
         
         
 class VVIR(PacingMode): 
@@ -517,7 +511,6 @@ class VVIR(PacingMode):
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
             self.patient.maxSensRate=self.maxSensRateEntry.get()
-            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #AAIR Frame
         self.initFrame()
@@ -535,8 +528,7 @@ class VVIR(PacingMode):
         self.addRespFactor(13)
         self.addRecoveryTime(14)
         self.addMaxSensRate(15)
-        self.addFixedAVdelay(16)
-        self.addBackAndConfirm(17, goBack, vvirConfirm)
+        self.addBackAndConfirm(18, goBack, vvirConfirm)
     
 class DDD(PacingMode): 
      def __init__(self, window, patient):
@@ -546,11 +538,51 @@ class DDD(PacingMode):
         self.window.title("Pacemaker | DDD Pacing Mode")
         self.patient=patient
         
+        #Methods 
+        def dddConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("DDD")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
+        
+        def goBack(): 
+            self.goBack("dddRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="DDD"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+            self.patient.asens=self.asensEntry.get()
+            self.patient.arp=self.arpEntry.get()
+            self.patient.pvarp=self.pvarpEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
+            self.patient.vsens=self.vsensEntry.get()
+            self.patient.vrp=self.vrpEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
+
         #DDD Frame
         self.initFrame()
         
         #Creating the elements for the DDD Frame
         self.addTitleAndInstructions("DDD")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addAsens(9)
+        self.addArp(10)
+        self.addPvarp(11)
+        self.addVpw(12)
+        self.addVamp(13)
+        self.addVsens(14)
+        self.addVrp(15)
+        self.addFixedAVdelay(16)
+        self.addBackAndConfirm(19, goBack, dddConfirm)
+
         
 class DDDR(PacingMode): 
      def __init__(self, window, patient):
@@ -559,12 +591,61 @@ class DDDR(PacingMode):
         self.height = 450
         self.window.title("Pacemaker | DDDDR Pacing Mode")
         self.patient=patient
+
+        #Methods 
+        def dddrConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("DDDR")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
+        
+        def goBack(): 
+            self.goBack("dddrRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="DDDR"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+            self.patient.asens=self.asensEntry.get()
+            self.patient.arp=self.arpEntry.get()
+            self.patient.pvarp=self.pvarpEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
+            self.patient.vsens=self.vsensEntry.get()
+            self.patient.vrp=self.vrpEntry.get()
+            self.patient.actThr=self.actThrEntry.get()
+            self.patient.reactTime=self.reactTimeEntry.get()
+            self.patient.respFactor=self.respFactorEntry.get()
+            self.patient.recoveryTime=self.recoveryTimeEntry.get()
+            self.patient.maxSensRate=self.maxSensRateEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #DDDR Frame
         self.initFrame()
         
         #Creating the elements for the DDDR Frame
         self.addTitleAndInstructions("DDDR")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addAsens(9)
+        self.addArp(10)
+        self.addPvarp(11)
+        self.addVpw(12)
+        self.addVamp(13)
+        self.addVsens(14)
+        self.addVrp(15)
+        self.addActThr(16)
+        self.addReactTime(17)
+        self.addRespFactor(18)
+        self.addRecoveryTime(19)
+        self.addMaxSensRate(20)
+        self.addFixedAVdelay(21)
+        self.addBackAndConfirm(24, goBack, dddrConfirm)
 
 def launchAOO(window, patient): 
     AOO(window, patient)
