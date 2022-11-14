@@ -293,7 +293,19 @@ class Patient:
         return True
 
     def checkActThr(self):
-        pass
+        found=False
+        for item in actThr_range:
+            if self.actThr==item:
+                found=True
+
+        if found==False:
+            messagebox.showerror(title="Error", message="Activity Threshold invalid.")
+            return False
+        else:
+            return True
+
+
+            
 
     def checkReactTime(self):
         pass
