@@ -126,6 +126,7 @@ class RegistrationPage:
                                 'arp': 250,
                                 'vrp': 320,
                                 'pvarp': 250,
+                                'actThr': "Med",
                                 'reactTime': 30,
                                 'respFactor': 8,
                                 'recoveryTime': 5,
