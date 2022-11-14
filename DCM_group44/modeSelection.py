@@ -112,8 +112,8 @@ def launchModeSelect(username):
     
     if(MS.patient.pacingMode=="VOO"):
         MS.vooRadio.select()
-    elif(MS.patient.pacingMode=="AAI"):
-        MS.aaiRadio.select()
+    elif(MS.patient.pacingMode=="AOO"):
+        MS.aooRadio.select()
     elif(MS.patient.pacingMode=="VVI"):
         MS.vviRadio.select()
     elif(MS.patient.pacingMode=="AAI"):
@@ -124,12 +124,12 @@ def launchModeSelect(username):
         MS.voorRadio.select()
     elif(MS.patient.pacingMode=="AAIR"):
         MS.aairRadio.select()
-    elif(MS.patient.pacingMode=="DDD"):
-        MS.dddRadio.select()
+    elif(MS.patient.pacingMode=="VVIR"):
+        MS.vvirRadio.select()
     elif(MS.patient.pacingMode=="DDDR"):
         MS.dddrRadio.select()
     else:
-        MS.dddrRadio.select() 
+        MS.dddRadio.select() #nominal mode
     
 
     window.mainloop()
