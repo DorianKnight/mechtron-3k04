@@ -6,20 +6,14 @@ lrl_range1 = [30,50]
 lrl_range2 = [50,90]
 lrl_range3 = [90,175]
 url_range = [50,175]
-apw_low = 0.05
-apw_range = [0.1,1.9]
-vpw_low = 0.05
-vpw_range = [0.1,1.9]
-aamp_range1 = [0.5,3.2]
-aamp_range2 = [3.2,7]
-vamp_range1 = [0.5,3.2]
-vamp_range2 = [3.2,7]
-asens_range1 = [0.25, 0.75]
-asens_range2 = [0.75,10]
-vsens_range1 = [0.25,0.75]
-vsens_range2 = [0.75,10]
+apw_range = [1,30]
+vpw_range = [1,30]
+aamp_range = [0,5]
+vamp_range = [0,5]
+asens_range = [0,5]
+vsens_range = [0,5]
 arp_range = [150,500]
-vrp_range = [15,500]
+vrp_range = [150,500]
 pvarp_range = [150,500]
 actThr_range = ["V-Low", "Low", "Med-Low", "Med", "Med-High","High","V-High"]
 reactTime_range = [10,50]
@@ -32,16 +26,12 @@ lrl_r1_inc = 5
 lrl_r2_inc = 1
 lrl_r3_inc = 5
 url_inc = 5
-apw_inc = 0.1
-vpw_inc = 0.1
-aamp_r1_inc = 0.1
-aamp_r2_inc = 0.5
-vamp_r1_inc = 0.1
-vamp_r2_inc = 0.5
-asens_r1_inc = 0.25
-asens_r2_inc = 0.5  
-vsens_r1_inc = 0.25
-vsens_r2_inc = 0.5
+apw_inc = 1
+vpw_inc = 1
+aamp_inc = 0.1
+vamp_inc = 0.1
+asens_inc = 0.1
+vsens_inc = 0.1
 arp_inc = 10
 vrp_inc = 10
 pvarp_inc = 10
@@ -54,10 +44,8 @@ fixedAVdelay_inc = 10
 errorTolerance = 0.00000001 #This is a value to account for the inaccuracy of computer calculations (specifically modulo of floats)
 
 def isBetween(N, smallNum, bigNum):
-    if(float(N)<float(smallNum) or float(N)>float(bigNum)):
-        return False
-    else:
-        return True
+    return smallNum <= N <= bigNum
+
 
 class Patient:
     def __init__(self):
@@ -202,6 +190,9 @@ class Patient:
     def createErrorMessages(self): 
         pass
 
+    def isValidIncrement(self, value, increment):
+        return (value % increment < errorTolerance) or (increment - value < errorTolerance)
+    
     def checkLRL(self):
         #Checking Lower Rate Limit
         try: 
@@ -248,35 +239,27 @@ class Patient:
     def checkAPW(self): 
         #Checking Atrial Pulse Width
         try: 
-            self.apw = float(self.apw)
-            if(self.apw == apw_low): 
-                pass #This is a good thing so it shouldn't do anything
-            elif(isBetween(self.apw,apw_range[0],apw_range[1])):
-                if(self.apw % apw_inc != 0 and (apw_inc - (self.apw % apw_inc) > errorTolerance)): 
-                    print(apw_inc - (self.apw % apw_inc))
-                    messagebox.showerror(title="Error", message="Invalid increment for APW. Increment should be "+str(apw_inc))
-                    return False
+            self.apw = int(self.apw)
+            if(isBetween(self.apw,apw_range[0],apw_range[1])):
+                pass
             else: 
                 messagebox.showerror(title="Error", message=" APW Out of range. Acceptable range is ["+str(apw_range[0])+", "+str(apw_range[1])+"]")
                 return False
         except: 
-            messagebox.showerror(title="Error", message="APW must be a float.")
+            messagebox.showerror(title="Error", message="APW must be an integer.")
             return False
 
     def checkAAmp(self): 
         #Checking Atrial Amplitude
         try: 
             self.aamp = float(self.aamp)
-            if(isBetween(self.aamp,aamp_range1[0],aamp_range1[1])): 
-                if(self.aamp % aamp_r1_inc != 0 and (aamp_r1_inc - (self.aamp % aamp_r1_inc) > errorTolerance)):
-                    messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_r1_inc))
+            
+            if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): 
+                if(self.isValidIncrement(self.aamp, aamp_inc)):
+                    messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_inc))
                     return False 
-            elif(isBetween(self.aamp,aamp_range2[0],aamp_range2[1])):
-                if(self.aamp % aamp_r2_inc != 0 and (aamp_r2_inc - (self.aamp % aamp_r2_inc) > errorTolerance)): 
-                    messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_r2_inc))
-                    return False
             else: 
-                messagebox.showerror(title="Error", message=" AAmp Out of range. Acceptable range is ["+str(aamp_range1[0])+", "+str(aamp_range2[1])+"]")
+                messagebox.showerror(title="Error", message=" AAmp Out of range. Acceptable range is ["+str(aamp_range[0])+", "+str(aamp_range[1])+"]")
                 return False
         except: 
             messagebox.showerror(title="Error", message="AAmp must be a float.")
@@ -285,11 +268,9 @@ class Patient:
     def checkVPW(self): 
         #Checking Ventricular Pulse Width
         try: 
-            self.vpw = float(self.vpw)
-            if(self.vpw == vpw_low): 
-                pass #This is a good thing so it shouldn't do anything
-            elif(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
-                if(self.vpw % vpw_inc != 0 and (vpw_inc - (self.vpw % vpw_inc) > errorTolerance)): 
+            self.vpw = int(self.vpw)
+            if(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
+                if(self.isValidIncrement(self.vpw, vpw_inc)): 
                     print(vpw_inc - (self.vpw % vpw_inc))
                     messagebox.showerror(title="Error", message="Invalid increment for VPW. Increment should be "+str(vpw_inc))
                     return False
@@ -297,23 +278,19 @@ class Patient:
                 messagebox.showerror(title="Error", message="VPW Out of range. Acceptable range is ["+str(vpw_range[0])+", "+str(vpw_range[1])+"]")
                 return False
         except: 
-            messagebox.showerror(title="Error", message="VPW must be a float.")
+            messagebox.showerror(title="Error", message="VPW must be a int.")
             return False
         
     def checkVAmp(self): 
         #Checking Ventricular Amplitude
         try: 
             self.vamp = float(self.vamp)
-            if(isBetween(self.vamp,vamp_range1[0],vamp_range1[1])): 
-                if(self.vamp % vamp_r1_inc != 0 and (vamp_r1_inc - (self.vamp % vamp_r1_inc) > errorTolerance)):
-                    messagebox.showerror(title="Error", message="Invalid increment for VAmp. Increment should be "+str(vamp_r1_inc))
-                    return False 
-            elif(isBetween(self.vamp,vamp_range2[0],vamp_range2[1])):
-                if(self.vamp % vamp_r2_inc != 0 and (vamp_r2_inc - (self.vamp % vamp_r2_inc) > errorTolerance)): 
-                    messagebox.showerror(title="Error", message="Invalid increment for VAmp. Increment should be "+str(vamp_r2_inc))
+            if(isBetween(self.vamp,vamp_range[0],vamp_range[1])): 
+                if(self.isValidIncrement(self.vamp, vamp_inc)):
+                    messagebox.showerror(title="Error", message="Invalid increment for VAmp. Increment should be "+str(vamp_inc))
                     return False
             else: 
-                messagebox.showerror(title="Error", message="VAmp Out of range. Acceptable range is ["+str(vamp_range1[0])+", "+str(vamp_range2[1])+"]")
+                messagebox.showerror(title="Error", message="VAmp Out of range. Acceptable range is ["+str(vamp_range[0])+", "+str(vamp_range[1])+"]")
                 return False
         except: 
             messagebox.showerror(title="Error", message="VAmp must be a float.")
@@ -323,14 +300,10 @@ class Patient:
         #Checking Atrial Sensitivity
         try: 
             self.asens = float(self.asens)
-            if(isBetween(self.asens,asens_range1[0],asens_range1[1])): 
-                if(self.asens % asens_r1_inc != 0 and (asens_r1_inc - (self.asens % asens_r1_inc) > errorTolerance)):
-                    messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_r1_inc))
+            if(isBetween(self.asens,asens_range[0],asens_range[1])): 
+                if(self.asens, asens_inc):
+                    messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_inc))
                     return False 
-            elif(isBetween(self.asens,asens_range2[0],asens_range2[1])):
-                if(self.asens % asens_r2_inc != 0 and (asens_r2_inc - (self.asens % asens_r2_inc) > errorTolerance)): 
-                    messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_r2_inc))
-                    return False
             else: 
                 messagebox.showerror(title="Error", message="Asens Out of range. Acceptable range is ["+str(asens_range1[0])+", "+str(asens_range2[1])+"]")
                 return False
@@ -346,7 +319,7 @@ class Patient:
                 if(not self.arp % arp_inc == 0): 
                     messagebox.showerror(title="Error", message="Invalid increment for ARP. Increment should be "+str(arp_inc))
                     return False
-                lrlTime = (1/self.lrl)*1000 #The time between pulses in ms
+                lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
                 if(self.arp > lrlTime): 
                     messagebox.showerror(title = "Error", message = "Invalid input for Atrial Refractory Period. Time cannot be greater than the time between pulses at Lower Rate Limit. In this case that is " + str(round(lrlTime, 2)) + "ms so please input a value smaller than this.")                
                     return False
@@ -381,14 +354,10 @@ class Patient:
         #Checking Ventricular Sensitivity
         try: 
             self.vsens = float(self.vsens)
-            if(isBetween(self.vsens,vsens_range1[0],vsens_range1[1])): 
-                if(self.vsens % vsens_r1_inc != 0 and (vsens_r1_inc - (self.vsens % vsens_r1_inc) > errorTolerance)):
-                    messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_r1_inc))
+            if(isBetween(self.vsens,vsens_range[0],vsens_range[1])): 
+                if(self.isValidIncrement(self.vsens, vsens_inc)):
+                    messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_inc))
                     return False 
-            elif(isBetween(self.vsens,vsens_range2[0],vsens_range2[1])):
-                if(self.vsens % vsens_r2_inc != 0 and (vsens_r2_inc - (self.vsens % vsens_r2_inc) > errorTolerance)): 
-                    messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_r2_inc))
-                    return False
             else: 
                 messagebox.showerror(title="Error", message="Vsens Out of range. Acceptable range is ["+str(vsens_range1[0])+", "+str(vsens_range2[1])+"]")
                 return False
@@ -562,24 +531,11 @@ class Patient:
             
             if(self.checkVRP() == False): 
                 return False
-
-        else: #if it's any rate adaptive mode
-            if(self.checkActThr()==False):
+            
+            if(self.checkHyst() == False): 
                 return False
             
-            if(self.checkReactTime()==False):
-                return False
-
-            if(self.checkRespFactor()==False):
-                return False
-
-            if(self.checkRecoveryTime()==False):
-                return False
-
-            if(self.checkMaxSensRate()==False):
-                return False
-
-            if(self.checkFixedAVdelay()==False):
+            if(self.checkRs() == False): 
                 return False
 
         print("Nums valid")
