@@ -351,7 +351,7 @@ class AOOR(PacingMode):
             self.goBack("aoorRadio")
 
         def updatePatient():
-            self.patient.pacingMode="AOO"
+            self.patient.pacingMode="AOOR"
             self.patient.lrl=self.lrlEntry.get()
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
