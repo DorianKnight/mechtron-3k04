@@ -111,7 +111,7 @@ class RegistrationPage:
                 if (not(new_user)):
                     raise Exception("This username is already in use")
 
-                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:hystBool,:hrl,:rs)", {
+                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:actThr,:reactTime,:respFactor,:recoveryTime,:maxSensRate,:fixedAVdelay)", {
                                 'username': self.username_entry.get(),
                                 'password': self.password_entry.get(),
                                 'lrl': 60,
@@ -126,11 +126,11 @@ class RegistrationPage:
                                 'arp': 250,
                                 'vrp': 320,
                                 'pvarp': 250,
-                                'reactTime_inc': 10,
-                                'respFactor_inc': 1,
-                                'recoveryTime_inc': 1,
-                                'maxSensRate_inc': 5,
-                                'fixedAVdelay_inc': 10
+                                'reactTime': 30,
+                                'respFactor': 8,
+                                'recoveryTime': 5,
+                                'maxSensRate': 120,
+                                'fixedAVdelay': 150
                 })
                 connection.commit()
                 self.goToModeSelect()

@@ -117,33 +117,6 @@ class PacingMode:
         self.pvarpLabel.grid(row = r, column = 0, sticky = W)
         self.pvarpEntry.grid(row = r, column = 1)
         self.pvarpEntry.insert(0,self.patient.pvarp)        
-
-    def addHyst(self, r):
-        boolState="normal"
-        if(self.patient.hystBool==0):
-            boolState="disabled"
-    
-        self.hystBool=bool(self.patient.hystBool)
-
-        self.hystCheck = Checkbutton(self.frame,text = "Hysteresis (ppm):",command=self.updateFields, bg=background,padx = 20)
-        self.hystCheck.grid(row=r,column=0,sticky=W, padx = 20)
-
-        # set whether checkmark is initially selected based on saved values
-        if(self.patient.hystBool==0):
-            self.hystCheck.deselect()
-        else:
-            self.hystCheck.select()
-
-        self.hystEntry = Entry(self.frame, bg=background, state=boolState)
-        self.hystEntry.grid(row = r, column = 1)
-        self.hystEntry.insert(0,self.patient.hrl)
-
-    def addRs(self, r):
-        self.rsLabel = Label(self.frame, text = "Rate Smoothing (%):", bg = background, padx = 20)
-        self.rsEntry = Entry(self.frame, bg=background)
-        self.rsLabel.grid(row = r, column = 0, sticky = W)
-        self.rsEntry.grid(row = r, column = 1)
-        self.rsEntry.insert(0,self.patient.rs)
     
     def addVsens(self, r):
         self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (mV):", bg = background, padx = 20)
@@ -152,12 +125,6 @@ class PacingMode:
         self.vsensEntry.grid(row = r, column = 1)
         self.vsensEntry.insert(0,self.patient.vsens)
 
-    def updateFields(self):
-        self.hystBool = not(self.hystBool)
-        if(self.hystBool):
-            self.hystEntry.config(state= "normal")
-        else:
-            self.hystEntry.config(state= "disabled")
 
 class AOO(PacingMode): 
     def __init__(self, window, patient):
@@ -264,9 +231,7 @@ class AAI(PacingMode):
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
             self.patient.pvarp=self.pvarpEntry.get()
-            self.patient.hystBool=self.hystBool
-            self.patient.hrl=self.hystEntry.get()
-            self.patient.rs=self.rsEntry.get()
+            
 
         #AAI Frame
         self.initFrame()
@@ -280,8 +245,6 @@ class AAI(PacingMode):
         self.addAsens(9)
         self.addArp(10)
         self.addPvarp(11)
-        self.addHyst(12)
-        self.addRs(13)
         self.addBackAndConfirm(14, goBack, aaiConfirm)
     
 class VVI(PacingMode): 
@@ -311,9 +274,7 @@ class VVI(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             self.patient.vrp=self.vrpEntry.get()
-            self.patient.hystBool=self.hystBool
-            self.patient.hrl=self.hystEntry.get()
-            self.patient.rs=self.rsEntry.get()
+            
         
         #VVI Frame
         self.initFrame()
@@ -326,8 +287,6 @@ class VVI(PacingMode):
         self.addVamp(8)
         self.addVsens(9)
         self.addVrp(10)
-        self.addHyst(11)
-        self.addRs(12)
         self.addBackAndConfirm(13, goBack, vviConfirm)
                 
 class AOOR(PacingMode): 

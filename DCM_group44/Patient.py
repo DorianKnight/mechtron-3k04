@@ -339,11 +339,7 @@ class Patient:
             if(self.checkPVARP() == False): 
                 return False
             
-            if(self.checkHyst() == False): 
-                return False
-                
-            if(self.checkRs() == False): 
-                return False
+            
 
         #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
@@ -358,12 +354,6 @@ class Patient:
                 return False 
             
             if(self.checkVRP() == False): 
-                return False
-            
-            if(self.checkHyst() == False): 
-                return False
-            
-            if(self.checkRs() == False): 
                 return False
 
         print("Nums valid")

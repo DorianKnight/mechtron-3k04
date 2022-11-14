@@ -45,6 +45,18 @@ class ModeSelect:
                 pacingModes.launchAAI(self.window,self.patient)
             elif(self.mode.get() == 'VVI'): 
                 pacingModes.launchVVI(self.window,self.patient)
+            elif(self.mode.get() == 'AOOR'): 
+                pacingModes.launchAOOR(self.window,self.patient)
+            elif(self.mode.get() == 'VOOR'): 
+                pacingModes.launchVOOR(self.window,self.patient)
+            elif(self.mode.get() == 'AAIR'): 
+                pacingModes.launchAAIR(self.window,self.patient)
+            elif(self.mode.get() == 'VVIR'): 
+                pacingModes.launchVVIR(self.window,self.patient)
+            elif(self.mode.get() == 'DDD'): 
+                pacingModes.launchDDD(self.window,self.patient)
+            elif(self.mode.get() == 'DDDR'): 
+                pacingModes.launchDDDR(self.window,self.patient)
             else: 
                 print('This should not be possible. Something has gone wrong')
                 print(self.mode.get())
@@ -104,12 +116,24 @@ def launchModeSelect(username):
         MS.aaiRadio.select()
     elif(MS.patient.pacingMode=="VVI"):
         MS.vviRadio.select()
+    elif(MS.patient.pacingMode=="AAI"):
+        MS.aaiRadio.select()
+    elif(MS.patient.pacingMode=="AOOR"):
+        MS.aoorRadio.select()
+    elif(MS.patient.pacingMode=="VOOR"):
+        MS.voorRadio.select()
+    elif(MS.patient.pacingMode=="AAIR"):
+        MS.aairRadio.select()
+    elif(MS.patient.pacingMode=="DDD"):
+        MS.dddRadio.select()
+    elif(MS.patient.pacingMode=="DDDR"):
+        MS.dddrRadio.select()
     else:
-        MS.aooRadio.select() 
+        MS.dddrRadio.select() 
     
 
     window.mainloop()
     
-if __name__ == '__main__':
-    launchModeSelect("alrajabn")
+#if __name__ == '__main__':
+    #launchModeSelect("alrajabn")
 
