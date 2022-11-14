@@ -125,6 +125,48 @@ class PacingMode:
         self.vsensEntry.grid(row = r, column = 1)
         self.vsensEntry.insert(0,self.patient.vsens)
 
+    def addActThr(self, r): #should we make this a dropdown???
+        self.actThrLabel = Label(self.frame, text = "Activity Threshold:", bg = background, padx = 20)
+        self.actThrEntry = Entry(self.frame, bg=background)
+        self.actThrLabel.grid(row = r, column = 0, sticky = W)
+        self.actThrEntry.grid(row = r, column = 1)
+        self.actThrEntry.insert(0,self.patient.actThr)
+
+    def addReactTime(self, r):
+        self.reactTimeLabel = Label(self.frame, text = "Reaction Time (ms):", bg = background, padx = 20)
+        self.reactTimeEntry = Entry(self.frame, bg=background)
+        self.reactTimeLabel.grid(row = r, column = 0, sticky = W)
+        self.reactTimeEntry.grid(row = r, column = 1)
+        self.reactTimeEntry.insert(0,self.patient.reactTime)
+
+    def addRespFactor(self, r):
+        self.respFactorLabel = Label(self.frame, text = "Response Factor (ms):", bg = background, padx = 20)
+        self.respFactorEntry = Entry(self.frame, bg=background)
+        self.respFactorLabel.grid(row = r, column = 0, sticky = W)
+        self.respFactorEntry.grid(row = r, column = 1)
+        self.respFactorEntry.insert(0,self.patient.respFactor)
+
+    def addRecoveryTime(self, r):
+        self.recoveryTimeLabel = Label(self.frame, text = "Recovery Time (ms):", bg = background, padx = 20)
+        self.recoveryTimeEntry = Entry(self.frame, bg=background)
+        self.recoveryTimeLabel.grid(row = r, column = 0, sticky = W)
+        self.recoveryTimeEntry.grid(row = r, column = 1)
+        self.recoveryTimeEntry.insert(0,self.patient.recoveryTime)
+
+    def addMaxSensRate(self, r):
+        self.maxSensRateLabel = Label(self.frame, text = "Max Sensor Rate (ms):", bg = background, padx = 20)
+        self.maxSensRateEntry = Entry(self.frame, bg=background)
+        self.maxSensRateLabel.grid(row = r, column = 0, sticky = W)
+        self.maxSensRateEntry.grid(row = r, column = 1)
+        self.maxSensRateEntry.insert(0,self.patient.maxSensRate)
+
+    def addFixedAVdelay(self, r):
+        self.fixedAVdelayLabel = Label(self.frame, text = "Fixed AV Delay (ms):", bg = background, padx = 20)
+        self.fixedAVdelayEntry = Entry(self.frame, bg=background)
+        self.fixedAVdelayLabel.grid(row = r, column = 0, sticky = W)
+        self.fixedAVdelayEntry.grid(row = r, column = 1)
+        self.fixedAVdelayEntry.insert(0,self.patient.fixedAVdelay)
+
 
 class AOO(PacingMode): 
     def __init__(self, window, patient):
