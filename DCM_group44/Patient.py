@@ -81,6 +81,126 @@ class Patient:
         self.recoveryTime = 5
         self.maxSensRate = 120
         self.fixedAVdelay = 150
+        
+        self.errors = []
+        
+    def getInc(self, param, range): 
+        match param: 
+            case "LRL": 
+                if(range == 1): 
+                    return lrl_r1_inc
+                elif(range == 3): 
+                    return lrl_r3_inc 
+            case "URL": 
+                return url_inc
+            case "APW": 
+                return apw_inc
+            case "AAmp": 
+                if(range == 1):
+                    return aamp_r1_inc
+                elif(range == 2): 
+                    return aamp_r2_inc
+            case "VPW": 
+                 return vpw_inc
+            case "VAmp": 
+                if(range == 1): 
+                    return vamp_r1_inc
+                elif(range == 2): 
+                    return vamp_r2_inc
+            case "ASens": 
+                if(range == 1): 
+                    return asens_r1_inc
+                if(range == 2): 
+                    return asens_r2_inc
+            case "ARP": 
+                return arp_inc
+            case "PVARP": 
+                return pvarp_inc
+            case "VSens": 
+                if(range == 1): 
+                    return vsens_r1_inc
+                if(range == 2): 
+                    return vsens_r2_inc
+            case "VRP": 
+                return vrp_inc
+            case "Reaction Time": 
+                return reactTime_inc
+            case "Response Factor": 
+                return respFactor_inc 
+            case "Recovery Time": 
+                return recoveryTime_inc
+            case "Max Sensor Rate": 
+                return maxSensRate_inc
+            case "Fixed AV Delay": 
+                return fixedAVdelay_inc
+            
+    def getRanges(self, param, range): 
+        match param: 
+            case "LRL": 
+                if(range == 1): 
+                    return lrl_range1
+                elif(range == 3): 
+                    return lrl_range3 
+            case "URL": 
+                return url_range
+            case "APW": 
+                return apw_range
+            case "AAmp": 
+                if(range == 1):
+                    return aamp_range1
+                elif(range == 2): 
+                    return aamp_range2
+            case "VPW": 
+                 return vpw_range
+            case "VAmp": 
+                if(range == 1): 
+                    return vamp_range1
+                elif(range == 2): 
+                    return vamp_range2
+            case "ASens": 
+                if(range == 1): 
+                    return asens_range1
+                if(range == 2): 
+                    return asens_range2
+            case "ARP": 
+                return arp_range
+            case "PVARP": 
+                return pvarp_range
+            case "VSens": 
+                if(range == 1): 
+                    return vsens_range1
+                if(range == 2): 
+                    return vsens_range2
+            case "VRP": 
+                return vrp_range
+            case "Reaction Time": 
+                return reactTime_range
+            case "Response Factor": 
+                return respFactor_range
+            case "Recovery Time": 
+                return recoveryTime_range
+            case "Max Sensor Rate": 
+                return maxSensRate_range
+            case "Fixed AV Delay": 
+                return fixedAVdelay_range
+            
+    def getType(self, param): 
+        if(param == "LRL" or param == "URL" or param == "ARP" or param == "VRP" or param == "Activity Threshold" or param == "Reaction Time" or param == "Response Factor" or param == "Reaction Time" or param == "Response Factor" or param == "Recovery Factor" or param == "Recovery Time" or param == "Maximum Sensor Rate"):
+            return "int"
+        elif(param == "AAmp" or param == "VAmp" or param == "APW" or param == "VPW" or param == "ASens" or param == "VSens" or param == "Fixed AV Delay"): 
+            return "float"
+
+    def addErrors(self, param, range, error):
+        pass
+
+    def addErrors(self, param, range, error): 
+        if(error == "Increment"): 
+            inc = str(self.getInc())
+            self.errors.append(f'Invalid increment for {param}. Value should be in increments of {inc}')
+        
+    
+    def createErrorMessages(self): 
+        pass
 
     def checkLRL(self):
         #Checking Lower Rate Limit
