@@ -292,6 +292,23 @@ class Patient:
             return False
         return True
 
+    def checkActThr(self):
+        pass
+
+    def checkReactTime(self):
+        pass
+
+    def checkRespFactor(self):
+        pass
+
+    def checkRecoveryTime(self):
+        pass
+
+    def checkMaxSensRate(self):
+        pass
+
+    def checkFixedAVdelay(self):
+        pass
     
 
     def numsValid(self,pMode):
@@ -354,6 +371,25 @@ class Patient:
                 return False 
             
             if(self.checkVRP() == False): 
+                return False
+
+        else: #if it's any rate adaptive mode
+            if(self.checkActThr()==False):
+                return False
+            
+            if(self.checkReactTime()==False):
+                return False
+
+            if(self.checkRespFactor()==False):
+                return False
+
+            if(self.checkRecoveryTime()==False):
+                return False
+
+            if(self.checkMaxSensRate()==False):
+                return False
+
+            if(self.checkFixedAVdelay()==False):
                 return False
 
         print("Nums valid")
