@@ -22,3 +22,5 @@ simulink_group44/Group44PACEMAKER_ert_rtw/tmwinternal/tr
 *.l
 simulink_group44/Group44PACEMAKER.slx.original
 *.m
+
+userdata.db
