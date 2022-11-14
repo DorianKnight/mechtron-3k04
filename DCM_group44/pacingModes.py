@@ -133,28 +133,28 @@ class PacingMode:
         self.actThrEntry.insert(0,self.patient.actThr)
 
     def addReactTime(self, r):
-        self.reactTimeLabel = Label(self.frame, text = "Reaction Time (ms):", bg = background, padx = 20)
+        self.reactTimeLabel = Label(self.frame, text = "Reaction Time (s):", bg = background, padx = 20)
         self.reactTimeEntry = Entry(self.frame, bg=background)
         self.reactTimeLabel.grid(row = r, column = 0, sticky = W)
         self.reactTimeEntry.grid(row = r, column = 1)
         self.reactTimeEntry.insert(0,self.patient.reactTime)
 
     def addRespFactor(self, r):
-        self.respFactorLabel = Label(self.frame, text = "Response Factor (ms):", bg = background, padx = 20)
+        self.respFactorLabel = Label(self.frame, text = "Response Factor:", bg = background, padx = 20)
         self.respFactorEntry = Entry(self.frame, bg=background)
         self.respFactorLabel.grid(row = r, column = 0, sticky = W)
         self.respFactorEntry.grid(row = r, column = 1)
         self.respFactorEntry.insert(0,self.patient.respFactor)
 
     def addRecoveryTime(self, r):
-        self.recoveryTimeLabel = Label(self.frame, text = "Recovery Time (ms):", bg = background, padx = 20)
+        self.recoveryTimeLabel = Label(self.frame, text = "Recovery Time (min):", bg = background, padx = 20)
         self.recoveryTimeEntry = Entry(self.frame, bg=background)
         self.recoveryTimeLabel.grid(row = r, column = 0, sticky = W)
         self.recoveryTimeEntry.grid(row = r, column = 1)
         self.recoveryTimeEntry.insert(0,self.patient.recoveryTime)
 
     def addMaxSensRate(self, r):
-        self.maxSensRateLabel = Label(self.frame, text = "Max Sensor Rate (ms):", bg = background, padx = 20)
+        self.maxSensRateLabel = Label(self.frame, text = "Max Sensor Rate (ppm):", bg = background, padx = 20)
         self.maxSensRateEntry = Entry(self.frame, bg=background)
         self.maxSensRateLabel.grid(row = r, column = 0, sticky = W)
         self.maxSensRateEntry.grid(row = r, column = 1)
