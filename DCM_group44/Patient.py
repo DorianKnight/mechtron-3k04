@@ -305,22 +305,80 @@ class Patient:
             return True
 
 
-            
-
     def checkReactTime(self):
-        pass
+        try: 
+            self.reactTime = int(self.reactTime)
+            if(isBetween(self.reactTime,reactTime_range[0],reactTime_range[1])):
+                if(not self.reactTime % reactTime_inc == 0): 
+                    messagebox.showerror(title="Error", message="Invalid increment for Reaction Time. Increment should be "+str(reactTime_inc))
+                    return False
+            else: 
+                messagebox.showerror(title="Error", message="Reaction Time Out of range. Acceptable range is ["+str(reactTime_range[0])+", "+str(reactTime_range[1])+"]")
+                return False
+        except: 
+            messagebox.showerror(title="Error", message="Reaction Time must be an integer.")
+            return False
+        return True
 
     def checkRespFactor(self):
-        pass
+        try: 
+            self.respFactor = int(self.respFactor)
+            if(isBetween(self.respFactor,respFactor_range[0],respFactor_range[1])):
+                if(not self.respFactor % respFactor_inc == 0): 
+                    messagebox.showerror(title="Error", message="Invalid increment for Response Factor. Increment should be "+str(respFactor_inc))
+                    return False
+            else: 
+                messagebox.showerror(title="Error", message="Response Factor Out of range. Acceptable range is ["+str(respFactor_range[0])+", "+str(respFactor_range[1])+"]")
+                return False
+        except: 
+            messagebox.showerror(title="Error", message="Response Factor must be an integer.")
+            return False
+        return True
 
     def checkRecoveryTime(self):
-        pass
+        try: 
+            self.recoveryTime = int(self.recoveryTime)
+            if(isBetween(self.recoveryTime,recoveryTime_range[0],recoveryTime_range[1])):
+                if(not self.recoveryTime % recoveryTime_inc == 0): 
+                    messagebox.showerror(title="Error", message="Invalid increment for Recovery Time. Increment should be "+str(recoveryTime_inc))
+                    return False
+            else: 
+                messagebox.showerror(title="Error", message="Recovery Time Out of range. Acceptable range is ["+str(recoveryTime_range[0])+", "+str(recoveryTime_range[1])+"]")
+                return False
+        except: 
+            messagebox.showerror(title="Error", message="Recovery Time must be an integer.")
+            return False
+        return True
 
     def checkMaxSensRate(self):
-        pass
+        try: 
+            self.maxSensRate = int(self.maxSensRate)
+            if(isBetween(self.maxSensRate,maxSensRate_range[0],maxSensRate_range[1])):
+                if(not self.maxSensRate % maxSensRate_inc == 0): 
+                    messagebox.showerror(title="Error", message="Invalid increment for Maximum Sensor Rate. Increment should be "+str(maxSensRate_inc))
+                    return False
+            else: 
+                messagebox.showerror(title="Error", message="Maximum Sensor Rate Out of range. Acceptable range is ["+str(maxSensRate_range[0])+", "+str(maxSensRate_range[1])+"]")
+                return False
+        except: 
+            messagebox.showerror(title="Error", message="Maximum Sensor Rate must be an integer.")
+            return False
+        return True
 
     def checkFixedAVdelay(self):
-        pass
+        try: 
+            self.fixedAVdelay = int(self.fixedAVdelay)
+            if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])):
+                if(not self.fixedAVdelay % fixedAVdelay_inc == 0): 
+                    messagebox.showerror(title="Error", message="Invalid increment for Fixed AV Delay. Increment should be "+str(fixedAVdelay_inc))
+                    return False
+            else: 
+                messagebox.showerror(title="Error", message="Fixed AV Delay Out of range. Acceptable range is ["+str(fixedAVdelay_range[0])+", "+str(fixedAVdelay_range[1])+"]")
+                return False
+        except: 
+            messagebox.showerror(title="Error", message="Fixed AV Delay must be an integer.")
+            return False
+        return True
     
 
     def numsValid(self,pMode):
