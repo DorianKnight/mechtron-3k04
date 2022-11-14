@@ -339,11 +339,46 @@ class AOOR(PacingMode):
         self.window.title("Pacemaker | AOOR Pacing Mode")
         self.patient=patient
         
+        #Methods
+        def aoorConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("AOOR")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
+        
+        def goBack(): 
+            self.goBack("aoorRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="AOO"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+            self.patient.actThr=self.actThrEntry.get()
+            self.patient.reactTime=self.reactTimeEntry.get()
+            self.patient.respFactor=self.respFactorEntry.get()
+            self.patient.recoveryTime=self.recoveryTimeEntry.get()
+            self.patient.maxSensRate=self.maxSensRateEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
+
         #AOOR Frame
         self.initFrame()
         
         #Creating the elements for the AOOR Frame
         self.addTitleAndInstructions("AOOR")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addActThr(9)
+        self.addReactTime(10)
+        self.addRespFactor(11)
+        self.addRecoveryTime(12)
+        self.addMaxSensRate(13)
+        self.addFixedAVdelay(14)
+        self.addBackAndConfirm(15, goBack, aoorConfirm)
         
 class VOOR(PacingMode): 
     def __init__(self, window, patient):
@@ -352,12 +387,47 @@ class VOOR(PacingMode):
         self.height = 450
         self.window.title("Pacemaker | VOOR Pacing Mode")
         self.patient=patient
+
+        #Methods
+        def voorConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("VOOR")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
+        
+        def goBack(): 
+            self.goBack("voorRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="VOOR"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
+            self.patient.actThr=self.actThrEntry.get()
+            self.patient.reactTime=self.reactTimeEntry.get()
+            self.patient.respFactor=self.respFactorEntry.get()
+            self.patient.recoveryTime=self.recoveryTimeEntry.get()
+            self.patient.maxSensRate=self.maxSensRateEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #VOOR Frame
         self.initFrame()
         
         #Creating the elements for the VOOR Frame
         self.addTitleAndInstructions("VOOR")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addVpw(7)
+        self.addVamp(8)
+        self.addActThr(9)
+        self.addReactTime(10)
+        self.addRespFactor(11)
+        self.addRecoveryTime(12)
+        self.addMaxSensRate(13)
+        self.addFixedAVdelay(14)
+        self.addBackAndConfirm(15, goBack, voorConfirm)
         
 class AAIR(PacingMode): 
      def __init__(self, window, patient):
@@ -366,12 +436,54 @@ class AAIR(PacingMode):
         self.height = 450
         self.window.title("Pacemaker | AAIR Pacing Mode")
         self.patient=patient
+
+        #Methods 
+        def aairConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("AAIR")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
+        
+        def goBack(): 
+            self.goBack("aairRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="AAIR"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.apw=self.apwEntry.get()
+            self.patient.aamp=self.aampEntry.get()
+            self.patient.asens=self.asensEntry.get()
+            self.patient.arp=self.arpEntry.get()
+            self.patient.pvarp=self.pvarpEntry.get()
+            self.patient.actThr=self.actThrEntry.get()
+            self.patient.reactTime=self.reactTimeEntry.get()
+            self.patient.respFactor=self.respFactorEntry.get()
+            self.patient.recoveryTime=self.recoveryTimeEntry.get()
+            self.patient.maxSensRate=self.maxSensRateEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
         
         #AAIR Frame
         self.initFrame()
         
         #Creating the elements for the AAIR Frame
         self.addTitleAndInstructions("AAIR")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addApw(7)
+        self.addAamp(8)
+        self.addAsens(9)
+        self.addArp(10)
+        self.addPvarp(11)
+        self.addActThr(12)
+        self.addReactTime(13)
+        self.addRespFactor(14)
+        self.addRecoveryTime(15)
+        self.addMaxSensRate(16)
+        self.addFixedAVdelay(17)
+        self.addBackAndConfirm(18, goBack, aairConfirm)
+        
         
 class VVIR(PacingMode): 
      def __init__(self, window, patient):
@@ -380,12 +492,51 @@ class VVIR(PacingMode):
         self.height = 450
         self.window.title("Pacemaker | VVIR Pacing Mode")
         self.patient=patient
+
+        #Methods 
+        def vvirConfirm(): 
+            updatePatient()
+            if(self.patient.numsValid("VVIR")):
+                self.patient.saveToDB()
+            else:
+                self.patient.copyFromDB()
         
-        #VVIR Frame
+        def goBack(): 
+            self.goBack("vvirRadio")
+
+        def updatePatient():
+            self.patient.pacingMode="VVIR"
+            self.patient.lrl=self.lrlEntry.get()
+            self.patient.url=self.urlEntry.get()
+            self.patient.vpw=self.vpwEntry.get()
+            self.patient.vamp=self.vampEntry.get()
+            self.patient.vsens=self.vsensEntry.get()
+            self.patient.vrp=self.vrpEntry.get()
+            self.patient.actThr=self.actThrEntry.get()
+            self.patient.reactTime=self.reactTimeEntry.get()
+            self.patient.respFactor=self.respFactorEntry.get()
+            self.patient.recoveryTime=self.recoveryTimeEntry.get()
+            self.patient.maxSensRate=self.maxSensRateEntry.get()
+            self.patient.fixedAVdelay=self.fixedAVdelayEntry.get()
+        
+        #AAIR Frame
         self.initFrame()
         
-        #Creating the elements for the VVIR Frame
+        #Creating the elements for the AAIR Frame
         self.addTitleAndInstructions("VVIR")
+        self.addLrl(5)
+        self.addUrl(6)
+        self.addVpw(7)
+        self.addVamp(8)
+        self.addVsens(9)
+        self.addVrp(10)
+        self.addActThr(11)
+        self.addReactTime(12)
+        self.addRespFactor(13)
+        self.addRecoveryTime(14)
+        self.addMaxSensRate(15)
+        self.addFixedAVdelay(16)
+        self.addBackAndConfirm(17, goBack, vvirConfirm)
     
 class DDD(PacingMode): 
      def __init__(self, window, patient):
