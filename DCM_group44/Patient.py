@@ -53,7 +53,7 @@ class Patient:
 
         self.lrl = 60
         self.url = 120
-        self.pacingMode = "NONE"
+        self.pacingMode = "DDD"
         self.apw = 0.4
         self.vpw = 0.4
         self.aamp = 3.5
@@ -78,37 +78,25 @@ class Patient:
                 if(range == 1): 
                     return lrl_r1_inc
                 elif(range == 3): 
-                    return lrl_r3_inc 
+                    return lrl_r3_inc #what abt range==2?
             case "URL": 
                 return url_inc
             case "APW": 
                 return apw_inc
-            case "AAmp": 
-                if(range == 1):
-                    return aamp_r1_inc
-                elif(range == 2): 
-                    return aamp_r2_inc
+            case "AAmp":          
+                 return aamp_inc
             case "VPW": 
                  return vpw_inc
             case "VAmp": 
-                if(range == 1): 
-                    return vamp_r1_inc
-                elif(range == 2): 
-                    return vamp_r2_inc
+                return vamp_inc
             case "ASens": 
-                if(range == 1): 
-                    return asens_r1_inc
-                if(range == 2): 
-                    return asens_r2_inc
+                return asens_inc
             case "ARP": 
                 return arp_inc
             case "PVARP": 
                 return pvarp_inc
             case "VSens": 
-                if(range == 1): 
-                    return vsens_r1_inc
-                if(range == 2): 
-                    return vsens_r2_inc
+                return vsens_inc
             case "VRP": 
                 return vrp_inc
             case "Reaction Time": 
@@ -134,31 +122,19 @@ class Patient:
             case "APW": 
                 return apw_range
             case "AAmp": 
-                if(range == 1):
-                    return aamp_range1
-                elif(range == 2): 
-                    return aamp_range2
+                return aamp_range
             case "VPW": 
                  return vpw_range
             case "VAmp": 
-                if(range == 1): 
-                    return vamp_range1
-                elif(range == 2): 
-                    return vamp_range2
+                return vamp_range
             case "ASens": 
-                if(range == 1): 
-                    return asens_range1
-                if(range == 2): 
-                    return asens_range2
+                return asens_range
             case "ARP": 
                 return arp_range
             case "PVARP": 
                 return pvarp_range
             case "VSens": 
-                if(range == 1): 
-                    return vsens_range1
-                if(range == 2): 
-                    return vsens_range2
+                return vsens_range
             case "VRP": 
                 return vrp_range
             case "Reaction Time": 
@@ -305,7 +281,7 @@ class Patient:
                     messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_inc))
                     return False 
             else: 
-                messagebox.showerror(title="Error", message="Asens Out of range. Acceptable range is ["+str(asens_range1[0])+", "+str(asens_range2[1])+"]")
+                messagebox.showerror(title="Error", message="Asens Out of range. Acceptable range is ["+str(asens_range[0])+", "+str(asens_range[1])+"]")
                 return False
         except: 
             messagebox.showerror(title="Error", message="Asens must be a float.")
@@ -359,7 +335,7 @@ class Patient:
                     messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_inc))
                     return False 
             else: 
-                messagebox.showerror(title="Error", message="Vsens Out of range. Acceptable range is ["+str(vsens_range1[0])+", "+str(vsens_range2[1])+"]")
+                messagebox.showerror(title="Error", message="Vsens Out of range. Acceptable range is ["+str(vsens_range[0])+", "+str(vsens_range[1])+"]")
                 return False
         except: 
             messagebox.showerror(title="Error", message="Vsens must be a float.")
