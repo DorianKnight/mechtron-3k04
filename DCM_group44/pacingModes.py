@@ -588,7 +588,7 @@ class DDDR(PacingMode):
      def __init__(self, window, patient):
         super().__init__(window)
         self.width = 450
-        self.height = 450
+        self.height = 600
         self.window.title("Pacemaker | DDDDR Pacing Mode")
         self.patient=patient
 

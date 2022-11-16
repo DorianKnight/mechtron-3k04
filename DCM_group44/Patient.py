@@ -58,7 +58,7 @@ class Patient:
         self.vpw = 1
         self.aamp = 5
         self.vamp = 5
-        self.asens = 0.75
+        self.asens = 2.5 #set to 2.5 instead of 0.75 since the latter contradicts increment restrictions
         self.vsens = 2.5
         self.arp = 250
         self.vrp = 320
@@ -167,7 +167,8 @@ class Patient:
         pass
 
     def isValidIncrement(self, value, increment):
-        return (value % increment < errorTolerance) or (increment - value < errorTolerance)
+        return (value % increment < errorTolerance) or (abs((value % increment) - increment) < errorTolerance)
+        
     
     def checkLRL(self):
         #Checking Lower Rate Limit
@@ -235,6 +236,8 @@ class Patient:
             
             if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): 
                 if(not self.isValidIncrement(self.aamp, aamp_inc)):
+                    print(self.aamp%aamp_inc)
+                    print(self.aamp-aamp_inc)
                     messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_inc))
                     return False 
             else: 
