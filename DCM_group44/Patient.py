@@ -174,13 +174,13 @@ class Patient:
         try: 
             self.lrl = int(self.lrl)
             if(isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
-                if(not self.lrl % lrl_r1_inc == 0): 
+                if(not self.isValidIncrement(self.lrl,lrl_r1_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for LRL. Increment should be "+str(lrl_r1_inc))
                     return False
             elif(isBetween(self.lrl, lrl_range2[0], lrl_range2[1])):
                 pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
             elif(isBetween(self.lrl, lrl_range3[0], lrl_range3[1])):
-                if(not self.lrl % lrl_r3_inc == 0): 
+                if(not self.isValidIncrement(self.lrl, lrl_r3_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for LRL. Increment should be "+str(lrl_r3_inc))
                     return False
             else: 
@@ -195,7 +195,7 @@ class Patient:
         try: 
             self.url = int(self.url)
             if(isBetween(self.url,url_range[0],url_range[1])):
-                if(not self.url % url_inc == 0): 
+                if(not self.isValidIncrement(self.url,url_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for URL. Increment should be "+str(url_inc))
                     return False
                 if(self.url < self.lrl): 
@@ -295,7 +295,7 @@ class Patient:
         try: 
             self.arp = int(self.arp)
             if(isBetween(self.arp,arp_range[0],arp_range[1])):
-                if(not self.arp % arp_inc == 0): 
+                if(not self.isValidIncrement(self.arp,arp_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for ARP. Increment should be "+str(arp_inc))
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
@@ -315,7 +315,7 @@ class Patient:
         try: 
             self.pvarp = int(self.pvarp)
             if(isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
-                if(not self.pvarp % pvarp_inc == 0): 
+                if(not self.isValidIncrement(self.pvarp,pvarp_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for PVARP. Increment should be "+str(pvarp_inc))
                     return False
             else: 
@@ -349,7 +349,7 @@ class Patient:
         try: 
             self.vrp = int(self.vrp)
             if(isBetween(self.vrp,vrp_range[0],vrp_range[1])):
-                if(not self.vrp % vrp_inc == 0): 
+                if(not self.isValidIncrement(self.vrp,vrp_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for VRP. Increment should be "+str(vrp_inc))
                     return False
             else: 
@@ -377,7 +377,7 @@ class Patient:
         try: 
             self.reactTime = int(self.reactTime)
             if(isBetween(self.reactTime,reactTime_range[0],reactTime_range[1])):
-                if(not self.reactTime % reactTime_inc == 0): 
+                if(not self.isValidIncrement(self.reactTime,reactTime_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for Reaction Time. Increment should be "+str(reactTime_inc))
                     return False
             else: 
@@ -392,7 +392,7 @@ class Patient:
         try: 
             self.respFactor = int(self.respFactor)
             if(isBetween(self.respFactor,respFactor_range[0],respFactor_range[1])):
-                if(not self.respFactor % respFactor_inc == 0): 
+                if(not self.isValidIncrement(self.respFactor,respFactor_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for Response Factor. Increment should be "+str(respFactor_inc))
                     return False
             else: 
@@ -407,7 +407,7 @@ class Patient:
         try: 
             self.recoveryTime = int(self.recoveryTime)
             if(isBetween(self.recoveryTime,recoveryTime_range[0],recoveryTime_range[1])):
-                if(not self.recoveryTime % recoveryTime_inc == 0): 
+                if(not self.isValidIncrement(self.recoveryTime,recoveryTime_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for Recovery Time. Increment should be "+str(recoveryTime_inc))
                     return False
             else: 
@@ -422,7 +422,7 @@ class Patient:
         try: 
             self.maxSensRate = int(self.maxSensRate)
             if(isBetween(self.maxSensRate,maxSensRate_range[0],maxSensRate_range[1])):
-                if(not self.maxSensRate % maxSensRate_inc == 0): 
+                if(not self.isValidIncrement(self.maxSensRate,maxSensRate_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for Maximum Sensor Rate. Increment should be "+str(maxSensRate_inc))
                     return False
             else: 
@@ -437,7 +437,7 @@ class Patient:
         try: 
             self.fixedAVdelay = int(self.fixedAVdelay)
             if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])):
-                if(not self.fixedAVdelay % fixedAVdelay_inc == 0): 
+                if(not self.isValidIncrement(self.fixedAVdelay,fixedAVdelay_inc)): 
                     messagebox.showerror(title="Error", message="Invalid increment for Fixed AV Delay. Increment should be "+str(fixedAVdelay_inc))
                     return False
             else: 
