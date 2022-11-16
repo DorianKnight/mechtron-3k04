@@ -148,7 +148,7 @@ class Patient:
             case "Fixed AV Delay": 
                 return fixedAVdelay_range
             
-    def getType(self, param): 
+    def getType(self, param): #aren't vpw and apw integers?
         if(param == "LRL" or param == "URL" or param == "ARP" or param == "VRP" or param == "Activity Threshold" or param == "Reaction Time" or param == "Response Factor" or param == "Reaction Time" or param == "Response Factor" or param == "Recovery Factor" or param == "Recovery Time" or param == "Maximum Sensor Rate"):
             return "int"
         elif(param == "AAmp" or param == "VAmp" or param == "APW" or param == "VPW" or param == "ASens" or param == "VSens" or param == "Fixed AV Delay"): 
@@ -217,7 +217,10 @@ class Patient:
         try: 
             self.apw = int(self.apw)
             if(isBetween(self.apw,apw_range[0],apw_range[1])):
-                pass
+                if(not self.isValidIncrement(self.apw, apw_inc)): 
+                    print(apw_inc - (self.apw % apw_inc))
+                    messagebox.showerror(title="Error", message="Invalid increment for APW. Increment should be "+str(apw_inc))
+                    return False
             else: 
                 messagebox.showerror(title="Error", message=" APW Out of range. Acceptable range is ["+str(apw_range[0])+", "+str(apw_range[1])+"]")
                 return False
@@ -231,7 +234,7 @@ class Patient:
             self.aamp = float(self.aamp)
             
             if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): 
-                if(self.isValidIncrement(self.aamp, aamp_inc)):
+                if(not self.isValidIncrement(self.aamp, aamp_inc)):
                     messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_inc))
                     return False 
             else: 
@@ -246,7 +249,7 @@ class Patient:
         try: 
             self.vpw = int(self.vpw)
             if(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
-                if(self.isValidIncrement(self.vpw, vpw_inc)): 
+                if(not self.isValidIncrement(self.vpw, vpw_inc)): 
                     print(vpw_inc - (self.vpw % vpw_inc))
                     messagebox.showerror(title="Error", message="Invalid increment for VPW. Increment should be "+str(vpw_inc))
                     return False
@@ -262,7 +265,7 @@ class Patient:
         try: 
             self.vamp = float(self.vamp)
             if(isBetween(self.vamp,vamp_range[0],vamp_range[1])): 
-                if(self.isValidIncrement(self.vamp, vamp_inc)):
+                if(not self.isValidIncrement(self.vamp, vamp_inc)):
                     messagebox.showerror(title="Error", message="Invalid increment for VAmp. Increment should be "+str(vamp_inc))
                     return False
             else: 
@@ -277,7 +280,7 @@ class Patient:
         try: 
             self.asens = float(self.asens)
             if(isBetween(self.asens,asens_range[0],asens_range[1])): 
-                if(self.asens, asens_inc):
+                if(not self.isValidIncrement(self.asens, asens_inc)):
                     messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_inc))
                     return False 
             else: 
@@ -331,7 +334,7 @@ class Patient:
         try: 
             self.vsens = float(self.vsens)
             if(isBetween(self.vsens,vsens_range[0],vsens_range[1])): 
-                if(self.isValidIncrement(self.vsens, vsens_inc)):
+                if(not self.isValidIncrement(self.vsens, vsens_inc)):
                     messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_inc))
                     return False 
             else: 
