@@ -9,8 +9,8 @@ def SendData(ser):
         #Set the parameters to bytes and combine into one data structure
         SYNC = (16).to_bytes(1,byteorder='little')
         SetOrEcho = (55).to_bytes(1,byteorder='little')
-        LRL = (60).to_bytes(1,byteorder='little')
-        MSR = (180).to_bytes(1,byteorder='little')
+        LRL = (90).to_bytes(1,byteorder='little')
+        MSR = (120).to_bytes(1,byteorder='little')
         aPulseAmp = (4000).to_bytes(2,byteorder='little')
         aPulseWidth = (1).to_bytes(1,byteorder='little')
         aSensitivity = (2700).to_bytes(2,byteorder='little')
@@ -21,11 +21,11 @@ def SendData(ser):
         VRP = (320).to_bytes(2,byteorder='little')
         AVDelay = (150).to_bytes(2,byteorder='little')
         PVARP = (250).to_bytes(2,byteorder='little')
-        ATH = (6).to_bytes(1,byteorder='little')
+        ATH = (8).to_bytes(1,byteorder='little')
         RF = (8).to_bytes(1,byteorder='little')
-        reactionT = (30).to_bytes(1,byteorder='little')
-        recoveryT = (5).to_bytes(1,byteorder='little')
-        mode = (1).to_bytes(1,byteorder='little')
+        reactionT = (5).to_bytes(1,byteorder='little')
+        recoveryT = (1).to_bytes(1,byteorder='little')
+        mode = (9).to_bytes(1,byteorder='little')
 
         data = SYNC + SetOrEcho + LRL + MSR + aPulseAmp + aPulseWidth + aSensitivity + ARP + vPulseAmp + vPulseWidth + vSensitivity + VRP + AVDelay + PVARP + ATH + RF + reactionT + recoveryT + mode
 
