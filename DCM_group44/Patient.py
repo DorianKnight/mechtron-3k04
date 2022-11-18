@@ -115,6 +115,8 @@ class Patient:
             case "LRL": 
                 if(range == 1): 
                     return lrl_range1
+                elif(range == 2): 
+                    return lrl_range2
                 elif(range == 3): 
                     return lrl_range3 
             case "URL": 
@@ -148,23 +150,25 @@ class Patient:
             case "Fixed AV Delay": 
                 return fixedAVdelay_range
             
-    def getType(self, param): #aren't vpw and apw integers?
-        if(param == "LRL" or param == "URL" or param == "ARP" or param == "VRP" or param == "Activity Threshold" or param == "Reaction Time" or param == "Response Factor" or param == "Reaction Time" or param == "Response Factor" or param == "Recovery Factor" or param == "Recovery Time" or param == "Maximum Sensor Rate"):
+    def getType(self, param): 
+        if(param == "LRL" or param == "URL" or param == "ARP" or param == "VRP" or param == "APW" or param == "VPW"  or param == "Reaction Time" or param == "Response Factor" or param == "Reaction Time" or param == "Response Factor" or param == "Recovery Factor" or param == "Recovery Time" or param == "Maximum Sensor Rate"):
             return "int"
-        elif(param == "AAmp" or param == "VAmp" or param == "APW" or param == "VPW" or param == "ASens" or param == "VSens" or param == "Fixed AV Delay"): 
+        elif(param == "AAmp" or param == "VAmp" or param == "ASens" or param == "VSens" or param == "Fixed AV Delay"): 
             return "float"
 
     def addErrors(self, param, range, error):
-        pass
-
-    def addErrors(self, param, range, error): 
-        if(error == "Increment"): 
+        if(error == "Type"): 
+            accType = self.getType(param)
+            self.errors.append(f'Invalid type for {param}. {param} should be of type {accType}')
+        elif(error == "Range"): 
+            accRange = self.getRanges(range)
+            self.errors.append(f'{param} input out of range. Range should be {accRange[0]} to {accRange[1]}')
+        elif(error == "Increment"): 
             inc = str(self.getInc())
             self.errors.append(f'Invalid increment for {param}. Value should be in increments of {inc}')
-        
-    
-    def createErrorMessages(self): 
-        pass
+        elif(error == "Invalid"): 
+            if(param == "URL"): 
+                self.errors.append(f'Invalid URL. Inputted URL is less than the LRL. Please enter a URL greater than {self.lrl}.')
 
     def isValidIncrement(self, value, increment):
         return (value % increment < errorTolerance) or (abs((value % increment) - increment) < errorTolerance)
