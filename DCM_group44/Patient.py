@@ -72,6 +72,7 @@ class Patient:
         
         self.errors = []
         
+    #Returns each of the incremenets for each of the parameters
     def getInc(self, param, range): 
         match param: 
             case "LRL": 
@@ -109,7 +110,7 @@ class Patient:
                 return maxSensRate_inc
             case "Fixed AV Delay": 
                 return fixedAVdelay_inc
-            
+    #Returns each of the ranges for each of the parameters       
     def getRanges(self, param, range): 
         match param: 
             case "LRL": 
@@ -457,96 +458,44 @@ class Patient:
     
 
     def numsValid(self,pMode): #the patient default values would be nominal values and wouldn't change unless there are relevant entries in that window. we could check for everything for every mode?? if we agree, we can take out the "mode" argument and take out commented code.
-        if(self.checkLRL() == False):
-            return False
-             
-        if(self.checkURL() == False):
-            return False
-
-        if(self.checkAPW() == False):
-            return False
-
-        if(self.checkVPW() == False):
-            return False
-
-        if(self.checkAAmp() == False):
-            return False
-
-        if(self.checkVAmp() == False):
-            return False
-
-        if(self.checkASens() == False):
-            return False
-
-        if(self.checkVSens() == False):
-            return False
-
-        if(self.checkARP() == False):
-            return False
-
-        if(self.checkVRP() == False):
-            return False
-
-        if(self.checkPVARP() == False):
-            return False
+       
+        valid = False #Variable to keep track if the inputs are valid
         
-        if(self.checkActThr() == False):
-            return False
-
-        if(self.checkReactTime() == False):
-            return False
-
-        if(self.checkRespFactor() == False):
-            return False
-
-        if(self.checkRecoveryTime() == False):
-            return False
-
-        if(self.checkMaxSensRate() == False):
-            return False
-
-        if(self.checkFixedAVdelay() == False):
-            return False
-
+        if(self.checkLRL() == False or self.checkURL() == False): 
+            valid = False
         
-
-        '''
         #Checking validity of input parameters for AOO
         if(pMode=="AOO"):
 
-            if(self.checkAPW() == False):
-                return False
-            
-            if(self.checkAAmp() == False):
-                return False
-            
+            valid = self.checkAPW()             
+            valid = self.checkAAmp() 
             
         #Checking validity of input parameteres for VOO
         elif(pMode=="VOO"):
             
             if(self.checkVPW() == False): 
-                return False
+                valid = False
 
             if(self.checkVAmp() == False):
-                return False
+                valid = False
 
         #Checking validity of input parameters for AAI
         elif(pMode=="AAI"):
             
             if(self.checkAPW() == False):
-                return False
+                valid = False
             
             if(self.checkAAmp() == False):
-                return False
+                valid = False
             
             if(self.checkASens() == False): 
-                return False
+                valid = False
             
             if(self.checkARP() == False): 
-                return False
+                valid =  False
             
             if(self.checkPVARP() == False): 
-                return False
+                valid = False
             
             
 
@@ -554,98 +503,98 @@ class Patient:
         elif(pMode=="VVI"):
             
             if(self.checkVPW() == False):
-                return False
+                valid = False
             
             if(self.checkVAmp() == False): 
-                return False
+                valid = False
 
             if(self.checkVSens() == False): 
-                return False 
+                valid = False 
             
             if(self.checkVRP() == False): 
-                return False
+                valid = False
 
         #Checking validity of input parameters for AOOR
         if(pMode=="AOOR"):
 
             if(self.checkAPW() == False):
-                return False
+                valid = False
             
             if(self.checkAAmp() == False):
-                return False
+                valid =  False
             
             if(self.checkActThr() == False):
-                return False
+                valid = False
 
             if(self.checkReactTime() == False):
-                return False
+                valid = False
 
             if(self.checkRespFactor() == False):
-                return False
+                valid = False
 
             if(self.checkRecoveryTime() == False):
-                return False
+                valid = False
 
             if(self.checkMaxSensRate() == False):
-                return False
+                valid = False
             
             
         #Checking validity of input parameteres for VOOR
         elif(pMode=="VOOR"):
             
             if(self.checkVPW() == False): 
-                return False
+                valid = False
 
             if(self.checkVAmp() == False):
-                return False
+                valid = False
 
             if(self.checkActThr() == False):
-                return False
+                valid = False
 
             if(self.checkReactTime() == False):
-                return False
+                valid =  False
 
             if(self.checkRespFactor() == False):
-                return False
+                valid = False
 
             if(self.checkRecoveryTime() == False):
-                return False
+                valid = False
 
             if(self.checkMaxSensRate() == False):
-                return False
+                valid = False
 
         #Checking validity of input parameters for AAIR
         elif(pMode=="AAIR"):
             
             if(self.checkAPW() == False):
-                return False
+                valid = False
             
             if(self.checkAAmp() == False):
-                return False
+                valid = False
             
             if(self.checkASens() == False): 
-                return False
+                valid =  False
             
             if(self.checkARP() == False): 
-                return False
+                valid = False
             
             if(self.checkPVARP() == False): 
-                return False
+                valid = False
 
             if(self.checkActThr() == False):
-                return False
+                valid = False
 
             if(self.checkReactTime() == False):
-                return False
+                valid =  False
 
             if(self.checkRespFactor() == False):
-                return False
+                valid = False
 
             if(self.checkRecoveryTime() == False):
-                return False
+                valid = False
 
             if(self.checkMaxSensRate() == False):
-                return False
+                valid = False
             
             
 
@@ -653,37 +602,34 @@ class Patient:
         elif(pMode=="VVIR"):
             
             if(self.checkVPW() == False):
-                return False
+                valid = False
             
             if(self.checkVAmp() == False): 
-                return False
+                valid =  False
 
             if(self.checkVSens() == False): 
-                return False 
+                valid =  False 
             
             if(self.checkVRP() == False): 
-                return False
+                valid = False
 
             if(self.checkActThr() == False):
-                return False
+                valid = False
 
             if(self.checkReactTime() == False):
-                return False
+                valid = False
 
             if(self.checkRespFactor() == False):
-                return False
+                valid =  False
 
             if(self.checkRecoveryTime() == False):
-                return False
+                valid = False
 
             if(self.checkMaxSensRate() == False):
-                return False
-
-        '''
-            
+                valid = False
 
         print("Nums valid")
-        return True
+        
 
     def copyFromDB(self): #Takes a username string and returns a patient instance
         connection = sqlite3.connect('userdata.db')

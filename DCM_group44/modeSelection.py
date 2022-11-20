@@ -129,7 +129,7 @@ def launchModeSelect(username):
     elif(MS.patient.pacingMode=="DDDR"):
         MS.dddrRadio.select()
     else:
-        MS.dddRadio.select() #nominal mode
+        MS.aooRadio.select() #nominal mode
     
 
     window.mainloop()
