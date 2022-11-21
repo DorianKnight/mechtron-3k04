@@ -197,8 +197,10 @@ class Patient:
         elif(error == "Invalid"): 
             if(param == "URL"): 
                 self.errors.append(f'Invalid URL. Inputted URL is less than the LRL. Please enter a URL greater than {self.lrl}.')
-            if(param == "APW"): 
-                pass #There is supposed to be smth here related to LRL 
+            if(param == "ARP"): 
+                self.errors.append(f'Atrial Refractory Period cannot be greater than the time between pulses determined by the LRL')
+            if(param == "VRP"): 
+                self.errors.append(f'Ventricular Refractory Period cannot be greater than the time between pulses determined by the LRL')
                 
     def displayErrors(self): 
         totalErrorMsg = "" 
@@ -425,6 +427,10 @@ class Patient:
                 if(not self.isValidIncrement(self.vrp,vrp_inc)): 
                     self.addError("VRP", "Increment")
                     #messagebox.showerror(title="Error", message="Invalid increment for VRP. Increment should be "+str(vrp_inc))
+                    return False
+                lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
+                if(self.arp > lrlTime): 
+                    self.addError("VRP", "Invalid")
                     return False
             else: 
                 self.addError("VRP", "Range")
