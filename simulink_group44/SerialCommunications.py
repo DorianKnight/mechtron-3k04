@@ -6,28 +6,34 @@ import serial
 import serial.tools.list_ports
 import struct
 
-def SendData(ser):
+class SerialObject:
+    def __init__(self,commPort):
+        self.ser = serial.Serial()
+        self.ser.baudrate = 115200 #Sets baud rate
+        self.ser.port = commPort #Sets the serial communication port
+        ser.open() #Opens the serial port
+def SendData(self, patient):
     if (ser.is_open):
         #Set the parameters to bytes and combine into one data structure
         SYNC = struct.pack("B",16)
-        SetOrEcho = struct.pack("B",22)
-        LRL = struct.pack("B",60)
+        SetOrEcho = struct.pack("B",55)
+        LRL = struct.pack("B",patient.LRL)
         MSR = struct.pack("B",120)
         aPulseAmp = struct.pack("H",5000)
         aPulseWidth = struct.pack("B",2)
         aSensitivity = struct.pack("H",3500)
-        ARP = struct.pack("H",320)
+        ARP = struct.pack("H",500)
         vPulseAmp = struct.pack("H",5000)
         vPulseWidth = struct.pack("B",2)
         vSensitivity = struct.pack("H",3500)
         VRP = struct.pack("H",150)
-        AVDelay = struct.pack("H",150)
-        PVARP = struct.pack("H",250)
+        AVDelay = struct.pack("H",350)
+        PVARP = struct.pack("H",350)
         ATH = struct.pack("B",4)
-        RF = struct.pack("B",8)
+        RF = struct.pack("B",16)
         reactionT = struct.pack("B",5)
         recoveryT = struct.pack("B",1)
-        mode = struct.pack("B",1)
+        mode = struct.pack("B",9)
         #SYNC = (16).to_bytes(1,byteorder='little')
         #SetOrEcho = (55).to_bytes(1,byteorder='little')
         #LRL = (60).to_bytes(1,byteorder='little')
