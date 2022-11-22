@@ -24,3 +24,5 @@ simulink_group44/Group44PACEMAKER.slx.original
 *.m
 
 userdata.db
+*.mexw64
+*.lib
