@@ -23,6 +23,12 @@ class SerialObject:
             #Read data from pacemaker
             self.ser.write(data[1])
             returnData = self.ser.read(41)
+
+            
+            
+            #Process return data into a dictonary here later when you have time also make sure to convert the mV into V by dividing by 1000
+            
+
             return returnData #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
         else:
             #Create an error flag that says that the serial port is not open
@@ -58,22 +64,22 @@ class SerialObject:
         SYNC = struct.pack("B",16)
         set = struct.pack("B",55)
         echo = struct.pack("B",22)
-        LRL = struct.pack("B",patient.LRL)
-        MSR = struct.pack("B",patient.MSR)
-        aPulseAmp = struct.pack("H",patient.aPulseAmp*1000)
-        aPulseWidth = struct.pack("B",patient.aPulseWidth)
-        aSensitivity = struct.pack("H",patient.aSensitivity*1000)
-        ARP = struct.pack("H",patient.ARP)
-        vPulseAmp = struct.pack("H",patient.vPulseAmp*1000)
-        vPulseWidth = struct.pack("B",patient.vPulseWidth)
-        vSensitivity = struct.pack("H",patient.vSensitivity*1000)
-        VRP = struct.pack("H",patient.VRP)
-        AVDelay = struct.pack("H",patient.AVDelay)
-        PVARP = struct.pack("H",patient.PVARP)
-        ATH = struct.pack("B",patient.ATH)
-        RF = struct.pack("B",patient.RF)
-        reactionT = struct.pack("B",patient.reactionT)
-        recoveryT = struct.pack("B",patient.recoveryT)
+        LRL = struct.pack("B",patient.lrl)
+        MSR = struct.pack("B",patient.maxSensRate)
+        aPulseAmp = struct.pack("H",patient.aamp*1000)
+        aPulseWidth = struct.pack("B",patient.apw)
+        aSensitivity = struct.pack("H",patient.asens*1000)
+        ARP = struct.pack("H",patient.arp)
+        vPulseAmp = struct.pack("H",patient.vamp*1000)
+        vPulseWidth = struct.pack("B",patient.vpw)
+        vSensitivity = struct.pack("H",patient.vsens*1000)
+        VRP = struct.pack("H",patient.vrp)
+        AVDelay = struct.pack("H",patient.fixedAVdelay)
+        PVARP = struct.pack("H",patient.pvarp)
+        ATH = struct.pack("B",patient.actThr)
+        RF = struct.pack("B",patient.respFactor)
+        reactionT = struct.pack("B",patient.reactTime)
+        recoveryT = struct.pack("B",patient.recoveryTime)
         mode = struct.pack("B",pacingMode)
 
         #Collate data into a series of bytes that can be sent to the DCM
