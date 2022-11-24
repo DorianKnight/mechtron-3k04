@@ -121,7 +121,7 @@ class RegistrationPage:
                                 'vpw': 1,
                                 'aamp': 5,
                                 'vamp': 5,
-                                'asens': 0.75,
+                                'asens': 2.5,
                                 'vsens': 2.5,
                                 'arp': 250,
                                 'vrp': 320,
