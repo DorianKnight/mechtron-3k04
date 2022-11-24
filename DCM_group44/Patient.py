@@ -429,7 +429,7 @@ class Patient:
                     #messagebox.showerror(title="Error", message="Invalid increment for VRP. Increment should be "+str(vrp_inc))
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
-                if(self.arp > lrlTime): 
+                if(self.vrp > lrlTime): 
                     self.addError("VRP", "Invalid")
                     return False
             else: 
