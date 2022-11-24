@@ -589,6 +589,7 @@ class DDDR(PacingMode):
         super().__init__(window)
         self.width = 450
         self.height = 600
+        self.window.geometry("500x650")
         self.window.title("Pacemaker | DDDDR Pacing Mode")
         self.patient=patient
 
