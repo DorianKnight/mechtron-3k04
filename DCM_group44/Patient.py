@@ -224,22 +224,18 @@ class Patient:
             if(isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
                 if(not self.isValidIncrement(self.lrl,lrl_r1_inc)): 
                     self.addError("LRL", "Increment", 1)
-                    #messagebox.showerror(title="Error", message="Invalid increment for LRL. Increment should be "+str(lrl_r1_inc))
                     return False
             elif(isBetween(self.lrl, lrl_range2[0], lrl_range2[1])):
                 pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
             elif(isBetween(self.lrl, lrl_range3[0], lrl_range3[1])):
                 if(not self.isValidIncrement(self.lrl, lrl_r3_inc)): 
                     self.addError("LRL", "Increment", 3)
-                    #messagebox.showerror(title="Error", message="Invalid increment for LRL. Increment should be "+str(lrl_r3_inc))
                     return False
             else: 
                 self.addError("LRL", "Range")
-                #messagebox.showerror(title="Error", message=" LRL Out of range. Acceptable range is ["+str(lrl_range1[0])+", "+str(lrl_range3[1])+"]")
                 return False
         except: 
             self.addError("LRL", "Type")
-            #messagebox.showerror(title="Error", message="LRL must be an integer.")
             return False
 
     def checkURL(self): 
@@ -249,19 +245,15 @@ class Patient:
             if(isBetween(self.url,url_range[0],url_range[1])):
                 if(not self.isValidIncrement(self.url,url_inc)): 
                     self.addError("URL", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for URL. Increment should be "+str(url_inc))
                     return False
                 if(self.url <= self.lrl): 
                     self.addError("URL", "Invalid")
-                    #messagebox.showerror(title = "Error", message = "The Upper Rate Limit cannot be less the Lower Rate Limit. Please input a valid value")
                     return False
             else: 
                 self.addError("URL", "Range")
-                #messagebox.showerror(title="Error", message=" URL Out of range. Acceptable range is ["+str(url_range[0])+", "+str(url_range[1])+"]")
                 return False
         except: 
             self.addError("URL", "Type")
-            #messagebox.showerror(title="Error", message="URL must be an integer.")
             return False
         return True
     
@@ -272,15 +264,12 @@ class Patient:
             if(isBetween(self.apw,apw_range[0],apw_range[1])):
                 if(not self.isValidIncrement(self.apw, apw_inc)): 
                     self.addError("APW", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for APW. Increment should be "+str(apw_inc))
                     return False
             else: 
                 self.addError("APW", "Increment")
-                #messagebox.showerror(title="Error", message=" APW Out of range. Acceptable range is ["+str(apw_range[0])+", "+str(apw_range[1])+"]")
                 return False
         except: 
             self.addError("APW", "Type")
-            #messagebox.showerror(title="Error", message="APW must be an integer.")
             return False
 
     def checkAAmp(self): 
@@ -290,15 +279,12 @@ class Patient:
             if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): 
                 if(not self.isValidIncrement(self.aamp, aamp_inc)):
                     self.addError("AAmp", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for AAmp. Increment should be "+str(aamp_inc))
                     return False 
             else: 
                 self.addError("AAmp", "Range")
-                #messagebox.showerror(title="Error", message=" AAmp Out of range. Acceptable range is ["+str(aamp_range[0])+", "+str(aamp_range[1])+"]")
                 return False
         except: 
             self.addError("AAmp", "Type")
-            #messagebox.showerror(title="Error", message="AAmp must be a float.")
             return False
     
     def checkVPW(self): 
@@ -308,15 +294,12 @@ class Patient:
             if(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
                 if(not self.isValidIncrement(self.vpw, vpw_inc)): 
                     self.addError("VPW", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for VPW. Increment should be "+str(vpw_inc))
                     return False
             else: 
                 self.addError("VPW", "Range")
-                #messagebox.showerror(title="Error", message="VPW Out of range. Acceptable range is ["+str(vpw_range[0])+", "+str(vpw_range[1])+"]")
                 return False
         except: 
             self.addError("VPW", "Type")
-            #messagebox.showerror(title="Error", message="VPW must be a int.")
             return False
         
     def checkVAmp(self): 
@@ -326,15 +309,12 @@ class Patient:
             if(isBetween(self.vamp,vamp_range[0],vamp_range[1])): 
                 if(not self.isValidIncrement(self.vamp, vamp_inc)):
                     self.addError("VAmp", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for VAmp. Increment should be "+str(vamp_inc))
                     return False
             else: 
                 self.addError("VAmp", "Range")
-                #messagebox.showerror(title="Error", message="VAmp Out of range. Acceptable range is ["+str(vamp_range[0])+", "+str(vamp_range[1])+"]")
                 return False
         except: 
             self.addError("VAmp", "Type")
-            #messagebox.showerror(title="Error", message="VAmp must be a float.")
             return False
 
     def checkASens(self): 
@@ -344,15 +324,12 @@ class Patient:
             if(isBetween(self.asens,asens_range[0],asens_range[1])): 
                 if(not self.isValidIncrement(self.asens, asens_inc)):
                     self.addError("ASens", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Asens. Increment should be "+str(asens_inc))
                     return False 
             else: 
                 self.addError("ASens", "Range")
-                #messagebox.showerror(title="Error", message="Asens Out of range. Acceptable range is ["+str(asens_range[0])+", "+str(asens_range[1])+"]")
                 return False
         except: 
             self.addError("ASens", "Type")
-            #messagebox.showerror(title="Error", message="Asens must be a float.")
             return False
 
     def checkARP(self): 
@@ -362,20 +339,16 @@ class Patient:
             if(isBetween(self.arp,arp_range[0],arp_range[1])):
                 if(not self.isValidIncrement(self.arp,arp_inc)):
                     self.addError("ARP", "Increment") 
-                    #messagebox.showerror(title="Error", message="Invalid increment for ARP. Increment should be "+str(arp_inc))
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
                 if(self.arp > lrlTime): 
                     self.addError("ARP", "Invalid")
-                    #messagebox.showerror(title = "Error", message = "Invalid input for Atrial Refractory Period. Time cannot be greater than the time between pulses at Lower Rate Limit. In this case that is " + str(round(lrlTime, 2)) + "ms so please input a value smaller than this.")                
                     return False
             else: 
                 self.addError("ARP", "Range")
-                #messagebox.showerror(title="Error", message="ARP Out of range. Acceptable range is ["+str(arp_range[0])+", "+str(arp_range[1])+"]")
                 return False
         except: 
             self.addError("ARP", "Type")
-            #messagebox.showerror(title="Error", message="ARP must be an integer.")
             return False
         return True
 
@@ -386,15 +359,12 @@ class Patient:
             if(isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
                 if(not self.isValidIncrement(self.pvarp,pvarp_inc)): 
                     self.addError("PVARP", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for PVARP. Increment should be "+str(pvarp_inc))
                     return False
             else: 
                 self.addError("PVARP", "Range")
-                #messagebox.showerror(title="Error", message="PVARP Out of range. Acceptable range is ["+str(pvarp_range[0])+", "+str(pvarp_range[1])+"]")
                 return False
         except: 
             self.addError("PVARP", "Type")
-            #messagebox.showerror(title="Error", message="PVARP must be an integer.")
             return False
         return True       
 
@@ -408,15 +378,12 @@ class Patient:
             if(isBetween(self.vsens,vsens_range[0],vsens_range[1])): 
                 if(not self.isValidIncrement(self.vsens, vsens_inc)):
                     self.addError("VSens", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Vsens. Increment should be "+str(vsens_inc))
                     return False 
             else: 
                 self.addError("VSens", "Range")
-                #messagebox.showerror(title="Error", message="Vsens Out of range. Acceptable range is ["+str(vsens_range[0])+", "+str(vsens_range[1])+"]")
                 return False
         except: 
             self.addError("VSens", "Type")
-            #messagebox.showerror(title="Error", message="Vsens must be a float.")
             return False
 
     def checkVRP(self): 
@@ -426,7 +393,6 @@ class Patient:
             if(isBetween(self.vrp,vrp_range[0],vrp_range[1])):
                 if(not self.isValidIncrement(self.vrp,vrp_inc)): 
                     self.addError("VRP", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for VRP. Increment should be "+str(vrp_inc))
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
                 if(self.vrp > lrlTime): 
@@ -434,11 +400,9 @@ class Patient:
                     return False
             else: 
                 self.addError("VRP", "Range")
-                #messagebox.showerror(title="Error", message="VRP Out of range. Acceptable range is ["+str(vrp_range[0])+", "+str(vrp_range[1])+"]")
                 return False
         except: 
             self.addError("VRP", "Type")
-            #messagebox.showerror(title="Error", message="VRP must be an integer.")
             return False
         return True
 
@@ -475,15 +439,12 @@ class Patient:
             if(isBetween(self.reactTime,reactTime_range[0],reactTime_range[1])):
                 if(not self.isValidIncrement(self.reactTime,reactTime_inc)): 
                     self.addError("Reaction Time", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Reaction Time. Increment should be "+str(reactTime_inc))
                     return False
             else: 
                 self.addError("Reaction Time", "Range")
-                #messagebox.showerror(title="Error", message="Reaction Time Out of range. Acceptable range is ["+str(reactTime_range[0])+", "+str(reactTime_range[1])+"]")
                 return False
         except: 
             self.addError("Reaction Time", "Type")
-            #messagebox.showerror(title="Error", message="Reaction Time must be an integer.")
             return False
         return True
 
@@ -493,15 +454,12 @@ class Patient:
             if(isBetween(self.respFactor,respFactor_range[0],respFactor_range[1])):
                 if(not self.isValidIncrement(self.respFactor,respFactor_inc)): 
                     self.addError("Response Factor", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Response Factor. Increment should be "+str(respFactor_inc))
                     return False
             else: 
                 self.addError("Response Factor", "Range")
-                #messagebox.showerror(title="Error", message="Response Factor Out of range. Acceptable range is ["+str(respFactor_range[0])+", "+str(respFactor_range[1])+"]")
                 return False
         except: 
             self.addError("Response Factor", "Type")
-            #messagebox.showerror(title="Error", message="Response Factor must be an integer.")
             return False
         return True
 
@@ -511,15 +469,12 @@ class Patient:
             if(isBetween(self.recoveryTime,recoveryTime_range[0],recoveryTime_range[1])):
                 if(not self.isValidIncrement(self.recoveryTime,recoveryTime_inc)): 
                     self.addError("Recovery Time", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Recovery Time. Increment should be "+str(recoveryTime_inc))
                     return False
             else: 
                 self.addError("Recovery Time", "Range")
-                #messagebox.showerror(title="Error", message="Recovery Time Out of range. Acceptable range is ["+str(recoveryTime_range[0])+", "+str(recoveryTime_range[1])+"]")
                 return False
         except: 
             self.addError("Recovery Time", "Type")
-            #messagebox.showerror(title="Error", message="Recovery Time must be an integer.")
             return False
         return True
 
@@ -529,15 +484,12 @@ class Patient:
             if(isBetween(self.maxSensRate,maxSensRate_range[0],maxSensRate_range[1])):
                 if(not self.isValidIncrement(self.maxSensRate,maxSensRate_inc)): 
                     self.addError("Max Sensor Rate", "Increment")
-                    #messagebox.showerror(title="Error", message="Invalid increment for Maximum Sensor Rate. Increment should be "+str(maxSensRate_inc))
                     return False
             else: 
                 self.addError("Max Sensor Rate", "Range")
-                #messagebox.showerror(title="Error", message="Maximum Sensor Rate Out of range. Acceptable range is ["+str(maxSensRate_range[0])+", "+str(maxSensRate_range[1])+"]")
                 return False
         except: 
             self.addError("Max Sensor Rate", "Type")
-            #messagebox.showerror(title="Error", message="Maximum Sensor Rate must be an integer.")
             return False
         return True
 
@@ -547,15 +499,12 @@ class Patient:
             if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])):
                 if(not self.isValidIncrement(self.fixedAVdelay,fixedAVdelay_inc)): 
                     self.addError("Fixed AV Delay", 'Increment')
-                    #messagebox.showerror(title="Error", message="Invalid increment for Fixed AV Delay. Increment should be "+str(fixedAVdelay_inc))
                     return False
             else: 
                 self.addError("Fixed AV Delay", "Range")
-                #messagebox.showerror(title="Error", message="Fixed AV Delay Out of range. Acceptable range is ["+str(fixedAVdelay_range[0])+", "+str(fixedAVdelay_range[1])+"]")
                 return False
         except: 
             self.addError("Fixed AV Delay", "Type")
-            #messagebox.showerror(title="Error", message="Fixed AV Delay must be an integer.")
             return False
         return True
     
