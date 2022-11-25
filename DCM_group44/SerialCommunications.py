@@ -28,11 +28,11 @@ class SerialObject:
             maxSensRate = boardVals[1]
             aamp = (struct.unpack("H", boardVals[2:4])[0])/1000 #mV to V
             apw = boardVals[4]
-            asens = (struct.unpack("H", boardVals[5:7])[0])
+            asens = (struct.unpack("H", boardVals[5:7])[0])/1000
             arp = struct.unpack("H", boardVals[7:9])[0]
             vamp = (struct.unpack("H", boardVals[9:11])[0])/1000
             vpw = boardVals[11]
-            vsens = (struct.unpack("H", boardVals[12:14])[0])
+            vsens = (struct.unpack("H", boardVals[12:14])[0])/1000
             vrp = struct.unpack("H", boardVals[14:16])[0]
             fixedAVdelay = struct.unpack("H", boardVals[16:18])[0]
             pvarp = struct.unpack("H", boardVals[18:20])[0]
