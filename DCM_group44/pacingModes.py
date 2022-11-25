@@ -305,7 +305,6 @@ class AAI(PacingMode):
             self.patient.aamp=self.aampEntry.get()
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
-            self.patient.pvarp=self.pvarpEntry.get()
             
 
         #AAI Frame
@@ -319,8 +318,7 @@ class AAI(PacingMode):
         self.addAamp(8)
         self.addAsens(9)
         self.addArp(10)
-        self.addPvarp(11)
-        self.addBackAndConfirm(14, goBack, aaiConfirm)
+        self.addBackAndConfirm(13, goBack, aaiConfirm)
     
 class VVI(PacingMode): 
     def __init__(self, window, patient):
@@ -489,7 +487,6 @@ class AAIR(PacingMode):
             self.patient.aamp=self.aampEntry.get()
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
-            self.patient.pvarp=self.pvarpEntry.get()
             self.patient.actThr=self.actThrEntry.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
@@ -507,13 +504,12 @@ class AAIR(PacingMode):
         self.addAamp(8)
         self.addAsens(9)
         self.addArp(10)
-        self.addPvarp(11)
-        self.addActThr(12)
-        self.addReactTime(13)
-        self.addRespFactor(14)
-        self.addRecoveryTime(15)
-        self.addMaxSensRate(16)
-        self.addBackAndConfirm(19, goBack, aairConfirm)
+        self.addActThr(11)
+        self.addReactTime(12)
+        self.addRespFactor(13)
+        self.addRecoveryTime(14)
+        self.addMaxSensRate(15)
+        self.addBackAndConfirm(18, goBack, aairConfirm)
         
         
 class VVIR(PacingMode): 

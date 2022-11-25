@@ -559,9 +559,6 @@ class Patient:
             if(self.checkARP() == False): 
                 valid =  False
             
-            if(self.checkPVARP() == False): 
-                valid = False
-            
         #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
             
@@ -638,9 +635,6 @@ class Patient:
                 valid =  False
             
             if(self.checkARP() == False): 
-                valid = False
-            
-            if(self.checkPVARP() == False): 
                 valid = False
 
             if(self.checkActThr() == False):
