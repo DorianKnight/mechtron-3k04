@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
 
@@ -61,7 +62,8 @@ class PacingMode:
         self.apwEntry.insert(0,self.patient.apw)
 
     def addAamp(self, r):
-        self.aampLabel = Label(self.frame, text = "Atrial Amplitude (V):", bg = background, padx = 20)
+        self.aampLabel = Label(self.frame, text = "Atrial Amplitude (V): ⓘ", bg = background, padx = 20)
+        tip = ToolTip(self.aampLabel, "Set value to 0 to turn off A Pulse Amplitude Regulated")
         self.aampEntry = Entry(self.frame, bg = background)
         self.aampLabel.grid(row = r, column = 0, sticky = W)
         self.aampEntry.grid(row = r, column = 1)
@@ -84,7 +86,8 @@ class PacingMode:
         self.vpwEntry.insert(0,self.patient.vpw)
 
     def addVamp(self, r):
-        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude (V):", bg = background, padx = 20)
+        self.vampLabel = Label(self.frame, text = "Ventrical Amplitude (V): ⓘ", bg = background, padx = 20)
+        tip = ToolTip(self.vampLabel, "Set value to 0 to turn off V Pulse Amplitude Regulated")
         self.vampEntry = Entry(self.frame, bg=background)
         self.vampLabel.grid(row = r, column = 0, sticky = W)
         self.vampEntry.grid(row = r, column = 1)
