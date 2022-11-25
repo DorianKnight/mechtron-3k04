@@ -496,6 +496,8 @@ class Patient:
     def checkFixedAVdelay(self):
         try: 
             self.fixedAVdelay = int(self.fixedAVdelay)
+            print(self.fixedAVdelay)
+            print(fixedAVdelay_range)
             if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])):
                 if(not self.isValidIncrement(self.fixedAVdelay,fixedAVdelay_inc)): 
                     self.addError("Fixed AV Delay", 'Increment')
@@ -513,6 +515,7 @@ class Patient:
        
         valid = True #Variable to keep track if the inputs are valid
         
+        # Checking validity of universal  parameters
         if(self.checkLRL() == False): 
             valid = False
         if(self.checkURL() == False): 
@@ -554,8 +557,6 @@ class Patient:
             if(self.checkPVARP() == False): 
                 valid = False
             
-            
-
         #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
             
@@ -572,7 +573,7 @@ class Patient:
                 valid = False
 
         #Checking validity of input parameters for AOOR
-        if(pMode=="AOOR"):
+        elif(pMode=="AOOR"):
 
             if(self.checkAPW() == False):
                 valid = False
@@ -594,7 +595,6 @@ class Patient:
 
             if(self.checkMaxSensRate() == False):
                 valid = False
-            
             
         #Checking validity of input parameteres for VOOR
         elif(pMode=="VOOR"):
@@ -684,8 +684,84 @@ class Patient:
 
             if(self.checkMaxSensRate() == False):
                 valid = False
-
         
+        elif(pMode=="DDD"):
+            if(self.checkAPW() == False):
+                valid = False
+            
+            if(self.checkAAmp() == False):
+                valid = False
+            
+            if(self.checkASens() == False): 
+                valid = False
+            
+            if(self.checkARP() == False): 
+                valid =  False
+            
+            if(self.checkPVARP() == False): 
+                valid = False
+                
+            if(self.checkVPW() == False):
+                valid = False
+            
+            if(self.checkVAmp() == False): 
+                valid = False
+
+            if(self.checkVSens() == False): 
+                valid = False 
+            
+            if(self.checkVRP() == False): 
+                valid = False
+            
+            if(self.checkFixedAVdelay() == False):
+                valid = False
+
+        elif(pMode=="DDDR"):
+            if(self.checkAPW() == False):
+                valid = False
+            
+            if(self.checkAAmp() == False):
+                valid = False
+            
+            if(self.checkASens() == False): 
+                valid = False
+            
+            if(self.checkARP() == False): 
+                valid =  False
+            
+            if(self.checkPVARP() == False): 
+                valid = False
+
+            if(self.checkVPW() == False):
+                valid = False
+            
+            if(self.checkVAmp() == False): 
+                valid = False
+
+            if(self.checkVSens() == False): 
+                valid = False 
+            
+            if(self.checkVRP() == False): 
+                valid = False
+            
+            if(self.checkActThr() == False):
+                valid = False
+
+            if(self.checkReactTime() == False):
+                valid = False
+
+            if(self.checkRespFactor() == False):
+                valid =  False
+
+            if(self.checkRecoveryTime() == False):
+                valid = False
+
+            if(self.checkMaxSensRate() == False):
+                valid = False
+                
+            if(self.checkFixedAVdelay() == False):
+                valid = False
+                
         if(valid == False): 
             self.displayErrors()
             self.errors.clear() #To prevent multiple of the same errors from previous attempts to input new variable values
