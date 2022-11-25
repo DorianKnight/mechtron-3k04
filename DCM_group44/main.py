@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 import login
 import registration
 from data import createDB
+from connectionDisplay import displayNewDevice, displayConnection
 
 background = 'white'
 class WelcomePage:
@@ -15,21 +16,10 @@ class WelcomePage:
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
+        # display whether the DCM is connected to the pacemaker
+        displayConnection(self.window)
+        # display whether the DCM is connected to a new pacemaker
+        displayNewDevice(self.window)
 
         def openLoginWin():
             self.welcome_frame.destroy()

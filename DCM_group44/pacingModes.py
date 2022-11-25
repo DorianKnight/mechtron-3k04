@@ -5,6 +5,8 @@ import modeSelection
 import Patient as P
 
 background = 'white'
+
+# creates pages to change pacing mode-specific parameters  
 class PacingMode:
     def __init__(self, window):
         self.window = window
@@ -40,6 +42,7 @@ class PacingMode:
         # add blank row before back and confirm buttons
         self.frame.grid_rowconfigure(4, minsize = 20)
 
+    # ========= Functions to add entry boxes for each parameter. r represents row to place entry box on =========
     def addLrl(self, r):
         self.lrlLabel = Label(self.frame, text = "Lower Rate Limit (ppm):", bg = background, padx = 20)
         self.lrlEntry = Entry(self.frame, bg = background)
@@ -63,6 +66,7 @@ class PacingMode:
 
     def addAamp(self, r):
         self.aampLabel = Label(self.frame, text = "Atrial Amplitude (V): ⓘ", bg = background, padx = 20)
+        # add tooltip (hover over label and a pop-up with more details appears)
         tip = ToolTip(self.aampLabel, "Set value to 0 to turn off A Pulse Amplitude Regulated")
         self.aampEntry = Entry(self.frame, bg = background)
         self.aampLabel.grid(row = r, column = 0, sticky = W)

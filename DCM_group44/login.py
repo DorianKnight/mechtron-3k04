@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 import sqlite3
 import main
 import modeSelection
+from connectionDisplay import displayNewDevice, displayConnection
 
 background = 'white'
 class LoginPage:
@@ -16,22 +17,12 @@ class LoginPage:
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker Login")
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
+        # display whether the DCM is connected to the pacemaker
+        displayConnection(self.window)
+        # display whether the DCM is connected to a new pacemaker
+        displayNewDevice(self.window)
         
+        # function to go back to previous page (ie the welcome page)
         def goBack(): 
             self.login_frame.destroy()
             main.WelcomePage(self.window)
@@ -83,8 +74,10 @@ class LoginPage:
             self.window.destroy()
             modeSelection.launchModeSelect(usernameEntry)
 
+    # check whether username/password entries are valid, and match a pair in the database
     def entriesCorrect(self):
         error_msg = ""
+        # check validity of username/password
         no_error = True
         if (self.username_entry.get() == ''):
             error_msg = "Username cannot be empty"
@@ -93,6 +86,7 @@ class LoginPage:
             error_msg = "Password cannot be empty"
             no_error = False
 
+        # if entries are valid, check if they match a pair in database
         if (no_error):        
             try:
                 connection = sqlite3.connect('userdata.db')

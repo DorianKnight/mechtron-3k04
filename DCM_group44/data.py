@@ -1,6 +1,7 @@
 import sqlite3
 import Patient as P
 
+# create database to store patient information
 def createDB():
     connection = sqlite3.connect('userdata.db')
     cursor = connection.cursor()

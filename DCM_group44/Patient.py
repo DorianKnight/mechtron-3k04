@@ -3,6 +3,7 @@ from enum import Enum
 import data
 import sqlite3
 
+# defines accepted range for all parameters
 lrl_range1 = [30,50]
 lrl_range2 = [50,90]
 lrl_range3 = [90,175]
@@ -23,6 +24,7 @@ recoveryTime_range = [2,16]
 maxSensRate_range = [50,175]
 fixedAVdelay_range = [70,300]
 
+# defines accepted increments for all parameters
 lrl_r1_inc = 5
 lrl_r2_inc = 1
 lrl_r3_inc = 5
@@ -44,6 +46,7 @@ fixedAVdelay_inc = 10
 
 errorTolerance = 0.00000001 #This is a value to account for the inaccuracy of computer calculations (specifically modulo of floats)
 
+# determines whether number N is within range [smallNum, bigNum]
 def isBetween(N, smallNum, bigNum):
     return smallNum <= N <= bigNum
 
@@ -74,6 +77,7 @@ class Errors(Enum):
 
 
 class Patient:
+    # initializes patient with nominal values
     def __init__(self):
         self.username="NONE"
 
@@ -98,7 +102,7 @@ class Patient:
         
         self.errors = []
         
-    #Returns each of the incremenets for each of the parameters
+    #Returns each of the increments for each of the parameters
     def getInc(self, param, range): 
         match param: 
             case "LRL": 
@@ -136,6 +140,7 @@ class Patient:
                 return maxSensRate_inc
             case "Fixed AV Delay": 
                 return fixedAVdelay_inc
+
     #Returns each of the ranges for each of the parameters       
     def getRange(self, param, range): 
         returnVal = []
@@ -770,8 +775,8 @@ class Patient:
         print(f'Valid: {valid}')
         return valid
         
-
-    def copyFromDB(self): #Takes a username string and returns a patient instance
+    # retrieve database information for a given patient and save to patient
+    def copyFromDB(self): 
         connection = sqlite3.connect('userdata.db')
         cursor = connection.cursor()
 
@@ -851,6 +856,7 @@ class Patient:
         
         connection.commit()
 
+    # save current patient information/variables to the database
     def saveToDB(self):
         try:
             connection = sqlite3.connect('userdata.db')

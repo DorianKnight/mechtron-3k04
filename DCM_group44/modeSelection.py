@@ -4,8 +4,11 @@ import pacingModes
 import main
 import Patient as P
 import data
+from connectionDisplay import displayConnection, displayNewDevice
 
 background = 'white'
+
+# allow user to choose between the different pacing modes and then bring them to corresponding page
 class ModeSelect: 
     def __init__(self, window): 
         self.window = window
@@ -19,22 +22,12 @@ class ModeSelect:
         self.mode.set("None")
         self.patient=P.Patient()
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
+        # display whether the DCM is connected to the pacemaker
+        displayConnection(self.window)
+        # display whether the DCM is connected to a new pacemaker
+        displayNewDevice(self.window)
 
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-
+        # moves from current frame to frame of selected pacing mode
         def openMode(): 
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
@@ -60,7 +53,8 @@ class ModeSelect:
             else: 
                 print('This should not be possible. Something has gone wrong')
                 print(self.mode.get())
-                
+        
+        # back button to welcome page
         def backToWelcome(): 
             self.msFrame.destroy()
             main.WelcomePage(self.window)
@@ -101,15 +95,14 @@ class ModeSelect:
         self.nextButton.grid(row = 6, column = 1, columnspan=2, sticky = E, pady = 20)
                 
         
-    
+# opens mode select page
 def launchModeSelect(username): 
     window = Tk()
     MS=ModeSelect(window)
     MS.patient.username=username
     MS.patient.copyFromDB()
     
-    
-    
+    # initially selects last-selected pacing mode by default
     if(MS.patient.pacingMode=="VOO"):
         MS.vooRadio.select()
     elif(MS.patient.pacingMode=="AOO"):
@@ -133,7 +126,3 @@ def launchModeSelect(username):
     
 
     window.mainloop()
-    
-#if __name__ == '__main__':
-    #launchModeSelect("alrajabn")
-

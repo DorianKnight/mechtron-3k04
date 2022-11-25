@@ -6,6 +6,7 @@ from data import createDB
 from PIL import ImageTk, Image
 import main
 import modeSelection
+from connectionDisplay import displayConnection, displayNewDevice
 
 
 createDB()
@@ -21,21 +22,10 @@ class RegistrationPage:
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
+        # display whether the DCM is connected to the pacemaker
+        displayConnection(self.window)
+        # display whether the DCM is connected to a new pacemaker
+        displayNewDevice(self.window)
 
         def goBack(): 
             self.frame.destroy()
@@ -87,9 +77,9 @@ class RegistrationPage:
         self.back_button.grid(row = 5, column = 0, pady = 10, sticky = W, padx = 25)
 
     def registerUser(self):
-        error_msg = self.checkEntryErrors()
+        error_msg = self.checkEntryErrors() # check for entry validity errors
 
-        # if there is no error
+        # if there is no error, check to see if the username is not already being used and then register account
         if (error_msg == ""):   
             try:
                 connection = sqlite3.connect('userdata.db')
@@ -111,6 +101,7 @@ class RegistrationPage:
                 if (not(new_user)):
                     raise Exception("This username is already in use")
 
+                # make new user with nominal values
                 cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:actThr,:reactTime,:respFactor,:recoveryTime,:maxSensRate,:fixedAVdelay)", {
                                 'username': self.username_entry.get(),
                                 'password': self.password_entry.get(),
