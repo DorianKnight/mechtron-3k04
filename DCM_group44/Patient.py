@@ -266,7 +266,7 @@ class Patient:
                     self.addError("APW", "Increment")
                     return False
             else: 
-                self.addError("APW", "Increment")
+                self.addError("APW", "Range")
                 return False
         except: 
             self.addError("APW", "Type")

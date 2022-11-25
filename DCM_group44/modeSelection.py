@@ -9,7 +9,7 @@ background = 'white'
 class ModeSelect: 
     def __init__(self, window): 
         self.window = window
-        self.window.geometry('500x500')
+        self.window.geometry('500x600')
         self.width = 350
         self.height = 250
         self.window.minsize(self.width+30, self.height+50)

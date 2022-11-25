@@ -7,7 +7,7 @@ background = 'white'
 class PacingMode:
     def __init__(self, window):
         self.window = window
-        self.window.geometry('500x500')
+        self.window.geometry('500x600')
         self.window.iconbitmap("images\logo.ico")
         self.patient = P.Patient()
 
@@ -429,7 +429,7 @@ class AAIR(PacingMode):
      def __init__(self, window, patient):
         super().__init__(window)
         self.width = 450
-        self.height = 450
+        self.height = 550
         self.window.title("Pacemaker | AAIR Pacing Mode")
         self.patient=patient
 
@@ -483,7 +483,7 @@ class VVIR(PacingMode):
      def __init__(self, window, patient):
         super().__init__(window)
         self.width = 450
-        self.height = 450
+        self.height = 550
         self.window.title("Pacemaker | VVIR Pacing Mode")
         self.patient=patient
 
@@ -534,7 +534,7 @@ class DDD(PacingMode):
      def __init__(self, window, patient):
         super().__init__(window)
         self.width = 450
-        self.height = 450
+        self.height = 550
         self.window.title("Pacemaker | DDD Pacing Mode")
         self.patient=patient
         
@@ -588,8 +588,8 @@ class DDDR(PacingMode):
      def __init__(self, window, patient):
         super().__init__(window)
         self.width = 450
-        self.height = 600
-        self.window.geometry("500x650")
+        self.height = 675
+        self.window.geometry("500x720")
         self.window.title("Pacemaker | DDDDR Pacing Mode")
         self.patient=patient
 

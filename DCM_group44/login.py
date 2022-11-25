@@ -9,7 +9,7 @@ background = 'white'
 class LoginPage:
     def __init__(self, window):
         self.window = window
-        self.window.geometry('450x500')
+        self.window.geometry('450x600')
         self.width = 400
         self.height = 350
         self.window.minsize(self.width+30, self.height+40)
