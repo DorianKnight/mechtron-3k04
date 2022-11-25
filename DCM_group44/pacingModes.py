@@ -19,7 +19,8 @@ class PacingMode:
         self.frame.place(anchor="c", relx=0.5, rely=0.5)
         self.frame.grid_propagate(False)
         self.frame.columnconfigure(0,weight=1)
-        self.frame.columnconfigure(1,weight=3)
+        self.frame.columnconfigure(1,weight=2)
+        self.frame.columnconfigure(2,weight=1)
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
@@ -34,145 +35,167 @@ class PacingMode:
         self.instructionLabel2 = Label(self.frame, text  = "These values will be checked to ensure that they are valid entries.", bg = background, padx = 20)
         self.instructionLabel3 = Label(self.frame, text  = "If you have not set any values yet, they will be set to the nominal values.", bg = background, padx = 20)
 
-        self.titleLabel.grid(row = 0, column = 0, columnspan = 2)
-        self.instructionLabel.grid(row = 1, column = 0, columnspan = 2)
-        self.instructionLabel2.grid(row = 2, column = 0, columnspan = 2)
-        self.instructionLabel3.grid(row = 3, column = 0, columnspan = 2)
+        self.titleLabel.grid(row = 0, column = 0, columnspan = 3)
+        self.instructionLabel.grid(row = 1, column = 0, columnspan = 3)
+        self.instructionLabel2.grid(row = 2, column = 0, columnspan = 3)
+        self.instructionLabel3.grid(row = 3, column = 0, columnspan = 3)
 
         # add blank row before back and confirm buttons
         self.frame.grid_rowconfigure(4, minsize = 20)
 
+    def entryChanged(self):
+        # disable apply button
+        try:
+            if (self.apply['state'] == NORMAL):
+                self.apply['state'] = DISABLED
+        except Exception as ep:
+            pass
+        return True # needs to return true for it to work
+        
+    
+    def enableApplyBtn(self):
+        try:
+            self.apply['state'] = NORMAL
+        except Exception as ep:
+            pass
+
     # ========= Functions to add entry boxes for each parameter. r represents row to place entry box on =========
     def addLrl(self, r):
         self.lrlLabel = Label(self.frame, text = "Lower Rate Limit (ppm):", bg = background, padx = 20)
-        self.lrlEntry = Entry(self.frame, bg = background)
+        self.lrlEntry = Entry(self.frame, bg = background, validate="key", validatecommand=self.entryChanged)
         self.lrlLabel.grid(row = r, column = 0, sticky = W)
-        self.lrlEntry.grid(row = r, column = 1)
+        self.lrlEntry.grid(row = r, column = 1, columnspan = 2)
         self.lrlEntry.insert(0,self.patient.lrl)
+        print(self.patient.lrl)
 
     def addUrl(self, r):
         self.urlLabel = Label(self.frame, text = "Upper Rate Limit (ppm):", bg = background, padx = 20)
-        self.urlEntry = Entry(self.frame, bg = background)
+        self.urlEntry = Entry(self.frame, bg = background, validate="key", validatecommand=self.entryChanged)
         self.urlLabel.grid(row = r, column = 0, sticky = W)
-        self.urlEntry.grid(row = r, column = 1)
+        self.urlEntry.grid(row = r, column = 1, columnspan = 2)
         self.urlEntry.insert(0,self.patient.url)
 
     def addApw(self, r):
         self.apwLabel = Label(self.frame, text = "Atrial Pulse Width (ms):", bg = background, padx = 20)
-        self.apwEntry = Entry(self.frame, bg = background)
+        self.apwEntry = Entry(self.frame, bg = background, validate="key", validatecommand=self.entryChanged)
         self.apwLabel.grid(row = r, column = 0, sticky = W)
-        self.apwEntry.grid(row = r, column = 1)
+        self.apwEntry.grid(row = r, column = 1, columnspan = 2)
         self.apwEntry.insert(0,self.patient.apw)
 
     def addAamp(self, r):
         self.aampLabel = Label(self.frame, text = "Atrial Amplitude (V): ⓘ", bg = background, padx = 20)
         # add tooltip (hover over label and a pop-up with more details appears)
         tip = ToolTip(self.aampLabel, "Set value to 0 to turn off A Pulse Amplitude Regulated")
-        self.aampEntry = Entry(self.frame, bg = background)
+        self.aampEntry = Entry(self.frame, bg = background, validate="key", validatecommand=self.entryChanged)
         self.aampLabel.grid(row = r, column = 0, sticky = W)
-        self.aampEntry.grid(row = r, column = 1)
+        self.aampEntry.grid(row = r, column = 1, columnspan = 2)
         self.aampEntry.insert(0,self.patient.aamp)
-
-    def addBackAndConfirm(self, r, cmdBack, cmdConfirm):
-        # add blank row before back and confirm buttons
-        self.frame.grid_rowconfigure(r, minsize = 20)
-
-        self.back = Button(self.frame, text = "Back", width=12, command = cmdBack)
-        self.back.grid(row = r+1, column = 0, sticky=S)
-        self.confirm = Button(self.frame, text = "Confirm changes", width=12, command = cmdConfirm)
-        self.confirm.grid(row = r+1, column = 1, sticky=SE, padx = 40)
 
     def addVpw(self, r):
         self.vpwLabel = Label(self.frame, text = "Ventrical Pulse Width (ms):", bg = background, padx = 20)
-        self.vpwEntry = Entry(self.frame, bg = background)
+        self.vpwEntry = Entry(self.frame, bg = background, validate="key", validatecommand=self.entryChanged)
         self.vpwLabel.grid(row = r, column = 0, sticky = W)
-        self.vpwEntry.grid(row = r, column = 1)
+        self.vpwEntry.grid(row = r, column = 1, columnspan = 2)
         self.vpwEntry.insert(0,self.patient.vpw)
 
     def addVamp(self, r):
         self.vampLabel = Label(self.frame, text = "Ventrical Amplitude (V): ⓘ", bg = background, padx = 20)
         tip = ToolTip(self.vampLabel, "Set value to 0 to turn off V Pulse Amplitude Regulated")
-        self.vampEntry = Entry(self.frame, bg=background)
+        self.vampEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.vampLabel.grid(row = r, column = 0, sticky = W)
-        self.vampEntry.grid(row = r, column = 1)
+        self.vampEntry.grid(row = r, column = 1, columnspan = 2)
         self.vampEntry.insert(0,self.patient.vamp)
 
     def addAsens(self, r):
         self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (mV):", bg = background, padx = 20)
-        self.asensEntry = Entry(self.frame, bg=background)
+        self.asensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.asensLabel.grid(row = r, column = 0, sticky = W)
-        self.asensEntry.grid(row = r, column = 1)
+        self.asensEntry.grid(row = r, column = 1, columnspan = 2)
         self.asensEntry.insert(0,self.patient.asens)
 
     def addArp(self, r):
         self.arpLabel = Label(self.frame, text = "Atrial Refractory Period (ms):", bg = background, padx = 20)
-        self.arpEntry = Entry(self.frame, bg=background)
+        self.arpEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.arpLabel.grid(row = r, column = 0, sticky = W)
-        self.arpEntry.grid(row = r, column = 1)
+        self.arpEntry.grid(row = r, column = 1, columnspan = 2)
         self.arpEntry.insert(0,self.patient.arp)
 
     def addVrp(self, r):
         self.vrpLabel = Label(self.frame, text = "Ventricular Refractory Period (ms):", bg = background, padx = 20)
-        self.vrpEntry = Entry(self.frame, bg=background)
+        self.vrpEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.vrpLabel.grid(row = r, column = 0, sticky = W)
-        self.vrpEntry.grid(row = r, column = 1)
+        self.vrpEntry.grid(row = r, column = 1, columnspan = 2)
         self.vrpEntry.insert(0,self.patient.vrp)
 
     def addPvarp(self, r):
         self.pvarpLabel = Label(self.frame, text = "PVARP (ms):", bg = background, padx = 20)
-        self.pvarpEntry = Entry(self.frame, bg=background)
+        self.pvarpEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.pvarpLabel.grid(row = r, column = 0, sticky = W)
-        self.pvarpEntry.grid(row = r, column = 1)
+        self.pvarpEntry.grid(row = r, column = 1, columnspan = 2)
         self.pvarpEntry.insert(0,self.patient.pvarp)        
     
     def addVsens(self, r):
         self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (mV):", bg = background, padx = 20)
-        self.vsensEntry = Entry(self.frame, bg=background)
+        self.vsensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.vsensLabel.grid(row = r, column = 0, sticky = W)
-        self.vsensEntry.grid(row = r, column = 1)
+        self.vsensEntry.grid(row = r, column = 1, columnspan = 2)
         self.vsensEntry.insert(0,self.patient.vsens)
 
     def addActThr(self, r): #should we make this a dropdown???
         self.actThrLabel = Label(self.frame, text = "Activity Threshold:", bg = background, padx = 20)
-        self.actThrEntry = Entry(self.frame, bg=background)
+        self.actThrEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.actThrLabel.grid(row = r, column = 0, sticky = W)
-        self.actThrEntry.grid(row = r, column = 1)
+        self.actThrEntry.grid(row = r, column = 1, columnspan = 2)
         self.actThrEntry.insert(0,self.patient.actThr)
 
     def addReactTime(self, r):
         self.reactTimeLabel = Label(self.frame, text = "Reaction Time (s):", bg = background, padx = 20)
-        self.reactTimeEntry = Entry(self.frame, bg=background)
+        self.reactTimeEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.reactTimeLabel.grid(row = r, column = 0, sticky = W)
-        self.reactTimeEntry.grid(row = r, column = 1)
+        self.reactTimeEntry.grid(row = r, column = 1, columnspan = 2)
         self.reactTimeEntry.insert(0,self.patient.reactTime)
 
     def addRespFactor(self, r):
         self.respFactorLabel = Label(self.frame, text = "Response Factor:", bg = background, padx = 20)
-        self.respFactorEntry = Entry(self.frame, bg=background)
+        self.respFactorEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.respFactorLabel.grid(row = r, column = 0, sticky = W)
-        self.respFactorEntry.grid(row = r, column = 1)
+        self.respFactorEntry.grid(row = r, column = 1, columnspan = 2)
         self.respFactorEntry.insert(0,self.patient.respFactor)
 
     def addRecoveryTime(self, r):
         self.recoveryTimeLabel = Label(self.frame, text = "Recovery Time (min):", bg = background, padx = 20)
-        self.recoveryTimeEntry = Entry(self.frame, bg=background)
+        self.recoveryTimeEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.recoveryTimeLabel.grid(row = r, column = 0, sticky = W)
-        self.recoveryTimeEntry.grid(row = r, column = 1)
+        self.recoveryTimeEntry.grid(row = r, column = 1, columnspan = 2)
         self.recoveryTimeEntry.insert(0,self.patient.recoveryTime)
 
     def addMaxSensRate(self, r):
         self.maxSensRateLabel = Label(self.frame, text = "Max Sensor Rate (ppm):", bg = background, padx = 20)
-        self.maxSensRateEntry = Entry(self.frame, bg=background)
+        self.maxSensRateEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.maxSensRateLabel.grid(row = r, column = 0, sticky = W)
-        self.maxSensRateEntry.grid(row = r, column = 1)
+        self.maxSensRateEntry.grid(row = r, column = 1, columnspan = 2)
         self.maxSensRateEntry.insert(0,self.patient.maxSensRate)
 
     def addFixedAVdelay(self, r):
         self.fixedAVdelayLabel = Label(self.frame, text = "Fixed AV Delay (ms):", bg = background, padx = 20)
-        self.fixedAVdelayEntry = Entry(self.frame, bg=background)
+        self.fixedAVdelayEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.fixedAVdelayLabel.grid(row = r, column = 0, sticky = W)
-        self.fixedAVdelayEntry.grid(row = r, column = 1)
+        self.fixedAVdelayEntry.grid(row = r, column = 1, columnspan = 2)
         self.fixedAVdelayEntry.insert(0,self.patient.fixedAVdelay)
+
+     # ========= Functions to add buttons. r represents row to place entry box on =========
+    def addBackAndConfirm(self, r, cmdBack, cmdConfirm):
+        # add blank row before back and confirm buttons
+        self.frame.grid_rowconfigure(r, minsize = 20)
+
+        self.back = Button(self.frame, text = "Back", width=5, command = cmdBack)
+        self.back.grid(row = r+1, column = 0, sticky=S)
+        
+        self.save = Button(self.frame, text = "Save", width=5, command = cmdConfirm)
+        self.save.grid(row = r+1, column = 1, sticky=SW)
+        
+        self.apply = Button(self.frame, text = "Apply", width=5, state = NORMAL)
+        self.apply.grid(row = r+1, column = 2, sticky=S)
 
 
 class AOO(PacingMode): 
@@ -188,6 +211,7 @@ class AOO(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AOO")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -226,6 +250,7 @@ class VOO(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VOO")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -265,6 +290,7 @@ class AAI(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AAI")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -309,6 +335,7 @@ class VVI(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VVI")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -351,6 +378,7 @@ class AOOR(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AOOR")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -398,6 +426,7 @@ class VOOR(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VOOR")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -445,6 +474,7 @@ class AAIR(PacingMode):
             updatePatient()
             if(self.patient.numsValid("AAIR")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -499,6 +529,7 @@ class VVIR(PacingMode):
             updatePatient()
             if(self.patient.numsValid("VVIR")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -550,6 +581,7 @@ class DDD(PacingMode):
             updatePatient()
             if(self.patient.numsValid("DDD")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
@@ -605,6 +637,7 @@ class DDDR(PacingMode):
             updatePatient()
             if(self.patient.numsValid("DDDR")):
                 self.patient.saveToDB()
+                self.enableApplyBtn()
             else:
                 self.patient.copyFromDB()
         
