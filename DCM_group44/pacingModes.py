@@ -107,7 +107,7 @@ class PacingMode:
         self.vampEntry.insert(0,self.patient.vamp)
 
     def addAsens(self, r):
-        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (mV):", bg = background, padx = 20)
+        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (V):", bg = background, padx = 20)
         self.asensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.asensLabel.grid(row = r, column = 0, sticky = W)
         self.asensEntry.grid(row = r, column = 1, columnspan = 2)
@@ -135,7 +135,7 @@ class PacingMode:
         self.pvarpEntry.insert(0,self.patient.pvarp)        
     
     def addVsens(self, r):
-        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (mV):", bg = background, padx = 20)
+        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (V):", bg = background, padx = 20)
         self.vsensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.vsensLabel.grid(row = r, column = 0, sticky = W)
         self.vsensEntry.grid(row = r, column = 1, columnspan = 2)
