@@ -22,12 +22,48 @@ class SerialObject:
 
             #Read data from pacemaker
             self.ser.write(data[1])
-            returnData = self.ser.read(41)
+            boardVals = self.ser.read(41)
+            #Process return data into a dictonary (convert the mV into V by dividing by 1000)
+            lrl = boardVals[0]
+            maxSensRate = boardVals[1]
+            aamp = (struct.unpack("H", boardVals[2:4])[0])/1000 #mV to V
+            apw = boardVals[4]
+            asens = (struct.unpack("H", boardVals[5:7])[0])/1000
+            arp = struct.unpack("H", boardVals[7:9])[0]
+            vamp = (struct.unpack("H", boardVals[9:11])[0])/1000
+            vpw = boardVals[11]
+            vsens = (struct.unpack("H", boardVals[12:14])[0])/1000
+            vrp = struct.unpack("H", boardVals[14:16])[0]
+            fixedAVdelay = struct.unpack("H", boardVals[16:18])[0]
+            pvarp = struct.unpack("H", boardVals[18:20])[0]
+            actThr = boardVals[20]
+            respFactor = boardVals[21]
+            reactTime = boardVals[22]
+            recoveryTime = boardVals[23]
+            pacingMode = boardVals[24]
+            egramsAtrial =struct.unpack("d", boardVals[25:33])[0]
+            egramsVentricular = struct.unpack("d", boardVals[33:41])[0]
 
-            
-            
-            #Process return data into a dictonary here later when you have time also make sure to convert the mV into V by dividing by 1000
-            
+            returnData = {
+                'lrl':lrl,
+                'maxSensRate':maxSensRate,
+                'aamp':aamp,
+                'apw':apw,
+                'asens':asens,
+                'arp':arp,
+                'vamp':vamp,
+                'vpw':vpw,
+                'vsens':vsens,
+                'vrp':vrp,
+                'fixedAVdelay':fixedAVdelay,
+                'pvarp':pvarp,
+                'actThr':actThr,
+                'respFactor':respFactor,
+                'reactTime':reactTime,
+                'recoveryTime':recoveryTime,
+                'pacingMode':pacingMode,
+                'egramsAtrial':egramsAtrial,
+                'egramsVentricular':egramsVentricular}
 
             return returnData #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
         else:
