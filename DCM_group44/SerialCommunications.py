@@ -5,6 +5,7 @@
 import serial
 import serial.tools.list_ports
 import struct
+from tkinter import messagebox
 
 class SerialObject:
     def __init__(self,commPort):
@@ -67,6 +68,7 @@ class SerialObject:
 
             return returnData #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
         else:
+            messagebox.showerror(title = "Error", message = "Serial port is not open")
             #Create an error flag that says that the serial port is not open
             pass
     def PackData(self,patient):
