@@ -143,10 +143,30 @@ class PacingMode:
 
     def addActThr(self, r): #should we make this a dropdown???
         self.actThrLabel = Label(self.frame, text = "Activity Threshold:", bg = background, padx = 20)
-        self.actThrEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
+        # self.actThrEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.actThrLabel.grid(row = r, column = 0, sticky = W)
-        self.actThrEntry.grid(row = r, column = 1, columnspan = 2)
-        self.actThrEntry.insert(0,self.patient.actThr)
+        # self.actThrEntry.grid(row = r, column = 1, columnspan = 2)
+        #self.actThrEntry.insert(0,self.patient.actThr)
+
+        # dropdown
+        self.actThrOptions = [
+            "V-Low",
+            "Low",
+            "Med-Low",
+            "Med",
+            "Med-High",
+            "High",
+            "V-High"
+        ]
+        self.actThrSelected = StringVar()
+
+        # initial dropdown text
+        self.actThrSelected.set(self.patient.actThr)
+
+        # create dropdown menu
+        self.actThrDrop = OptionMenu(self.frame, self.actThrSelected, *self.actThrOptions)
+        self.actThrDrop.config(width=15)
+        self.actThrDrop.grid(row = r, column = 1, columnspan = 2)
 
     def addReactTime(self, r):
         self.reactTimeLabel = Label(self.frame, text = "Reaction Time (s):", bg = background, padx = 20)
@@ -389,7 +409,7 @@ class AOOR(PacingMode):
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
             self.patient.aamp=self.aampEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -437,7 +457,7 @@ class VOOR(PacingMode):
             self.patient.url=self.urlEntry.get()
             self.patient.vpw=self.vpwEntry.get()
             self.patient.vamp=self.vampEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -487,7 +507,7 @@ class AAIR(PacingMode):
             self.patient.aamp=self.aampEntry.get()
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -540,7 +560,7 @@ class VVIR(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             self.patient.vrp=self.vrpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -653,7 +673,7 @@ class DDDR(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             self.patient.vrp=self.vrpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
