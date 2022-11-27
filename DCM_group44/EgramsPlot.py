@@ -8,13 +8,13 @@ import matplotlib.animation as animation
 import numpy as np
 from SerialCommunications import SerialObject
 
-class EgramsDislpay:
-    def __init__(self,refreshRate,port):
+class EgramsPlotting:
+    def __init__(self,refreshRate,port,patient):
         #refreshRate is how often you want to call echo (eg every 1 ms, 5 ms - it's your choice)
         self.refreshRate = refreshRate
         #Initializes the serial communication object to receive egrams data
-        #self.pacemakerSerial = SerialObject(port)
-        
+        self.pacemakerSerial = SerialObject(port)
+        self.patient = patient
         
 
     def DisplayEgramsAtria(self):
@@ -28,7 +28,7 @@ class EgramsDislpay:
         fig, self.ax = plt.subplots()
         self.data = deque([(0,0)],maxlen=int(10000/self.refreshRate)) #Records the last 10,000 ms (10 sec) of activity
         self.line = plt.plot((0),(0),c='black')[0]
-        ani = animation.FuncAnimation(fig, self.AnimateAtrialEgram,interval = self.refreshRate)
+        plotAnimation = animation.FuncAnimation(fig, self.AnimateAtrialEgram,interval = self.refreshRate)
         
         #plotAnimation.save()
         plt.show()
@@ -53,12 +53,12 @@ class EgramsDislpay:
         print(y)
         return x,y
 
-    def AnimateAtrialEgram(self,blank):
+    def AnimateAtrialEgram(self,i):
         #Get Atrial Egrams data
-        #egramsDictionary = self.pacemakerSerial.ReceiveEgramsData(patient)
+        egramsDictionary = self.pacemakerSerial.ReceiveEgramsData(self.patient)
         self.x += self.refreshRate
-        #self.y = egramsDictionary['egramsAtrial']
-        self.y = np.random.randn() #TEMPORARY
+        self.y = egramsDictionary['egramsAtrial']
+        #self.y = np.random.randn() #TEMPORARY
         self.data.append((self.x,self.y))
         self.line.set_data(self.FormatData(self.data))
         
@@ -68,8 +68,8 @@ class EgramsDislpay:
         self.ax.autoscale_view()
 
 
-    def AnimateVentricularEgrams(self,patient):
-        egramsDictionary = self.pacemakerSerial.ReceiveEgramsData(patient)
+    def AnimateVentricularEgrams(self):
+        egramsDictionary = self.pacemakerSerial.ReceiveEgramsData(self.patient)
         self.x += self.refreshRate
         self.y = egramsDictionary['egramsVentricular']
         #self.y = np.random.randn() #TEMPORARY
@@ -81,6 +81,6 @@ class EgramsDislpay:
         #Autoscale to the new bounds
         self.ax.autoscale_view()
 
-EgramsObject = EgramsDislpay(100,'COM7')
-EgramsObject.DisplayEgramsAtria()
+#EgramsObject = EgramsDislpay(100,'COM7')
+#EgramsObject.DisplayEgramsAtria()
     
