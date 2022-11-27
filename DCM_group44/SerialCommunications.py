@@ -7,6 +7,23 @@ import serial.tools.list_ports
 import struct
 from tkinter import messagebox
 
+def getPortName(): #returns string of port name/code as a string, such as "COM7". string can be passed to SerialObject constructor
+    Vid="4966" #same for every pacemaker
+    Pid="4117" #same for every pacemaker
+
+    devicelist=serial.tools.list_ports.comports() #make a list of all connections
+    port=""
+    
+    for Device in devicelist: #check if any connection has the pacemaker device attributes
+        if(str(Device.vid)==Vid and str(Device.pid)==Pid):
+            port=Device.device
+
+    if(port==""):
+        print("PORT NOT FOUND")
+        #throw exception?
+
+    return port #return the port name/code of the connection we found
+
 class SerialObject:
     def __init__(self,commPort):
         self.ser = serial.Serial()
