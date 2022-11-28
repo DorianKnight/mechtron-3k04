@@ -1,6 +1,6 @@
 from tkinter import *
 
-connectionChecker=True
+connectionChecker=False
 newDeviceChecker=False
 
 # ========= Connection =========

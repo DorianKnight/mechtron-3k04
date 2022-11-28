@@ -2,8 +2,8 @@ from tkinter import *
 from PIL import ImageTk, Image
 import login
 import registration
-from data import createDB
-from connectionDisplay import displayNewDevice, displayConnection
+from data import createDB, indexExists
+import connectionDisplay as CD
 import SerialCommunications
 
 background = 'white'
@@ -20,25 +20,35 @@ class WelcomePage:
         def Refresh():
             # try to connect
             SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-            
+            oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
+            #call indexExists and pass in the "user identifier" int stored in the pacemaker
+
+            #update newdevicechecker (connection checker is already updated in getPortName())
+            if(oldUser): #old user, exists in db
+                CD.newDeviceChecker=False
+            else: #new user
+                CD.newDeviceChecker=True
+                
+
             # remove current status
             self.connectionBanner.destroy()
             self.deviceBanner.destroy()
             
             # display the status again
-            self.connectionBanner=displayConnection(self.window)
-            self.deviceBanner=displayNewDevice(self.window)
+            self.connectionBanner=CD.displayConnection(self.window)
+            self.deviceBanner=CD.displayNewDevice(self.window)
 
 
         # display whether the DCM is connected to the pacemaker
-        self.connectionBanner=displayConnection(self.window)
+        self.connectionBanner=CD.displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
-        self.deviceBanner=displayNewDevice(self.window)
+        self.deviceBanner=CD.displayNewDevice(self.window)
         # refresh button
         refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
         refreshBtn.grid(row=0,column=4)
 
-        
+        # refresh automatically when window is instantiated
+        Refresh()
 
         def openLoginWin():
             self.welcome_frame.destroy()
@@ -88,6 +98,7 @@ def launchApp():
     window = Tk()
     WelcomePage(window)
     window.mainloop()
+
 
 if __name__ == '__main__':
     launchApp()
