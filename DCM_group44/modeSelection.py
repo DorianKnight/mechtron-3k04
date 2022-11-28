@@ -11,7 +11,7 @@ background = 'white'
 
 # allow user to choose between the different pacing modes and then bring them to corresponding page
 class ModeSelect: 
-    def __init__(self, window, Serobj): 
+    def __init__(self, window): 
         self.window = window
         self.window.geometry('500x600')
         self.width = 350
@@ -22,43 +22,18 @@ class ModeSelect:
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
         self.patient=P.Patient()
-        self.Serobj = Serobj
 
-        def Refresh():
-            # try to connect
-            if (SerialCommunications.getPortName() != '' and self.Serobj == None):
-                print("I've also been created in mode select ;)")
-                self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-            
-            oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
-            #call indexExists and pass in the "user identifier" int stored in the pacemaker
-
-            #update newdevicechecker (connection checker is already updated in getPortName())
-            if(oldUser): #old user, exists in db
-                CD.newDeviceChecker=False
-            else: #new user
-                CD.newDeviceChecker=True
-                
-
-            # remove current status
-            self.connectionBanner.destroy()
-            self.deviceBanner.destroy()
-            
-            # display the status again
-            self.connectionBanner=CD.displayConnection(self.window)
-            self.deviceBanner=CD.displayNewDevice(self.window)
-
-
+        '''
         # display whether the DCM is connected to the pacemaker
         self.connectionBanner=CD.displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
         self.deviceBanner=CD.displayNewDevice(self.window)
         # refresh button
-        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
-        refreshBtn.grid(row=0,column=4)
-
+        # refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=self.refresh)
+        # refreshBtn.grid(row=0,column=4)
         # refresh automatically when window is instantiated
-        Refresh()
+        self.refresh()
+        '''
 
         # moves from current frame to frame of selected pacing mode
         def openMode(): 
@@ -126,11 +101,35 @@ class ModeSelect:
         self.dddrRadio.grid(row = 5, column = 1, sticky = W, padx = 20)
         self.backButton.grid(row = 6,column = 0, sticky = W, padx = 20, pady = 20)
         self.nextButton.grid(row = 6, column = 1, columnspan=2, sticky = E, pady = 20)
-                
+    '''
+    def refresh(self):
+        # try to connect
+        if (SerialCommunications.getPortName() != '' and self.Serobj == None):
+            print("I've also been created in mode select ;)")
+            self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+        
+        oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
+        #call indexExists and pass in the "user identifier" int stored in the pacemaker
+
+        #update newdevicechecker (connection checker is already updated in getPortName())
+        if(oldUser): #old user, exists in db
+            CD.newDeviceChecker=False
+        else: #new user
+            CD.newDeviceChecker=True
+            
+
+        # remove current status
+        self.connectionBanner.destroy()
+        self.deviceBanner.destroy()
+        
+        # display the status again
+        self.connectionBanner=CD.displayConnection(self.window)
+        self.deviceBanner=CD.displayNewDevice(self.window)
+       '''     
         
 # opens mode select page
-def launchModeSelect(username, window, Serobj): 
-    MS=ModeSelect(window,Serobj)
+def launchModeSelect(username, window): 
+    MS=ModeSelect(window)
     MS.patient.username=username
     MS.patient.copyFromDB()
     

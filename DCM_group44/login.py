@@ -17,10 +17,12 @@ class LoginPage:
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker Login")
 
+        '''
         # display whether the DCM is connected to the pacemaker
         displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
         displayNewDevice(self.window)
+        '''
         
         # function to go back to previous page (ie the welcome page)
         def goBack(): 
@@ -72,7 +74,7 @@ class LoginPage:
         if(self.entriesCorrect()):
             usernameEntry = self.username_entry.get()
             self.login_frame.destroy()
-            modeSelection.launchModeSelect(usernameEntry, self.window, main.Serobj)
+            modeSelection.launchModeSelect(usernameEntry, self.window)
 
     # check whether username/password entries are valid, and match a pair in the database
     def entriesCorrect(self):

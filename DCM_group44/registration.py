@@ -22,11 +22,12 @@ class RegistrationPage:
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
 
+        '''
         # display whether the DCM is connected to the pacemaker
         displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
         displayNewDevice(self.window)
-
+        '''
         def goBack(): 
             self.frame.destroy()
             main.WelcomePage(self.window)

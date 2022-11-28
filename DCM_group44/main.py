@@ -20,41 +20,16 @@ class WelcomePage:
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
 
-        def Refresh():
-            # try to connect
-            global Serobj 
-            if (SerialCommunications.getPortName() != '' and Serobj == None):
-                print("Ive been created hahahah")
-                Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-            oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
-            #call indexExists and pass in the "user identifier" int stored in the pacemaker
-
-            #update newdevicechecker (connection checker is already updated in getPortName())
-            if(oldUser): #old user, exists in db
-                CD.newDeviceChecker=False
-            else: #new user
-                CD.newDeviceChecker=True
-                
-
-            # remove current status
-            self.connectionBanner.destroy()
-            self.deviceBanner.destroy()
-            
-            # display the status again
-            self.connectionBanner=CD.displayConnection(self.window)
-            self.deviceBanner=CD.displayNewDevice(self.window)
-
-
         # display whether the DCM is connected to the pacemaker
         self.connectionBanner=CD.displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
         self.deviceBanner=CD.displayNewDevice(self.window)
         # refresh button
-        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
+        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=self.refresh)
         refreshBtn.grid(row=0,column=4)
 
         # refresh automatically when window is instantiated
-        Refresh()
+        self.refresh()
 
         def openLoginWin():
             self.welcome_frame.destroy()
@@ -97,7 +72,30 @@ class WelcomePage:
         # formatting entries
         self.login_button.grid(row=2, column=0, columnspan=2, pady=10)
         self.register_button.grid(row=3, column=0, columnspan=2)
-        
+    
+    def refresh(self):
+        # try to connect
+        global Serobj 
+        if (SerialCommunications.getPortName() != '' and Serobj == None):
+            print("Ive been created hahahah")
+            Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+        oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
+        #call indexExists and pass in the "user identifier" int stored in the pacemaker
+
+        #update newdevicechecker (connection checker is already updated in getPortName())
+        if(oldUser): #old user, exists in db
+            CD.newDeviceChecker=False
+        else: #new user
+            CD.newDeviceChecker=True
+                
+
+        # remove current status
+        self.connectionBanner.destroy()
+        self.deviceBanner.destroy()
+            
+        # display the status again
+        self.connectionBanner=CD.displayConnection(self.window)
+        self.deviceBanner=CD.displayNewDevice(self.window)
 
 def launchApp():
     createDB()

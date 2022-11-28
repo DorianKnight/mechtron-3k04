@@ -3,6 +3,9 @@ from PIL import ImageTk, Image
 from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
+import main
+import connectionDisplay as CD
+
 
 from EgramsWindow import EgramsDisplay
 
@@ -31,7 +34,7 @@ class PacingMode:
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
-            MS=modeSelection.ModeSelect(self.window,self.comm)
+            MS=modeSelection.ModeSelect(self.window)
             getattr(MS, radioBtn).select()
             MS.patient=self.patient
     
@@ -43,10 +46,12 @@ class PacingMode:
             self.patient.copyFromDB()
             
     def applyChanges(self): 
-        self.comm = modeSelection.ModeSelect.Serobj
-        self.comm.SendData(self.patient)
-        
-
+        if (CD.connectionChecker):
+            main.Serobj.SendData(self.patient)
+            print("connected")
+        else:
+            # add error message here
+            print("not connected")
 
     def addTitleAndInstructions(self, mode):
         # title and instructions
