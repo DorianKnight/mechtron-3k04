@@ -4,6 +4,7 @@ import login
 import registration
 from data import createDB
 from connectionDisplay import displayNewDevice, displayConnection
+import SerialCommunications
 
 background = 'white'
 class WelcomePage:
@@ -16,10 +17,28 @@ class WelcomePage:
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
 
+        def Refresh():
+            # try to connect
+            SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+            
+            # remove current status
+            self.connectionBanner.destroy()
+            self.deviceBanner.destroy()
+            
+            # display the status again
+            self.connectionBanner=displayConnection(self.window)
+            self.deviceBanner=displayNewDevice(self.window)
+
+
         # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
+        self.connectionBanner=displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
+        self.deviceBanner=displayNewDevice(self.window)
+        # refresh button
+        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
+        refreshBtn.grid(row=0,column=4)
+
+        
 
         def openLoginWin():
             self.welcome_frame.destroy()

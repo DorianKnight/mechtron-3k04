@@ -1,6 +1,6 @@
 from tkinter import *
 
-connectionChecker=False
+connectionChecker=True
 newDeviceChecker=False
 
 # ========= Connection =========
@@ -12,6 +12,7 @@ def displayConnection(window):
     else:
         connectionBanner=Label(window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
         connectionBanner.grid(row=0,column=0, sticky=W)
+    return connectionBanner
 
 # ========= New Device =========
 # display whether the DCM is connected to a new pacemaker
@@ -22,4 +23,5 @@ def displayNewDevice(window):
     else:
         deviceBanner = Label(window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
         deviceBanner.grid(row=0,column=2, sticky=E)
+    return deviceBanner
         

@@ -5,6 +5,7 @@ import main
 import Patient as P
 import data
 from connectionDisplay import displayConnection, displayNewDevice
+import SerialCommunications
 
 background = 'white'
 
@@ -22,10 +23,26 @@ class ModeSelect:
         self.mode.set("None")
         self.patient=P.Patient()
 
+        def Refresh():
+            # try to connect
+            SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+            
+            # remove current status
+            self.connectionBanner.destroy()
+            self.deviceBanner.destroy()
+            
+            # display the status again
+            self.connectionBanner=displayConnection(self.window)
+            self.deviceBanner=displayNewDevice(self.window)
+
+
         # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
+        self.connectionBanner=displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
+        self.deviceBanner=displayNewDevice(self.window)
+        # refresh button
+        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
+        refreshBtn.grid(row=0,column=4)
 
         # moves from current frame to frame of selected pacing mode
         def openMode(): 
