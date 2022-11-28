@@ -3,9 +3,13 @@ from PIL import ImageTk, Image
 from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
+
+from EgramsWindow import EgramsDisplay
+
 import SerialCommunications as Serial
 from tkinter import messagebox
 #import serial_test as S
+
 
 background = 'white'
 
@@ -233,6 +237,14 @@ class PacingMode:
         self.apply = Button(self.frame, text = "Apply", width=5, state = NORMAL, command = cmdApply)
         self.apply.grid(row = r+1, column = 2, sticky = S)
 
+    # ========= Function to add display Egrams buttons =========
+    def addDisplayEgrams(self,rowOfBox):
+        self.egramsDisplay = Button(self.frame, text = "Display Egrams Plot", width=15, command= self.launchEgrams)
+        self.egramsDisplay.grid(row = rowOfBox+1, column = 0, sticky=S, columnspan=3, pady=15)
+    
+    def launchEgrams(self):
+        self.frame.destroy()
+        EgramsDisplay(self.window, self.patient, 'pacingModes')
 
 class AOO(PacingMode): 
     def __init__(self, window, patient):
@@ -270,6 +282,8 @@ class AOO(PacingMode):
         self.addApw(7)
         self.addAamp(8)
         self.addBackAndConfirm(9, goBack, aooConfirm, aooApply)
+        self.addDisplayEgrams(10)
+
 
 class VOO(PacingMode): 
     def __init__(self, window, patient):
@@ -729,6 +743,7 @@ def launchDDD(window, patient):
     
 def launchDDDR(window, patient): 
     DDDR(window, patient)
+
 '''
 def backToSelect(window):
     modeSelection.ModeSelect(window)
