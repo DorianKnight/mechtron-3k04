@@ -71,8 +71,8 @@ class LoginPage:
     def loginUser(self):
         if(self.entriesCorrect()):
             usernameEntry = self.username_entry.get()
-            self.window.destroy()
-            modeSelection.launchModeSelect(usernameEntry, main.Serobj)
+            self.login_frame.destroy()
+            modeSelection.launchModeSelect(usernameEntry, self.window, main.Serobj)
 
     # check whether username/password entries are valid, and match a pair in the database
     def entriesCorrect(self):

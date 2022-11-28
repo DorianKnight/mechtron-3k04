@@ -129,8 +129,7 @@ class ModeSelect:
                 
         
 # opens mode select page
-def launchModeSelect(username, Serobj): 
-    window = Tk()
+def launchModeSelect(username, window, Serobj): 
     MS=ModeSelect(window,Serobj)
     MS.patient.username=username
     MS.patient.copyFromDB()
