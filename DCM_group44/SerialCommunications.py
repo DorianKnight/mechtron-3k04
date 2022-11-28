@@ -92,6 +92,7 @@ class SerialObject:
                 'egramsAtrial':egramsAtrial,
                 'egramsVentricular':egramsVentricular}
 
+            messagebox.showinfo(title = "Confirm", message = "Changes applied to pacemaker device successfully.")
             return returnData #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
         else:
             messagebox.showerror(title = "Error", message = "Serial port is not open")

@@ -4,6 +4,7 @@ from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
 import SerialCommunications as Serial
+from tkinter import messagebox
 #import serial_test as S
 
 background = 'white'
@@ -39,7 +40,9 @@ class PacingMode:
             
     def applyChanges(self): 
         self.comm = Serial.SerialObject()
-        self.comm.SendData(self.patient, 'COM7')
+        self.comm.SendData(self.patient)
+        
+
 
     def addTitleAndInstructions(self, mode):
         # title and instructions
