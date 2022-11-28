@@ -8,7 +8,6 @@ import connectionDisplay as CD
 import SerialCommunications
 
 background = 'white'
-
 # allow user to choose between the different pacing modes and then bring them to corresponding page
 class ModeSelect: 
     def __init__(self, window, Serobj): 
@@ -26,9 +25,10 @@ class ModeSelect:
 
         def Refresh():
             # try to connect
+            print(self.Serobj)
             if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("I've also been created in mode select ;)")
-                self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+                #self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
             
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
             #call indexExists and pass in the "user identifier" int stored in the pacemaker
@@ -64,25 +64,25 @@ class ModeSelect:
         def openMode(): 
             self.msFrame.destroy()
             if(self.mode.get() == 'AOO'): 
-                pacingModes.launchAOO(self.window,self.patient)
+                pacingModes.launchAOO(self.window,self.patient, self.Serobj)
             elif(self.mode.get() == 'VOO'):
-                pacingModes.launchVOO(self.window,self.patient)
+                pacingModes.launchVOO(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'AAI'): 
-                pacingModes.launchAAI(self.window,self.patient)
+                pacingModes.launchAAI(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'VVI'): 
-                pacingModes.launchVVI(self.window,self.patient)
+                pacingModes.launchVVI(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'AOOR'): 
-                pacingModes.launchAOOR(self.window,self.patient)
+                pacingModes.launchAOOR(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'VOOR'): 
-                pacingModes.launchVOOR(self.window,self.patient)
+                pacingModes.launchVOOR(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'AAIR'): 
-                pacingModes.launchAAIR(self.window,self.patient)
+                pacingModes.launchAAIR(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'VVIR'): 
-                pacingModes.launchVVIR(self.window,self.patient)
+                pacingModes.launchVVIR(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'DDD'): 
-                pacingModes.launchDDD(self.window,self.patient)
+                pacingModes.launchDDD(self.window,self.patient,Serobj)
             elif(self.mode.get() == 'DDDR'): 
-                pacingModes.launchDDDR(self.window,self.patient)
+                pacingModes.launchDDDR(self.window,self.patient,Serobj)
             else: 
                 print('This should not be possible. Something has gone wrong')
                 print(self.mode.get())
@@ -130,7 +130,7 @@ class ModeSelect:
         
 # opens mode select page
 def launchModeSelect(username, window, Serobj): 
-    MS=ModeSelect(window,Serobj)
+    MS=ModeSelect(window, Serobj)
     MS.patient.username=username
     MS.patient.copyFromDB()
     

@@ -8,7 +8,7 @@ from connectionDisplay import displayNewDevice, displayConnection
 
 background = 'white'
 class LoginPage:
-    def __init__(self, window):
+    def __init__(self, window,Serobj):
         self.window = window
         self.window.geometry('450x600')
         self.width = 400
@@ -16,6 +16,7 @@ class LoginPage:
         self.window.minsize(self.width+30, self.height+40)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker Login")
+        self.Serobj = Serobj
 
         # display whether the DCM is connected to the pacemaker
         displayConnection(self.window)
@@ -72,7 +73,7 @@ class LoginPage:
         if(self.entriesCorrect()):
             usernameEntry = self.username_entry.get()
             self.login_frame.destroy()
-            modeSelection.launchModeSelect(usernameEntry, self.window, main.Serobj)
+            modeSelection.launchModeSelect(usernameEntry, self.window,self.Serobj)
 
     # check whether username/password entries are valid, and match a pair in the database
     def entriesCorrect(self):
@@ -111,8 +112,8 @@ class LoginPage:
         return no_error
 
 
-def launchLogin(window):
-    LoginPage(window)
+def launchLogin(window,Serobj):
+    LoginPage(window,Serobj)
 
 if __name__ == '__main__':
     window = Tk()

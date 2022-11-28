@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
-
+import main
 from EgramsWindow import EgramsDisplay
 
 import SerialCommunications as Serial
@@ -15,11 +15,12 @@ background = 'white'
 
 # creates pages to change pacing mode-specific parameters  
 class PacingMode:
-    def __init__(self, window):
+    def __init__(self, window, patient, Serobj):
         self.window = window
         self.window.geometry('500x600')
         self.window.iconbitmap("images\logo.ico")
-        self.patient = P.Patient()
+        self.patient = patient
+        self.Serobj = Serobj
 
     def initFrame(self):
         self.frame = Frame(self.window, bg = background, width = self.width, height = self.height)
@@ -43,8 +44,8 @@ class PacingMode:
             self.patient.copyFromDB()
             
     def applyChanges(self): 
-        self.comm = modeSelection.ModeSelect.Serobj
-        self.comm.SendData(self.patient)
+        self.Serobj.SendData(self.patient)
+        print("lrl",self.patient.lrl)
         
 
 
@@ -247,15 +248,16 @@ class PacingMode:
         EgramsDisplay(self.window, self.patient, 'pacingModes')
 
 class AOO(PacingMode): 
-    def __init__(self, window, patient):
-        super().__init__(window)
+    def __init__(self, window, patient, Serobj):
+        super().__init__(window, patient, Serobj)
         self.width = 450
         self.height = 350
         self.window.title("Pacemaker | AOO Pacing Mode")
-        self.patient=patient
-        
+        self.patient = patient
+
         #Methods
         def aooConfirm(): 
+            updatePatient()
             self.confirmation("AOO")
             
         def aooApply(): 
@@ -714,35 +716,35 @@ class DDDR(PacingMode):
         self.addFixedAVdelay(21)
         self.addBackAndConfirm(24, goBack, dddrConfirm, dddrApply)
 
-def launchAOO(window, patient): 
-    AOO(window, patient)
+def launchAOO(window, patient, Serobj): 
+    AOO(window, patient, Serobj)
     
-def launchVOO(window, patient): 
-    VOO(window, patient)
+def launchVOO(window, patient, Serobj): 
+    VOO(window, patient, Serobj)
 
-def launchAAI(window, patient): 
-    AAI(window, patient)
+def launchAAI(window, patient, Serobj): 
+    AAI(window, patient, Serobj)
 
-def launchVVI(window, patient): 
-    VVI(window, patient)
+def launchVVI(window, patient, Serobj): 
+    VVI(window, patient, Serobj)
     
-def launchAOOR(window, patient): 
-    AOOR(window, patient)
+def launchAOOR(window, patient, Serobj): 
+    AOOR(window, patient, Serobj)
     
-def launchVOOR(window, patient): 
-    VOOR(window, patient)
+def launchVOOR(window, patient, Serobj): 
+    VOOR(window, patient, Serobj)
 
-def launchAAIR(window, patient): 
-    AAIR(window, patient)
+def launchAAIR(window, patient, Serobj): 
+    AAIR(window, patient, Serobj)
     
-def launchVVIR(window, patient): 
-    VVIR(window, patient)
+def launchVVIR(window, patient, Serobj): 
+    VVIR(window, patient, Serobj)
     
-def launchDDD(window, patient): 
-    DDD(window, patient)
+def launchDDD(window, patient, Serobj): 
+    DDD(window, patient, Serobj)
     
-def launchDDDR(window, patient): 
-    DDDR(window, patient)
+def launchDDDR(window, patient, Serobj): 
+    DDDR(window, patient, Serobj)
 
 '''
 def backToSelect(window):

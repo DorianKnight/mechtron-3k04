@@ -40,6 +40,7 @@ class SerialObject:
         
 
     def SendData(self, patient):
+        print("got here")
         if (self.ser.is_open):
             
             #Turn patient parameters into a steam of bytes that can be written to serial

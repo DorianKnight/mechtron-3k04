@@ -6,8 +6,10 @@ from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
 
-global Serobj
-Serobj = None
+#global Serobj
+#global Serobj
+#Serobj = None
+#Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
 
 background = 'white'
 class WelcomePage:
@@ -19,13 +21,12 @@ class WelcomePage:
         self.window.minsize(self.width+30, self.height+40)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
-
+        self.Serobj = SerialCommunications.SerialObject()
         def Refresh():
             # try to connect
             global Serobj 
-            if (SerialCommunications.getPortName() != '' and Serobj == None):
+            if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("Ive been created hahahah")
-                Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
             #call indexExists and pass in the "user identifier" int stored in the pacemaker
 
@@ -58,7 +59,7 @@ class WelcomePage:
 
         def openLoginWin():
             self.welcome_frame.destroy()
-            login.launchLogin(self.window)
+            login.launchLogin(self.window, self.Serobj)
 
 
         def openRegisterWin():
