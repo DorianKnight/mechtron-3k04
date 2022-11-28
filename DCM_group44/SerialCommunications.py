@@ -32,10 +32,12 @@ def getPortName(): #returns string of port name/code as a string, such as "COM7"
 
 class SerialObject:
     def __init__(self):
+        print("I've been created")
         self.ser = serial.Serial()
         self.ser.baudrate = 115200 #Sets baud rate
         self.ser.port = getPortName() #Sets the serial communication port
         self.ser.open() #Opens the serial port
+        
 
     def SendData(self, patient):
         if (self.ser.is_open):
@@ -44,9 +46,11 @@ class SerialObject:
             data = self.PackData(patient) #Data contains a byte stream to set parameters and echo parameters
 
             #Write data to pacemaker
+            time.sleep(1)
             self.ser.write(data[0])
-
+            time.sleep(1)
             #Read data from pacemaker
+            time.sleep(1)
             self.ser.write(data[1])
             time.sleep(1)
             print("Got to sleep :)")

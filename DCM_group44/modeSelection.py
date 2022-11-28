@@ -11,7 +11,7 @@ background = 'white'
 
 # allow user to choose between the different pacing modes and then bring them to corresponding page
 class ModeSelect: 
-    def __init__(self, window): 
+    def __init__(self, window, Serobj): 
         self.window = window
         self.window.geometry('500x600')
         self.width = 350
@@ -22,10 +22,14 @@ class ModeSelect:
         self.mode = StringVar() #Will be used to keep track of the mode that is chosen by the user
         self.mode.set("None")
         self.patient=P.Patient()
+        self.Serobj = Serobj
 
         def Refresh():
             # try to connect
-            SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+            if (SerialCommunications.getPortName() != '' and self.Serobj == None):
+                print("I've also been created in mode select ;)")
+                self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+            
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
             #call indexExists and pass in the "user identifier" int stored in the pacemaker
 
@@ -125,9 +129,9 @@ class ModeSelect:
                 
         
 # opens mode select page
-def launchModeSelect(username): 
+def launchModeSelect(username, Serobj): 
     window = Tk()
-    MS=ModeSelect(window)
+    MS=ModeSelect(window,Serobj)
     MS.patient.username=username
     MS.patient.copyFromDB()
     

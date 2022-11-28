@@ -31,7 +31,7 @@ class PacingMode:
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
-            MS=modeSelection.ModeSelect(self.window)
+            MS=modeSelection.ModeSelect(self.window,self.comm)
             getattr(MS, radioBtn).select()
             MS.patient=self.patient
     
@@ -43,7 +43,7 @@ class PacingMode:
             self.patient.copyFromDB()
             
     def applyChanges(self): 
-        self.comm = Serial.SerialObject()
+        self.comm = modeSelection.ModeSelect.Serobj
         self.comm.SendData(self.patient)
         
 

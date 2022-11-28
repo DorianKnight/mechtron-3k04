@@ -6,6 +6,9 @@ from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
 
+global Serobj
+Serobj = None
+
 background = 'white'
 class WelcomePage:
     def __init__(self, window):
@@ -19,7 +22,10 @@ class WelcomePage:
 
         def Refresh():
             # try to connect
-            SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
+            global Serobj 
+            if (SerialCommunications.getPortName() != '' and Serobj == None):
+                print("Ive been created hahahah")
+                Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
             #call indexExists and pass in the "user identifier" int stored in the pacemaker
 
