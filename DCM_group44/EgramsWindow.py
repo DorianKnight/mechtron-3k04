@@ -73,7 +73,7 @@ class EgramsDisplay:
             #display error message saying that at least one check box needs to be clicked
             pass
         else:
-            EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM7',patient=self.patient)
+            EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM5',patient=self.patient)
 
             if (self.atrialDisplay.get() == 1 and self.ventricularDisplay.get() == 0):
                 #Only plot the atria and not the ventricular egram
