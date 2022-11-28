@@ -4,6 +4,7 @@ from connectionDisplay import displayConnection, displayNewDevice
 from EgramsPlot import EgramsPlotting
 import modeSelection
 import pacingModes
+import matplotlib.pyplot as plt
 
 background = 'white'
 
@@ -19,6 +20,7 @@ class EgramsDisplay:
         self.window.title("Pacemaker | EgramsDisplaySelect")
         self.patient=patient
         self.token = token #This allows me to know where you've come from so we can send you back when you want to leave
+        self.EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM5',patient=self.patient) #Initializes the serial communication object
 
         # display whether the DCM is connected to the pacemaker
         displayConnection(self.window)
@@ -65,28 +67,35 @@ class EgramsDisplay:
         
     def displayEgrams(self):
         #This method will create the push button that will call for the EgramsPlot.py file to display the egrams data
-        #print("Atria",self.atrialDisplay.get())
-        #print("Ventricle", self.ventricularDisplay.get())
         
-        #Create the plotting object
+        #Close any windows that are already open
+        plt.close('all')
+         
         if (self.atrialDisplay.get() == 0 and self.ventricularDisplay.get() == 0):
             #display error message saying that at least one check box needs to be clicked
             pass
         else:
-            EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM5',patient=self.patient)
-
+            
             if (self.atrialDisplay.get() == 1 and self.ventricularDisplay.get() == 0):
                 #Only plot the atria and not the ventricular egram
-                EgramsPlotObject.DisplayEgramsAtria()
+                self.EgramsPlotObject.DisplayEgramsAtria()
+
             elif (self.atrialDisplay.get() == 0 and self.ventricularDisplay.get() == 1):
                 #Only plot the ventricular and not the atrial egram
-                EgramsPlotObject.DisplayEgramsVentricle()
+                self.EgramsPlotObject.DisplayEgramsVentricle()
+
             else:
                 #Plot both the ventricular and atrial egrams data
-                EgramsPlotObject.DisplayEgramsDualChamber()
+                self.EgramsPlotObject.DisplayEgramsDualChamber()
+
 
     def goBack(self):
             #Go back to your previous window
+            plt.close('all')
+            #Free the serial port
+            self.EgramsPlotObject.pacemakerSerial.ser.close() 
+            #Delete the serial communication object to release the port
+            del self.EgramsPlotObject
             self.egrams_frame.destroy()
             #If your previous window was the specific pacemaker mode window
             if(self.token == 'pacingModes'):

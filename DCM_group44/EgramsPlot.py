@@ -15,7 +15,9 @@ class EgramsPlotting:
         #Initializes the serial communication object to receive egrams data
         self.pacemakerSerial = SerialObject(port)
         self.patient = patient
-        
+    
+    def __del__(self):
+        pass
 
     def DisplayEgramsAtria(self):
         #Displays internal heart electrical activity of the atrium
