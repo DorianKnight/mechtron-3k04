@@ -7,6 +7,7 @@ import serial.tools.list_ports
 import struct
 from tkinter import messagebox
 import connectionDisplay
+import time
 
 def getPortName(): #returns string of port name/code as a string, such as "COM7". string can be passed to SerialObject constructor
     Vid="4966" #same for every pacemaker
@@ -34,10 +35,11 @@ class SerialObject:
         self.ser = serial.Serial()
         self.ser.baudrate = 115200 #Sets baud rate
         self.ser.port = getPortName() #Sets the serial communication port
-        #self.ser.open() #Opens the serial port
+        self.ser.open() #Opens the serial port
 
     def SendData(self, patient):
         if (self.ser.is_open):
+            
             #Turn patient parameters into a steam of bytes that can be written to serial
             data = self.PackData(patient) #Data contains a byte stream to set parameters and echo parameters
 
@@ -46,10 +48,13 @@ class SerialObject:
 
             #Read data from pacemaker
             self.ser.write(data[1])
+            time.sleep(1)
+            print("Got to sleep :)")
             boardVals = self.ser.read(41)
             #Process return data into a dictonary (convert the mV into V by dividing by 1000)
-
+            
             returnVals = self.ProcessData(boardVals)
+
             messagebox.showinfo(title = "Confirm", message = "Changes applied to pacemaker device successfully.")
             return returnVals #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
 
