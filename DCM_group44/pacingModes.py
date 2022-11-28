@@ -3,7 +3,13 @@ from PIL import ImageTk, Image
 from modules.IdleLibTooltip import ToolTip
 import modeSelection
 import Patient as P
+
 from EgramsWindow import EgramsDisplay
+
+import SerialCommunications as Serial
+from tkinter import messagebox
+#import serial_test as S
+
 
 background = 'white'
 
@@ -28,6 +34,19 @@ class PacingMode:
             MS=modeSelection.ModeSelect(self.window)
             getattr(MS, radioBtn).select()
             MS.patient=self.patient
+    
+    def confirmation(self, mode): 
+        if(self.patient.numsValid(mode)):
+                self.patient.saveToDB()
+                self.enableApplyBtn()
+        else:
+            self.patient.copyFromDB()
+            
+    def applyChanges(self): 
+        self.comm = Serial.SerialObject()
+        self.comm.SendData(self.patient)
+        
+
 
     def addTitleAndInstructions(self, mode):
         # title and instructions
@@ -108,7 +127,7 @@ class PacingMode:
         self.vampEntry.insert(0,self.patient.vamp)
 
     def addAsens(self, r):
-        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (mV):", bg = background, padx = 20)
+        self.asensLabel = Label(self.frame, text = "Atrial Sensitivity (V):", bg = background, padx = 20)
         self.asensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.asensLabel.grid(row = r, column = 0, sticky = W)
         self.asensEntry.grid(row = r, column = 1, columnspan = 2)
@@ -136,7 +155,7 @@ class PacingMode:
         self.pvarpEntry.insert(0,self.patient.pvarp)        
     
     def addVsens(self, r):
-        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (mV):", bg = background, padx = 20)
+        self.vsensLabel = Label(self.frame, text = "Ventricular Sensitivity (V):", bg = background, padx = 20)
         self.vsensEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.vsensLabel.grid(row = r, column = 0, sticky = W)
         self.vsensEntry.grid(row = r, column = 1, columnspan = 2)
@@ -144,10 +163,30 @@ class PacingMode:
 
     def addActThr(self, r): #should we make this a dropdown???
         self.actThrLabel = Label(self.frame, text = "Activity Threshold:", bg = background, padx = 20)
-        self.actThrEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
+        # self.actThrEntry = Entry(self.frame, bg=background, validate="key", validatecommand=self.entryChanged)
         self.actThrLabel.grid(row = r, column = 0, sticky = W)
-        self.actThrEntry.grid(row = r, column = 1, columnspan = 2)
-        self.actThrEntry.insert(0,self.patient.actThr)
+        # self.actThrEntry.grid(row = r, column = 1, columnspan = 2)
+        #self.actThrEntry.insert(0,self.patient.actThr)
+
+        # dropdown
+        self.actThrOptions = [
+            "V-Low",
+            "Low",
+            "Med-Low",
+            "Med",
+            "Med-High",
+            "High",
+            "V-High"
+        ]
+        self.actThrSelected = StringVar()
+
+        # initial dropdown text
+        self.actThrSelected.set(self.patient.actThr)
+
+        # create dropdown menu
+        self.actThrDrop = OptionMenu(self.frame, self.actThrSelected, *self.actThrOptions)
+        self.actThrDrop.config(width=15)
+        self.actThrDrop.grid(row = r, column = 1, columnspan = 2)
 
     def addReactTime(self, r):
         self.reactTimeLabel = Label(self.frame, text = "Reaction Time (s):", bg = background, padx = 20)
@@ -185,18 +224,18 @@ class PacingMode:
         self.fixedAVdelayEntry.insert(0,self.patient.fixedAVdelay)
 
      # ========= Functions to add buttons. r represents row to place entry box on =========
-    def addBackAndConfirm(self, r, cmdBack, cmdConfirm):
+    def addBackAndConfirm(self, r, cmdBack, cmdConfirm, cmdApply):
         # add blank row before back and confirm buttons
         self.frame.grid_rowconfigure(r, minsize = 20)
 
         self.back = Button(self.frame, text = "Back", width=5, command = cmdBack)
-        self.back.grid(row = r+1, column = 0, sticky=S)
+        self.back.grid(row = r+1, column = 0, sticky = S)
         
         self.save = Button(self.frame, text = "Save", width=5, command = cmdConfirm)
-        self.save.grid(row = r+1, column = 1, sticky=SW)
+        self.save.grid(row = r+1, column = 1, sticky = SW)
         
-        self.apply = Button(self.frame, text = "Apply", width=5, state = NORMAL)
-        self.apply.grid(row = r+1, column = 2, sticky=S)
+        self.apply = Button(self.frame, text = "Apply", width=5, state = NORMAL, command = cmdApply)
+        self.apply.grid(row = r+1, column = 2, sticky = S)
 
     # ========= Function to add display Egrams buttons =========
     def addDisplayEgrams(self,rowOfBox):
@@ -217,12 +256,10 @@ class AOO(PacingMode):
         
         #Methods
         def aooConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("AOO")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("AOO")
+            
+        def aooApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("aooRadio")
@@ -244,8 +281,9 @@ class AOO(PacingMode):
         self.addUrl(6)
         self.addApw(7)
         self.addAamp(8)
-        self.addBackAndConfirm(9, goBack, aooConfirm)
+        self.addBackAndConfirm(9, goBack, aooConfirm, aooApply)
         self.addDisplayEgrams(10)
+
 
 class VOO(PacingMode): 
     def __init__(self, window, patient):
@@ -257,12 +295,10 @@ class VOO(PacingMode):
         
         #Methods
         def vooConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("VOO")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("VOO")
+        
+        def vooApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("vooRadio")
@@ -283,7 +319,7 @@ class VOO(PacingMode):
         self.addUrl(6)
         self.addVpw(7)
         self.addVamp(8)
-        self.addBackAndConfirm(9, goBack, vooConfirm)
+        self.addBackAndConfirm(9, goBack, vooConfirm, vooApply)
 
 class AAI(PacingMode): 
     def __init__(self, window, patient):
@@ -297,12 +333,10 @@ class AAI(PacingMode):
         
         #Methods 
         def aaiConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("AAI")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("AAI")
+        
+        def aaiApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("aaiRadio")
@@ -315,7 +349,6 @@ class AAI(PacingMode):
             self.patient.aamp=self.aampEntry.get()
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
-            self.patient.pvarp=self.pvarpEntry.get()
             
 
         #AAI Frame
@@ -329,8 +362,7 @@ class AAI(PacingMode):
         self.addAamp(8)
         self.addAsens(9)
         self.addArp(10)
-        self.addPvarp(11)
-        self.addBackAndConfirm(14, goBack, aaiConfirm)
+        self.addBackAndConfirm(13, goBack, aaiConfirm, aaiApply)
     
 class VVI(PacingMode): 
     def __init__(self, window, patient):
@@ -342,12 +374,10 @@ class VVI(PacingMode):
 
         #set these to patient specific parameters        
         def vviConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("VVI")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("VVI")
+        
+        def vviApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("vviRadio")
@@ -373,7 +403,7 @@ class VVI(PacingMode):
         self.addVamp(8)
         self.addVsens(9)
         self.addVrp(10)
-        self.addBackAndConfirm(13, goBack, vviConfirm)
+        self.addBackAndConfirm(13, goBack, vviConfirm, vviApply)
                 
 class AOOR(PacingMode): 
     def __init__(self, window, patient):
@@ -385,12 +415,10 @@ class AOOR(PacingMode):
         
         #Methods
         def aoorConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("AOOR")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("AOOR")
+        
+        def aoorApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("aoorRadio")
@@ -401,7 +429,7 @@ class AOOR(PacingMode):
             self.patient.url=self.urlEntry.get()
             self.patient.apw=self.apwEntry.get()
             self.patient.aamp=self.aampEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -421,7 +449,7 @@ class AOOR(PacingMode):
         self.addRespFactor(11)
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
-        self.addBackAndConfirm(16, goBack, aoorConfirm)
+        self.addBackAndConfirm(16, goBack, aoorConfirm, aoorApply)
         
 class VOOR(PacingMode): 
     def __init__(self, window, patient):
@@ -433,12 +461,10 @@ class VOOR(PacingMode):
 
         #Methods
         def voorConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("VOOR")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("VOOR")
+        
+        def voorApply():
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("voorRadio")
@@ -449,7 +475,7 @@ class VOOR(PacingMode):
             self.patient.url=self.urlEntry.get()
             self.patient.vpw=self.vpwEntry.get()
             self.patient.vamp=self.vampEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -469,7 +495,7 @@ class VOOR(PacingMode):
         self.addRespFactor(11)
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
-        self.addBackAndConfirm(16, goBack, voorConfirm)
+        self.addBackAndConfirm(16, goBack, voorConfirm, voorApply)
         
 class AAIR(PacingMode): 
      def __init__(self, window, patient):
@@ -481,12 +507,10 @@ class AAIR(PacingMode):
 
         #Methods 
         def aairConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("AAIR")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("AAIR")
+        
+        def aairApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("aairRadio")
@@ -499,8 +523,7 @@ class AAIR(PacingMode):
             self.patient.aamp=self.aampEntry.get()
             self.patient.asens=self.asensEntry.get()
             self.patient.arp=self.arpEntry.get()
-            self.patient.pvarp=self.pvarpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -517,13 +540,12 @@ class AAIR(PacingMode):
         self.addAamp(8)
         self.addAsens(9)
         self.addArp(10)
-        self.addPvarp(11)
-        self.addActThr(12)
-        self.addReactTime(13)
-        self.addRespFactor(14)
-        self.addRecoveryTime(15)
-        self.addMaxSensRate(16)
-        self.addBackAndConfirm(19, goBack, aairConfirm)
+        self.addActThr(11)
+        self.addReactTime(12)
+        self.addRespFactor(13)
+        self.addRecoveryTime(14)
+        self.addMaxSensRate(15)
+        self.addBackAndConfirm(18, goBack, aairConfirm, aairApply)
         
         
 class VVIR(PacingMode): 
@@ -536,12 +558,10 @@ class VVIR(PacingMode):
 
         #Methods 
         def vvirConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("VVIR")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("VVIR")
+        
+        def vvirApply(): 
+            self.appyChanges()
         
         def goBack(): 
             self.goBack("vvirRadio")
@@ -554,7 +574,7 @@ class VVIR(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             self.patient.vrp=self.vrpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -576,7 +596,7 @@ class VVIR(PacingMode):
         self.addRespFactor(13)
         self.addRecoveryTime(14)
         self.addMaxSensRate(15)
-        self.addBackAndConfirm(18, goBack, vvirConfirm)
+        self.addBackAndConfirm(18, goBack, vvirConfirm, vvirApply)
     
 class DDD(PacingMode): 
      def __init__(self, window, patient):
@@ -588,12 +608,10 @@ class DDD(PacingMode):
         
         #Methods 
         def dddConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("DDD")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("DDD")
+        
+        def dddApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("dddRadio")
@@ -630,7 +648,7 @@ class DDD(PacingMode):
         self.addVsens(14)
         self.addVrp(15)
         self.addFixedAVdelay(16)
-        self.addBackAndConfirm(19, goBack, dddConfirm)
+        self.addBackAndConfirm(19, goBack, dddConfirm, dddApply)
 
         
 class DDDR(PacingMode): 
@@ -644,12 +662,10 @@ class DDDR(PacingMode):
 
         #Methods 
         def dddrConfirm(): 
-            updatePatient()
-            if(self.patient.numsValid("DDDR")):
-                self.patient.saveToDB()
-                self.enableApplyBtn()
-            else:
-                self.patient.copyFromDB()
+            self.confirmation("DDDR")
+        
+        def dddrApply(): 
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("dddrRadio")
@@ -667,7 +683,7 @@ class DDDR(PacingMode):
             self.patient.vamp=self.vampEntry.get()
             self.patient.vsens=self.vsensEntry.get()
             self.patient.vrp=self.vrpEntry.get()
-            self.patient.actThr=self.actThrEntry.get()
+            self.patient.actThr=self.actThrSelected.get()
             self.patient.reactTime=self.reactTimeEntry.get()
             self.patient.respFactor=self.respFactorEntry.get()
             self.patient.recoveryTime=self.recoveryTimeEntry.get()
@@ -696,7 +712,7 @@ class DDDR(PacingMode):
         self.addRecoveryTime(19)
         self.addMaxSensRate(20)
         self.addFixedAVdelay(21)
-        self.addBackAndConfirm(24, goBack, dddrConfirm)
+        self.addBackAndConfirm(24, goBack, dddrConfirm, dddrApply)
 
 def launchAOO(window, patient): 
     AOO(window, patient)

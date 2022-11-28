@@ -141,8 +141,8 @@ class Patient:
             case "Fixed AV Delay": 
                 return fixedAVdelay_inc
 
-    #Returns each of the ranges for each of the parameters       
-    def getRange(self, param, range): 
+    #Returns each of the ranges for each of the parameters (highest and lowest accepted values)    
+    def getRange(self, param): 
         returnVal = []
         match param: 
             case "LRL": 
@@ -193,7 +193,7 @@ class Patient:
             accType = self.getType(param)
             self.errors.append(f'Invalid type for {param}. {param} should be of type {accType}')
         elif(error == "Range"): 
-            accRange = self.getRange(param, range)
+            accRange = self.getRange(param)
             print(f'accRange: {accRange}')
             self.errors.append(f'{param} input out of range. Range should be {accRange[0]} to {accRange[1]}')
         elif(error == "Increment"): 
@@ -226,39 +226,39 @@ class Patient:
         try: 
             self.lrl = int(self.lrl)
             print(f'Type of self.lrl: {type(self.lrl)}')
-            if(isBetween(self.lrl,lrl_range1[0],lrl_range1[1])):
-                if(not self.isValidIncrement(self.lrl,lrl_r1_inc)): 
+            if(isBetween(self.lrl,lrl_range1[0],lrl_range1[1])): #Checks if the LRL is in the first range (30 - 50 ppm)
+                if(not self.isValidIncrement(self.lrl,lrl_r1_inc)): #Checks the increment for this range
                     self.addError("LRL", "Increment", 1)
                     return False
-            elif(isBetween(self.lrl, lrl_range2[0], lrl_range2[1])):
+            elif(isBetween(self.lrl, lrl_range2[0], lrl_range2[1])): #Checks if the LRL is in the second range (50 - 90 ppm) 
                 pass #If self.lrl is an integer in this range, it is valid because the increments are by 1
-            elif(isBetween(self.lrl, lrl_range3[0], lrl_range3[1])):
-                if(not self.isValidIncrement(self.lrl, lrl_r3_inc)): 
+            elif(isBetween(self.lrl, lrl_range3[0], lrl_range3[1])): #Checks if the LRL is in the third range (90 - 175 ppm)
+                if(not self.isValidIncrement(self.lrl, lrl_r3_inc)):  #Checks increment for this range
                     self.addError("LRL", "Increment", 3)
                     return False
             else: 
-                self.addError("LRL", "Range")
+                self.addError("LRL", "Range") #If the LRL value is not in any range, add an error
                 return False
         except: 
-            self.addError("LRL", "Type")
+            self.addError("LRL", "Type") #If it gets here there is most probably a type error (can't convert the input to an int)
             return False
 
     def checkURL(self): 
         #Checking Upper Rate Limit
         try: 
             self.url = int(self.url)
-            if(isBetween(self.url,url_range[0],url_range[1])):
-                if(not self.isValidIncrement(self.url,url_inc)): 
+            if(isBetween(self.url,url_range[0],url_range[1])): #Checks if the URL value is within the valid range
+                if(not self.isValidIncrement(self.url,url_inc)): #Checks the increment 
                     self.addError("URL", "Increment")
                     return False
                 if(self.url <= self.lrl): 
-                    self.addError("URL", "Invalid")
+                    self.addError("URL", "Invalid") #Checks to make sure that the URL value is not greater than the LRL value
                     return False
             else: 
-                self.addError("URL", "Range")
+                self.addError("URL", "Range") #If it gets here, the URL is outside of the valid range
                 return False
         except: 
-            self.addError("URL", "Type")
+            self.addError("URL", "Type") #If it gets here there is probably an error converting to an int
             return False
         return True
     
@@ -266,94 +266,94 @@ class Patient:
         #Checking Atrial Pulse Width
         try: 
             self.apw = int(self.apw)
-            if(isBetween(self.apw,apw_range[0],apw_range[1])):
-                if(not self.isValidIncrement(self.apw, apw_inc)): 
+            if(isBetween(self.apw,apw_range[0],apw_range[1])): #Checks APW range
+                if(not self.isValidIncrement(self.apw, apw_inc)): #Checks the increment
                     self.addError("APW", "Increment")
                     return False
             else: 
-                self.addError("APW", "Range")
+                self.addError("APW", "Range") #If it gets here, APW is outside of the valid range
                 return False
         except: 
-            self.addError("APW", "Type")
+            self.addError("APW", "Type") #If it gets here, APW is not able to be converted to an int
             return False
 
     def checkAAmp(self): 
         #Checking Atrial Amplitude
         try: 
             self.aamp = float(self.aamp)
-            if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): 
-                if(not self.isValidIncrement(self.aamp, aamp_inc)):
+            if(isBetween(self.aamp,aamp_range[0],aamp_range[1])): #Checks to ensure Atrial Amp is within the valid range
+                if(not self.isValidIncrement(self.aamp, aamp_inc)): #Checks the increment
                     self.addError("AAmp", "Increment")
                     return False 
             else: 
-                self.addError("AAmp", "Range")
+                self.addError("AAmp", "Range") #If it gets here APW out of valid range 
                 return False
         except: 
-            self.addError("AAmp", "Type")
+            self.addError("AAmp", "Type") #If it gets here, APW not able to be converted to a float
             return False
     
     def checkVPW(self): 
         #Checking Ventricular Pulse Width
         try: 
             self.vpw = int(self.vpw)
-            if(isBetween(self.vpw,vpw_range[0],vpw_range[1])):
-                if(not self.isValidIncrement(self.vpw, vpw_inc)): 
+            if(isBetween(self.vpw,vpw_range[0],vpw_range[1])): #Checks if VPW in valid range
+                if(not self.isValidIncrement(self.vpw, vpw_inc)): #Checks if VPW is on an expected increment
                     self.addError("VPW", "Increment")
                     return False
             else: 
-                self.addError("VPW", "Range")
+                self.addError("VPW", "Range") #Throws an error for out of range
                 return False
         except: 
-            self.addError("VPW", "Type")
+            self.addError("VPW", "Type") #Throws a type error as VPW not able to be converted to an int
             return False
         
     def checkVAmp(self): 
         #Checking Ventricular Amplitude
         try: 
             self.vamp = float(self.vamp)
-            if(isBetween(self.vamp,vamp_range[0],vamp_range[1])): 
-                if(not self.isValidIncrement(self.vamp, vamp_inc)):
+            if(isBetween(self.vamp,vamp_range[0],vamp_range[1])): #Checks Vent Amp in valid range
+                if(not self.isValidIncrement(self.vamp, vamp_inc)): #Checks VAmp on a valid increment 
                     self.addError("VAmp", "Increment")
                     return False
             else: 
-                self.addError("VAmp", "Range")
+                self.addError("VAmp", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("VAmp", "Type")
+            self.addError("VAmp", "Type") #Throws incorrect type error (not able to be converted to a float)
             return False
 
     def checkASens(self): 
         #Checking Atrial Sensitivity
         try: 
             self.asens = float(self.asens)
-            if(isBetween(self.asens,asens_range[0],asens_range[1])): 
-                if(not self.isValidIncrement(self.asens, asens_inc)):
+            if(isBetween(self.asens,asens_range[0],asens_range[1])): #Ensures Atr Sensitivity in valid range
+                if(not self.isValidIncrement(self.asens, asens_inc)): #Checks that ASens on expected increment 
                     self.addError("ASens", "Increment")
                     return False 
             else: 
-                self.addError("ASens", "Range")
+                self.addError("ASens", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("ASens", "Type")
+            self.addError("ASens", "Type") #Throws incorrect type error (not able to be converted to a float)
             return False
 
     def checkARP(self): 
         #Checking Atrial Refractory Period
         try: 
             self.arp = int(self.arp)
-            if(isBetween(self.arp,arp_range[0],arp_range[1])):
-                if(not self.isValidIncrement(self.arp,arp_inc)):
+            if(isBetween(self.arp,arp_range[0],arp_range[1])): #Checks that ARP in valid range  
+                if(not self.isValidIncrement(self.arp,arp_inc)): #Checks if ARP is on a valid increment 
                     self.addError("ARP", "Increment") 
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
-                if(self.arp > lrlTime): 
+                if(self.arp > lrlTime): #Checks to make sure that ARP is not greater than the time between pulses 
                     self.addError("ARP", "Invalid")
                     return False
             else: 
-                self.addError("ARP", "Range")
+                self.addError("ARP", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("ARP", "Type")
+            self.addError("ARP", "Type") #Throws type error as ARP not able to be converted to an int
             return False
         return True
 
@@ -361,157 +361,138 @@ class Patient:
         #Checking PVARP
         try: 
             self.pvarp = int(self.pvarp)
-            if(isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])):
-                if(not self.isValidIncrement(self.pvarp,pvarp_inc)): 
+            if(isBetween(self.pvarp,pvarp_range[0],pvarp_range[1])): #Checks that PVARP in valid range
+                if(not self.isValidIncrement(self.pvarp,pvarp_inc)): #Checks that PVARP is on a valid increment
                     self.addError("PVARP", "Increment")
                     return False
             else: 
-                self.addError("PVARP", "Range")
+                self.addError("PVARP", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("PVARP", "Type")
+            self.addError("PVARP", "Type") #Throws incorrect type error as PVARP not able to be converted to an int
             return False
         return True       
 
-    
-    
-        
     def checkVSens(self): 
         #Checking Ventricular Sensitivity
         try: 
             self.vsens = float(self.vsens)
-            if(isBetween(self.vsens,vsens_range[0],vsens_range[1])): 
-                if(not self.isValidIncrement(self.vsens, vsens_inc)):
+            if(isBetween(self.vsens,vsens_range[0],vsens_range[1])): #Checks that VSens is within the valid range
+                if(not self.isValidIncrement(self.vsens, vsens_inc)): #Checks that VSens is on a valid increment
                     self.addError("VSens", "Increment")
                     return False 
             else: 
-                self.addError("VSens", "Range")
+                self.addError("VSens", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("VSens", "Type")
+            self.addError("VSens", "Type") #Throws incorrect type error from vsens not being able to convert to a float
             return False
 
     def checkVRP(self): 
         #Checking VRP
         try: 
             self.vrp = int(self.vrp)
-            if(isBetween(self.vrp,vrp_range[0],vrp_range[1])):
-                if(not self.isValidIncrement(self.vrp,vrp_inc)): 
+            if(isBetween(self.vrp,vrp_range[0],vrp_range[1])): #Checks that VRP is within the valid range 
+                if(not self.isValidIncrement(self.vrp,vrp_inc)): #Checks that VRP is on a valid increment
                     self.addError("VRP", "Increment")
                     return False
                 lrlTime = (1/self.lrl)*1000*60 #The time between pulses in ms
                 if(self.vrp > lrlTime): 
-                    self.addError("VRP", "Invalid")
+                    self.addError("VRP", "Invalid") #Checks that the VRP is not greater than the time between pulses
                     return False
             else: 
-                self.addError("VRP", "Range")
+                self.addError("VRP", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("VRP", "Type")
+            self.addError("VRP", "Type") #Throws incorrect type error as VRP not able to be converted to an int
             return False
         return True
 
-
-#
-#
-#
-#
-#
-###Gotta do this later - probably take out
-#
-#
-#
-#
-#
-
-
     def checkActThr(self): 
+        #Checking activity threshold
         found=False
-        for item in actThr_range:
-            if self.actThr==item:
+        for item in actThr_range: #Sees if self.actThr is in the list of valid values
+            if(self.actThr == item):
                 found=True
-
-        if found==False:
-            #messagebox.showerror(title="Error", message="Activity Threshold invalid.")
-            return False
-        else:
-            return True
+        return found
 
 
     def checkReactTime(self):
+        #Checking reaction time
         try: 
             self.reactTime = int(self.reactTime)
-            if(isBetween(self.reactTime,reactTime_range[0],reactTime_range[1])):
-                if(not self.isValidIncrement(self.reactTime,reactTime_inc)): 
+            if(isBetween(self.reactTime,reactTime_range[0],reactTime_range[1])): #Checks that the reaction time is within the valid range
+                if(not self.isValidIncrement(self.reactTime,reactTime_inc)): #Checks that the reaction time is on a valid increment
                     self.addError("Reaction Time", "Increment")
                     return False
             else: 
-                self.addError("Reaction Time", "Range")
+                self.addError("Reaction Time", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("Reaction Time", "Type")
+            self.addError("Reaction Time", "Type") #Throws incorrect type error
             return False
         return True
 
     def checkRespFactor(self):
         try: 
             self.respFactor = int(self.respFactor)
-            if(isBetween(self.respFactor,respFactor_range[0],respFactor_range[1])):
-                if(not self.isValidIncrement(self.respFactor,respFactor_inc)): 
+            if(isBetween(self.respFactor,respFactor_range[0],respFactor_range[1])): #Checks that the resp factor is in the valid range 
+                if(not self.isValidIncrement(self.respFactor,respFactor_inc)): #Checks that the resp factor is on a valid increment 
                     self.addError("Response Factor", "Increment")
                     return False
             else: 
-                self.addError("Response Factor", "Range")
+                self.addError("Response Factor", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("Response Factor", "Type")
+            self.addError("Response Factor", "Type") #Throws incorrect type erorr from not being able to convert to an int
             return False
         return True
 
     def checkRecoveryTime(self):
+        #Checking recovery time
         try: 
             self.recoveryTime = int(self.recoveryTime)
-            if(isBetween(self.recoveryTime,recoveryTime_range[0],recoveryTime_range[1])):
-                if(not self.isValidIncrement(self.recoveryTime,recoveryTime_inc)): 
+            if(isBetween(self.recoveryTime,recoveryTime_range[0],recoveryTime_range[1])): #Checks that recovery time is within the valid range 
+                if(not self.isValidIncrement(self.recoveryTime,recoveryTime_inc)): #Checks that recovery time is on a valid increment
                     self.addError("Recovery Time", "Increment")
                     return False
             else: 
-                self.addError("Recovery Time", "Range")
+                self.addError("Recovery Time", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("Recovery Time", "Type")
+            self.addError("Recovery Time", "Type") #Throws inocrrect type error from not being able to convert to an int
             return False
         return True
 
     def checkMaxSensRate(self):
+        #Checking Max Sensor Rate
         try: 
             self.maxSensRate = int(self.maxSensRate)
-            if(isBetween(self.maxSensRate,maxSensRate_range[0],maxSensRate_range[1])):
-                if(not self.isValidIncrement(self.maxSensRate,maxSensRate_inc)): 
+            if(isBetween(self.maxSensRate,maxSensRate_range[0],maxSensRate_range[1])): #Checks that MaxSensRate is within the valid range
+                if(not self.isValidIncrement(self.maxSensRate,maxSensRate_inc)): #Checks that MaxSensRate is on a valid increment 
                     self.addError("Max Sensor Rate", "Increment")
                     return False
             else: 
-                self.addError("Max Sensor Rate", "Range")
+                self.addError("Max Sensor Rate", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("Max Sensor Rate", "Type")
+            self.addError("Max Sensor Rate", "Type") #Throws incorrect type error if not able to convert to int
             return False
         return True
 
     def checkFixedAVdelay(self):
+        #Checking Fixed AV Delay
         try: 
             self.fixedAVdelay = int(self.fixedAVdelay)
-            print(self.fixedAVdelay)
-            print(fixedAVdelay_range)
-            if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])):
-                if(not self.isValidIncrement(self.fixedAVdelay,fixedAVdelay_inc)): 
+            if(isBetween(self.fixedAVdelay,fixedAVdelay_range[0],fixedAVdelay_range[1])): #Checks that Fixed AV Delay within the valid range 
+                if(not self.isValidIncrement(self.fixedAVdelay,fixedAVdelay_inc)): #Checks that Fixed AV Delay falls on a valid increment 
                     self.addError("Fixed AV Delay", 'Increment')
                     return False
             else: 
-                self.addError("Fixed AV Delay", "Range")
+                self.addError("Fixed AV Delay", "Range") #Throws out of range error
                 return False
         except: 
-            self.addError("Fixed AV Delay", "Type")
+            self.addError("Fixed AV Delay", "Type") #Throws incorrect type error from not being able to convert to int
             return False
         return True
     
@@ -558,9 +539,6 @@ class Patient:
             
             if(self.checkARP() == False): 
                 valid =  False
-            
-            if(self.checkPVARP() == False): 
-                valid = False
             
         #Checking validity of input parameters for VVI
         elif(pMode=="VVI"):
@@ -638,9 +616,6 @@ class Patient:
                 valid =  False
             
             if(self.checkARP() == False): 
-                valid = False
-            
-            if(self.checkPVARP() == False): 
                 valid = False
 
             if(self.checkActThr() == False):
@@ -771,8 +746,7 @@ class Patient:
             self.displayErrors()
             self.errors.clear() #To prevent multiple of the same errors from previous attempts to input new variable values
         else: 
-            print("Nums valid")
-        print(f'Valid: {valid}')
+            messagebox.showinfo(title = "Changes Saved", message = "All inputs valid. Values saved to database.")
         return valid
         
     # retrieve database information for a given patient and save to patient

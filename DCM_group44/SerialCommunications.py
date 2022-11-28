@@ -5,13 +5,40 @@
 import serial
 import serial.tools.list_ports
 import struct
+from tkinter import messagebox
+import connectionDisplay
+
+def getPortName(): #returns string of port name/code as a string, such as "COM7". string can be passed to SerialObject constructor
+    Vid="4966" #same for every pacemaker
+    Pid="4117" #same for every pacemaker
+
+    devicelist=serial.tools.list_ports.comports() #make a list of all connections
+    port=""
+    
+    for Device in devicelist: #check if any connection has the pacemaker device attributes
+        if(str(Device.vid)==Vid and str(Device.pid)==Pid):
+            port=Device.device
+
+    if(port==""):
+        print("PORT NOT FOUND")
+        connectionDisplay.connectionChecker=False #automatically updates value in connectionDisplay
+        #throw exception?
+
+    return port #return the port name/code of the connection we found
 
 class SerialObject:
     def __init__(self,commPort):
         self.ser = serial.Serial()
         self.ser.baudrate = 115200 #Sets baud rate
         self.ser.port = commPort #Sets the serial communication port
-        self.ser.open() #Opens the serial port
+        #self.ser.open() #Opens the serial port
+
+    def __init__(self):
+        self.ser = serial.Serial()
+        self.ser.baudrate = 115200 #Sets baud rate
+        self.ser.port = getPortName() #Sets the serial communication port
+        #self.ser.open() #Opens the serial port
+
     def SendData(self, patient):
         if (self.ser.is_open):
             #Turn patient parameters into a steam of bytes that can be written to serial
@@ -24,11 +51,15 @@ class SerialObject:
             self.ser.write(data[1])
             boardVals = self.ser.read(41)
             #Process return data into a dictonary (convert the mV into V by dividing by 1000)
+
             returnVals = self.ProcessData(boardVals)
-            return returnVals
+            messagebox.showinfo(title = "Confirm", message = "Changes applied to pacemaker device successfully.")
+            return returnVals #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
+
         else:
+            messagebox.showerror(title = "Error", message = "Serial port is not open")
             #Create an error flag that says that the serial port is not open
-            pass
+            
     def PackData(self,patient):
         
         #Translate pacing mode into an integer recognized by the simulink program
