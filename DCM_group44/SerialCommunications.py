@@ -27,12 +27,6 @@ def getPortName(): #returns string of port name/code as a string, such as "COM7"
     return port #return the port name/code of the connection we found
 
 class SerialObject:
-    def __init__(self,commPort):
-        self.ser = serial.Serial()
-        self.ser.baudrate = 115200 #Sets baud rate
-        self.ser.port = commPort #Sets the serial communication port
-        #self.ser.open() #Opens the serial port
-
     def __init__(self):
         self.ser = serial.Serial()
         self.ser.baudrate = 115200 #Sets baud rate
