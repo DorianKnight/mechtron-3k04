@@ -90,7 +90,7 @@ class SerialObject:
 
             if (verified == False):
                 #Raise error message
-                pass
+                messagebox.showerror(title = "Error", message = "Error transmitting values to board. Please send again as the parameter values on the pacemaker do not match those stored locally.")
 
             messagebox.showinfo(title = "Confirm", message = "Changes applied to pacemaker device successfully.")
             return returnVals #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
