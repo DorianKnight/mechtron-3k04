@@ -18,7 +18,6 @@ def main():
         print("location: " + Device.location)
         print("manufacturer: " + Device.manufacturer)
         print("product: " + Device.product)
-        print("interface: " + Device.interface)
 
     return
 
