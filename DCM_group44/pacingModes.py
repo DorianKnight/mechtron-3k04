@@ -646,7 +646,7 @@ class DDD(PacingMode):
      def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 550
+        self.height = 500
         self.window.title("Pacemaker | DDD Pacing Mode")
         self.patient=patient
         
@@ -686,7 +686,7 @@ class DDDR(PacingMode):
      def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 675
+        self.height = 600
         self.window.geometry("500x720")
         self.window.title("Pacemaker | DDDDR Pacing Mode")
         self.patient=patient
