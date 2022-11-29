@@ -9,7 +9,7 @@ background = 'white'
 
 # allow user to choose between the different pacing modes and then bring them to corresponding page
 class EgramsDisplay: 
-    def __init__(self, window, patient, token, Serobj): 
+    def __init__(self, window, patient, token): 
         self.window = window
         self.window.geometry('500x600')
         self.width = 350
@@ -19,7 +19,7 @@ class EgramsDisplay:
         self.window.title("Pacemaker | EgramsDisplaySelect")
         self.patient=patient
         self.token = token #This allows me to know where you've come from so we can send you back when you want to leave
-        self.EgramsPlotObject = EgramsPlotting(100,self.patient,Serobj) #Initializes the serial communication object
+        self.EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM5',patient=self.patient) #Initializes the serial communication object
 
         self.egrams_frame = Frame(
             self.window,
@@ -86,39 +86,43 @@ class EgramsDisplay:
     def goBack(self):
             #Go back to your previous window
             plt.close('all')
+            #Free the serial port
+            self.EgramsPlotObject.pacemakerSerial.ser.close() 
+            #Delete the serial communication object to release the port
+            del self.EgramsPlotObject
             self.egrams_frame.destroy()
             #If your previous window was the specific pacemaker mode window
             if(self.token == 'pacingModes'):
                 #Find out which pacing mode you came from
                 if(self.patient.pacingMode == 'AOO'):
-                    pacingModes.launchAOO(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchAOO(self.window,self.patient)
                 elif(self.patient.pacingMode == 'AOOR'):
-                    pacingModes.launchAOOR(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchAOOR(self.window,self.patient)
                 elif(self.patient.pacingMode == 'AAI'):
-                    pacingModes.launchAAI(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchAAI(self.window,self.patient)
                 elif(self.patient.pacingMode == 'AAIR'):
-                    pacingModes.launchAAIR(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchAAIR(self.window,self.patient)
                 elif(self.patient.pacingMode == 'VOO'):
-                    pacingModes.launchVOO(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchVOO(self.window,self.patient)
                 elif(self.patient.pacingMode == 'VOOR'):
-                    pacingModes.launchVOOR(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchVOOR(self.window,self.patient)
                 elif(self.patient.pacingMode == 'VVI'):
-                    pacingModes.launchVVI(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchVVI(self.window,self.patient)
                 elif(self.patient.pacingMode == 'VVIR'):
-                    pacingModes.launchVVIR(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchVVIR(self.window,self.patient)
                 elif(self.patient.pacingMode == 'DDD'):
-                    pacingModes.launchDDD(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchDDD(self.window,self.patient)
                 elif(self.patient.pacingMode == 'DDDR'):
-                    pacingModes.launchDDDR(self.window,self.patient, self.EgramsPlotObject)
+                    pacingModes.launchDDDR(self.window,self.patient)
                 else:
                     #Send them back to the mode select page
                     print("You don't have a pacing mode enabled")
                     #Flag an error for communication 
-                    modeSelection.launchModeSelect(self.patient.username, self.window, self.EgramsPlotObject)
+                    modeSelection.launchModeSelect(self.patient.username)
 
             #If your previous window was the select mode window or something that I can't forsee at the moment
             else:
-                modeSelection.launchModeSelect(self.patient.username, self.window, self.EgramsPlotObject)
+                modeSelection.launchModeSelect(self.patient.username)
         
 
 '''
