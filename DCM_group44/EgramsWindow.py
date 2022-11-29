@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from connectionDisplay import displayConnection, displayNewDevice
 from EgramsPlot import EgramsPlotting
 import modeSelection
 import pacingModes
@@ -22,11 +21,6 @@ class EgramsDisplay:
         self.token = token #This allows me to know where you've come from so we can send you back when you want to leave
         self.EgramsPlotObject = EgramsPlotting(100,self.patient,Serobj) #Initializes the serial communication object
 
-        # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
-        # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
-        
         self.egrams_frame = Frame(
             self.window,
             bg = background,

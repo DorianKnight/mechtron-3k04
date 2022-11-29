@@ -6,14 +6,12 @@ from data import createDB
 from PIL import ImageTk, Image
 import main
 import modeSelection
-from connectionDisplay import displayConnection, displayNewDevice
-
 
 createDB()
 background = 'white'
 
 class RegistrationPage:
-    def __init__(self, window, max_accounts):
+    def __init__(self, window, max_accounts, Serobj):
         self.window = window
         self.window.geometry('450x500')
         self.width = 400
@@ -21,15 +19,11 @@ class RegistrationPage:
         self.window.minsize(self.width+30, self.height+30)
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
-
-        # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
-        # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
+        self.Serobj = Serobj
 
         def goBack(): 
             self.frame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
 
         # ========= Registration Frame =========
         self.frame = Frame(
@@ -157,8 +151,8 @@ class RegistrationPage:
         self.frame.destroy()
         modeSelection.launchModeSelect(usernameEntry, self.window)
 
-def launchRegistration(window):
-    RegistrationPage(window,10)
+def launchRegistration(window,SerObj):
+    RegistrationPage(window,10,SerObj) # 10 users
 
 if __name__ == '__main__':
     window = Tk()

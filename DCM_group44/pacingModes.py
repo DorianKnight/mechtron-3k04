@@ -32,7 +32,7 @@ class PacingMode:
         
     def goBack(self, radioBtn): 
             self.frame.destroy()
-            MS=modeSelection.ModeSelect(self.window,self.comm)
+            MS=modeSelection.ModeSelect(self.window,self.Serobj)
             getattr(MS, radioBtn).select()
             MS.patient=self.patient
     

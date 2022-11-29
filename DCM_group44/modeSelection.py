@@ -4,7 +4,7 @@ import pacingModes
 import main
 import Patient as P
 from data import createDB, indexExists
-import connectionDisplay as CD
+# import connectionDisplay as CD
 import SerialCommunications
 
 background = 'white'
@@ -22,44 +22,7 @@ class ModeSelect:
         self.mode.set("None")
         self.patient=P.Patient()
         self.Serobj = Serobj
-
-        def Refresh():
-            # try to connect
-            print(self.Serobj)
-            if (SerialCommunications.getPortName() != '' and self.Serobj == None):
-                print("I've also been created in mode select ;)")
-                #self.Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-            
-            oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
-            #call indexExists and pass in the "user identifier" int stored in the pacemaker
-
-            #update newdevicechecker (connection checker is already updated in getPortName())
-            if(oldUser): #old user, exists in db
-                CD.newDeviceChecker=False
-            else: #new user
-                CD.newDeviceChecker=True
-                
-
-            # remove current status
-            self.connectionBanner.destroy()
-            self.deviceBanner.destroy()
-            
-            # display the status again
-            self.connectionBanner=CD.displayConnection(self.window)
-            self.deviceBanner=CD.displayNewDevice(self.window)
-
-
-        # display whether the DCM is connected to the pacemaker
-        self.connectionBanner=CD.displayConnection(self.window)
-        # display whether the DCM is connected to a new pacemaker
-        self.deviceBanner=CD.displayNewDevice(self.window)
-        # refresh button
-        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
-        refreshBtn.grid(row=0,column=4)
-
-        # refresh automatically when window is instantiated
-        Refresh()
-
+        
         # moves from current frame to frame of selected pacing mode
         def openMode(): 
             self.msFrame.destroy()
@@ -90,7 +53,7 @@ class ModeSelect:
         # back button to welcome page
         def backToWelcome(): 
             self.msFrame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
                 
         #MS Frame
         self.msFrame = Frame(self.window, bg = background, width = self.width, height = self.height)

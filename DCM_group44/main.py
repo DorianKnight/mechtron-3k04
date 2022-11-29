@@ -6,14 +6,9 @@ from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
 
-#global Serobj
-#global Serobj
-#Serobj = None
-#Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-
 background = 'white'
 class WelcomePage:
-    def __init__(self, window):
+    def __init__(self, window, Serobj):
         self.window = window
         self.window.geometry('450x600')
         self.width = 400
@@ -21,7 +16,7 @@ class WelcomePage:
         self.window.minsize(self.width+30, self.height+40)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
-        self.Serobj = SerialCommunications.SerialObject()
+        self.Serobj = Serobj
         def Refresh():
             # try to connect
             global Serobj 
@@ -64,7 +59,7 @@ class WelcomePage:
 
         def openRegisterWin():
             self.welcome_frame.destroy()
-            registration.launchRegistration(self.window)
+            registration.launchRegistration(self.window, self.Serobj)
 
         # ========= Welcome Frame =========
         self.welcome_frame = Frame(
@@ -102,8 +97,9 @@ class WelcomePage:
 
 def launchApp():
     createDB()
+    serObj = SerialCommunications.SerialObject()
     window = Tk()
-    WelcomePage(window)
+    WelcomePage(window, serObj)
     window.mainloop()
 
 

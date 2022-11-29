@@ -4,7 +4,6 @@ from PIL import ImageTk, Image
 import sqlite3
 import main
 import modeSelection
-from connectionDisplay import displayNewDevice, displayConnection
 
 background = 'white'
 class LoginPage:
@@ -18,15 +17,10 @@ class LoginPage:
         self.window.title("Pacemaker Login")
         self.Serobj = Serobj
 
-        # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
-        # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
-        
         # function to go back to previous page (ie the welcome page)
         def goBack(): 
             self.login_frame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
 
         # ========= Login Frame =========
         self.login_frame = Frame(
