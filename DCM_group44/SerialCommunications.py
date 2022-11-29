@@ -59,7 +59,12 @@ class SerialObject:
         self.ser.baudrate = 115200 #Sets baud rate
         self.ser.port = getPortName() #Sets the serial communication port
         print(self.ser.port)
-        self.ser.open() #Opens the serial port
+        self.opened = False
+        try:
+            self.ser.open() #Opens the serial port
+            self.opened = True
+        except Exception as ep:
+            print("not plugged in", ep)
         
 
     def SendData(self, patient):
