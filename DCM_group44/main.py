@@ -6,6 +6,9 @@ from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
 from tkinter import messagebox
+import serial 
+import serial.tools.list_ports
+from SerialCommunications import getPortName
 
 background = 'white'
 class WelcomePage:
@@ -22,7 +25,8 @@ class WelcomePage:
             # try to connect
             if not (self.Serobj.opened):
                 try:
-                    self.Serobj.open() #Opens the serial port
+                    self.Serobj.ser.port = getPortName()
+                    self.Serobj.ser.open() #Opens the serial port
                     self.Serobj.opened = True
                 except Exception as ep:
                     print("not plugged in", ep)
