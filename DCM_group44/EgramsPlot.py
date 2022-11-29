@@ -30,6 +30,9 @@ class EgramsPlotting:
         fig, self.ax = plt.subplots()
         self.data = deque([(0,0)],maxlen=int(10000/self.refreshRate)) #Records the last 10,000 ms (10 sec) of activity
         self.line = plt.plot((0),(0),c='black')[0]
+        plt.title("Atrial Egram",loc='center')
+        plt.xlabel("Time (ms)")
+        plt.ylabel("Voltage (mV)")
         plotAnimation = animation.FuncAnimation(fig, self.AnimateAtrialEgram,interval = self.refreshRate)
         
         #plotAnimation.save()
@@ -46,6 +49,9 @@ class EgramsPlotting:
         fig, self.ax = plt.subplots()
         self.data = deque([(0,0)],maxlen=int(10000/self.refreshRate)) #Records the last 10,000 ms (10 sec) of activity
         self.line = plt.plot((0),(0),c='black')[0]
+        plt.title("Ventricular Egram",loc='center')
+        plt.xlabel("Time (ms)")
+        plt.ylabel("Voltage (mV)")
         plotAnimation = animation.FuncAnimation(fig, self.AnimateVentricularEgrams,interval = self.refreshRate)
         
         #plotAnimation.save()
@@ -66,9 +72,15 @@ class EgramsPlotting:
         #Set current editable plot as the top one
         plt.subplot(2,1,1) 
         self.lineAtria = plt.plot((0),(0),c='black')[0]
+        plt.title("Atrial Egram",loc='center')
+        plt.xlabel("Time (ms)")
+        plt.ylabel("Voltage (mV)")
         #Set current editable plot as the bottom one
         plt.subplot(2,1,2)
         self.lineVentricle = plt.plot((0),(0),c='black')[0]
+        plt.title("Ventricular Egram",loc='center')
+        plt.xlabel("Time (ms)")
+        plt.ylabel("Voltage (mV)")
         plotAnimation = animation.FuncAnimation(fig, self.AnimateDualChamberEgram,interval = self.refreshRate)
         
         #plotAnimation.save()
@@ -82,8 +94,8 @@ class EgramsPlotting:
         for i in range(len(data)):
             x.append(data[i][0])
             y.append(data[i][1])
-        print(x)
-        print(y)
+        #print(x)
+        #print(y)
         return x,y
 
     def AnimateAtrialEgram(self,i):
@@ -114,6 +126,7 @@ class EgramsPlotting:
         self.ax.autoscale_view()
     
     def AnimateDualChamberEgram(self,i):
+        
         #Get both atrial and ventricular egrams data
         egramsDictionary = self.pacemakerSerial.ReceiveEgramsData(self.patient)
         self.x += self.refreshRate
@@ -122,9 +135,7 @@ class EgramsPlotting:
         self.dataAtria.append((self.x,self.y1))
         self.dataVentricle.append((self.x,self.y2))
 
-        plt.subplot(2,1,1) 
         self.lineAtria.set_data(self.FormatData(self.dataAtria))
-        plt.subplot(2,1,2)
         self.lineVentricle.set_data(self.FormatData(self.dataVentricle))
 
         #Redefine the axis bounds on the first plot

@@ -141,8 +141,8 @@ class SerialObject:
         reactTime = boardVals[22]
         recoveryTime = boardVals[23]
         pacingMode = boardVals[24]
-        egramsAtrial =struct.unpack("d", boardVals[25:33])[0]
-        egramsVentricular = struct.unpack("d", boardVals[33:41])[0]
+        egramsAtrial =struct.unpack("d", boardVals[25:33])[0] *5000 #Converting to mV
+        egramsVentricular = struct.unpack("d", boardVals[33:41])[0] *5000 #Converting to mV
 
         returnData = {
             'lrl':lrl,
@@ -187,9 +187,10 @@ class SerialObject:
         
     def ProcessEgramsData(self,boardVals):
         #Take bytestream received and process the raw data into an easily accessable dictionary
+        #This is a separate method to help reduce the strain on the computer
         
-        egramsAtrial =struct.unpack("d", boardVals[25:33])[0]
-        egramsVentricular = struct.unpack("d", boardVals[33:41])[0]
+        egramsAtrial =struct.unpack("d", boardVals[25:33])[0] *5000 #Converting to mV
+        egramsVentricular = struct.unpack("d", boardVals[33:41])[0] *5000 #Converting to mV
 
         egramsData = {
             'egramsAtrial':egramsAtrial,

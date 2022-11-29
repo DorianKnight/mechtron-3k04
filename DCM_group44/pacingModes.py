@@ -347,7 +347,7 @@ class PacingMode:
     
     def launchEgrams(self):
         self.frame.destroy()
-        EgramsDisplay(self.window, self.patient, 'pacingModes')
+        EgramsDisplay(self.window, self.patient, 'pacingModes', self.Serobj)
 
 class AOO(PacingMode): 
     def __init__(self, window, patient, Serobj):
