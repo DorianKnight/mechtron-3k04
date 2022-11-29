@@ -120,6 +120,23 @@ class SerialObject:
             case "DDDR":
                 pacingMode = 10
 
+        #Translating the activity threshold to an integer recognized by python
+        match patient.actThr:
+            case "V-Low":
+                activityThresh = 1
+            case "Low":
+                activityThresh = 2
+            case "Med-Low":
+                activityThresh = 3
+            case "Med":
+                activityThresh = 4
+            case "Med-High":
+                activityThresh = 5
+            case "High":
+                activityThresh = 6
+            case "V-High":
+                activityThresh = 7
+
 
         #Pack the patient programmable parameters into bytes
         SYNC = struct.pack("B",16)
@@ -137,7 +154,7 @@ class SerialObject:
         VRP = struct.pack("H",patient.vrp)
         AVDelay = struct.pack("H",patient.fixedAVdelay)
         PVARP = struct.pack("H",patient.pvarp)
-        ATH = struct.pack("B",3)#patient.actThr) #Activity threshold is a string right now
+        ATH = struct.pack("B",activityThresh)
         RF = struct.pack("B",patient.respFactor)
         reactionT = struct.pack("B",patient.reactTime)
         recoveryT = struct.pack("B",patient.recoveryTime)
@@ -171,6 +188,44 @@ class SerialObject:
         egramsAtrial =struct.unpack("d", boardVals[25:33])[0] *5000 #Converting to mV
         egramsVentricular = struct.unpack("d", boardVals[33:41])[0] *5000 #Converting to mV
 
+        match pacingMode:
+            case 1:
+                mode = "AOO"
+            case 2:
+                mode = "AOOR"
+            case 3:
+                mode = "AAI"
+            case 4:
+                mode = "AAIR"
+            case 5:
+                mode = "VOO"
+            case 6:
+                mode = "VOOR"
+            case 7:
+                mode = "VVI"
+            case 8:
+                mode = "VVIR"
+            case 9:
+                mode = "DDD"
+            case 10:
+                mode = "DDDR"
+
+        match actThr:
+            case 1:
+                activityThresh = 'V-Low'
+            case 2:
+                activityThresh = 'Low'
+            case 3:
+                activityThresh= 'Med-Low'
+            case 4:
+                activityThresh = 'Med'
+            case 5:
+                activityThresh = 'Med-High'
+            case 6:
+                activityThresh = 'High'
+            case 7:
+                activityThresh = "V-High"
+                
         returnData = {
             'lrl':lrl,
             'maxSensRate':maxSensRate,
@@ -184,11 +239,11 @@ class SerialObject:
             'vrp':vrp,
             'fixedAVdelay':fixedAVdelay,
             'pvarp':pvarp,
-            'actThr':actThr,
+            'actThr':activityThresh,
             'respFactor':respFactor,
             'reactTime':reactTime,
             'recoveryTime':recoveryTime,
-            'pacingMode':pacingMode,
+            'pacingMode':mode,
             'egramsAtrial':egramsAtrial,
             'egramsVentricular':egramsVentricular}
 

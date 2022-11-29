@@ -23,7 +23,14 @@ simulink_group44/Group44PACEMAKER_ert_rtw/tmwinternal/tr
 simulink_group44/Group44PACEMAKER.slx.original
 *.m
 
+simulink_group44/AccelerometerDemo4LRLs_ert_rtw/tmwinternal/tr
+*.mexw64
+simulink_group44/SerialCommunicationsTest_ert_rtw/tmwinternal/tr
+simulink_group44/slprj/ert/_sharedutils/rtwshared.lib
+
+
 userdata.db
 *.mexw64
 *.lib
 DCM_group44/pacingModes-LAPTOP-FDU1SJCB.py
+
