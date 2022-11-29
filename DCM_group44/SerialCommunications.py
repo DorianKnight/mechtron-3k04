@@ -8,6 +8,7 @@ import struct
 from tkinter import messagebox
 import connectionDisplay
 import time
+import data as d
 
 def getPortName(): #returns string of port name/code as a string, such as "COM7". string can be passed to SerialObject constructor
     Vid="4966" #same for every pacemaker
@@ -29,6 +30,27 @@ def getPortName(): #returns string of port name/code as a string, such as "COM7"
     
 
     return port #return the port name/code of the connection we found
+
+def checkHeartSer():
+    Vid="1155"
+    Pid="14155"
+
+    devicelist=serial.tools.list_ports.comports() #make a list of all connections
+    ser=""
+    
+    for Device in devicelist: #check if any connection has the pacemaker device attributes
+        if(str(Device.vid)==Vid and str(Device.pid)==Pid):
+            ser=Device.serial_number
+
+    if(ser==""):
+        print("HEART NOT FOUND")
+    else:
+        DevIsNew=d.DeviceIsNew(ser)
+        if DevIsNew:
+            connectionDisplay.newDeviceChecker=True
+        else:
+            connectionDisplay.newDeviceChecker=False
+        
 
 class SerialObject:
     def __init__(self):

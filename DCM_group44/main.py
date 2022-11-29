@@ -20,6 +20,7 @@ class WelcomePage:
         def Refresh():
             # try to connect
             global Serobj 
+            SerialCommunications.checkHeartSer()
             if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("Ive been created hahahah")
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
