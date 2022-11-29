@@ -6,11 +6,6 @@ from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
 
-#global Serobj
-#global Serobj
-#Serobj = None
-#Serobj = SerialCommunications.SerialObject() # getPortName() updates the values in connectionDisplay
-
 background = 'white'
 class WelcomePage:
     def __init__(self, window):

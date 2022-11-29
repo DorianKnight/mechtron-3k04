@@ -6,8 +6,6 @@ from data import createDB
 from PIL import ImageTk, Image
 import main
 import modeSelection
-# from connectionDisplay import displayConnection, displayNewDevice
-
 
 createDB()
 background = 'white'
@@ -21,13 +19,6 @@ class RegistrationPage:
         self.window.minsize(self.width+30, self.height+30)
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
-
-        '''
-        # display whether the DCM is connected to the pacemaker
-        displayConnection(self.window)
-        # display whether the DCM is connected to a new pacemaker
-        displayNewDevice(self.window)
-        '''
 
         def goBack(): 
             self.frame.destroy()
