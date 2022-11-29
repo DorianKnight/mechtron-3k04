@@ -24,9 +24,13 @@ def getPortName(): #returns string of port name/code as a string, such as "COM7"
     if(port==""):
         print("PORT NOT FOUND")
         connectionDisplay.connectionChecker=False #automatically updates value in connectionDisplay
+        connectionDisplay.newDeviceChecker=False
+
         #throw exception?
     else:
         connectionDisplay.connectionChecker=True
+        connectionDisplay.newDeviceChecker=True
+
     
 
     return port #return the port name/code of the connection we found
