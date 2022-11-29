@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import login
 import registration
@@ -19,7 +20,12 @@ class WelcomePage:
         self.Serobj = Serobj
         def Refresh():
             # try to connect
-            global Serobj 
+            if not (self.Serobj.opened):
+                try:
+                    self.Serobj.open() #Opens the serial port
+                    self.Serobj.opened = True
+                except Exception as ep:
+                    print("not plugged in", ep)
             if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("Ive been created hahahah")
             oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
