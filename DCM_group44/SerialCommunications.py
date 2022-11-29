@@ -86,6 +86,11 @@ class SerialObject:
             #Process return data into a dictonary (convert the mV into V by dividing by 1000)
             
             returnVals = self.ProcessData(boardVals)
+            verified = self.verifyValues(returnVals, patient)
+
+            if (verified == False):
+                #Raise error message
+                pass
 
             messagebox.showinfo(title = "Confirm", message = "Changes applied to pacemaker device successfully.")
             return returnVals #Returns this data to the DCM so that we can ensure that the values on the board are the same as the values we sent over
@@ -278,3 +283,39 @@ class SerialObject:
             'egramsAtrial':egramsAtrial,
             'egramsVentricular':egramsVentricular}
         return egramsData
+
+    def verifyValues(self, valDict, patient): 
+        
+        if (patient.lrl != valDict["lrl"]):
+            return False
+        if (patient.maxSensRate != valDict["maxSensRate"]):
+            return False
+        if (patient.aamp != valDict["aamp"]):
+            return False
+        if (patient.apw != valDict["apw"]):
+            return False
+        if (patient.asens != valDict["asens"]):
+            return False
+        if (patient.arp != valDict["arp"]):
+            return False
+        if (patient.vamp != valDict["vamp"]):
+            return False
+        if (patient.vpw != valDict["vpw"]):
+            return False
+        if (patient.vsens != valDict["vsens"]):
+            return False
+        if (patient.fixedAVdelay != valDict["fixedAVdelay"]):
+            return False
+        if (patient.pvarp != valDict["pvarp"]):
+            return False
+        if (patient.actThr != valDict["actThr"]):
+            return False
+        if (patient.respFactor != valDict["respFactor"]):
+            return False
+        if (patient.reactTime != valDict["reactTime"]):
+            return False
+        if (patient.recoveryTime != valDict["recoveryTime"]):
+            return False
+        if (patient.pacingMode != valDict["pacingMode"]):
+            return False
+        return True
