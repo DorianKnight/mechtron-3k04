@@ -9,15 +9,15 @@ def main():
     
     for Device in devicelist:
         print("---------------")
-        print("device: " + Device.device)
-        print("name: " + Device.name)
-        print("hwid: " + Device.hwid)
-        print("vid: " + Device.vid)
-        print("pid: " + Device.pid)
-        print("serial_number: " + Device.serial_number)
-        print("location: " + Device.location)
-        print("manufacturer: " + Device.manufacturer)
-        print("product: " + Device.product)
+        print("device: " + str(Device.device))
+        print("name: " + str(Device.name))
+        print("hwid: " + str(Device.hwid))
+        print("vid: " + str(Device.vid))
+        print("pid: " + str(Device.pid))
+        print("serial_number: " + str(Device.serial_number))
+        print("location: " + str(Device.location))
+        print("manufacturer: " + str(Device.manufacturer))
+        print("product: " + str(Device.product))
 
     return
 
