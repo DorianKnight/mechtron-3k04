@@ -9,7 +9,7 @@ background = 'white'
 
 # allow user to choose between the different pacing modes and then bring them to corresponding page
 class EgramsDisplay: 
-    def __init__(self, window, patient, token): 
+    def __init__(self, window, patient, token, Serobj): 
         self.window = window
         self.window.geometry('500x600')
         self.width = 350
@@ -19,7 +19,8 @@ class EgramsDisplay:
         self.window.title("Pacemaker | EgramsDisplaySelect")
         self.patient=patient
         self.token = token #This allows me to know where you've come from so we can send you back when you want to leave
-        self.EgramsPlotObject = EgramsPlotting(refreshRate=100,port='COM5',patient=self.patient) #Initializes the serial communication object
+        self.EgramsPlotObject = EgramsPlotting(100,self.patient,Serobj) #Initializes the serial communication object
+        self.Serobj = Serobj
 
         self.egrams_frame = Frame(
             self.window,
@@ -72,15 +73,21 @@ class EgramsDisplay:
             
             if (self.atrialDisplay.get() == 1 and self.ventricularDisplay.get() == 0):
                 #Only plot the atria and not the ventricular egram
+                self.window.withdraw()
                 self.EgramsPlotObject.DisplayEgramsAtria()
+                self.window.deiconify()
 
             elif (self.atrialDisplay.get() == 0 and self.ventricularDisplay.get() == 1):
                 #Only plot the ventricular and not the atrial egram
+                self.window.withdraw()
                 self.EgramsPlotObject.DisplayEgramsVentricle()
+                self.window.deiconify()
 
             else:
                 #Plot both the ventricular and atrial egrams data
+                self.window.withdraw()
                 self.EgramsPlotObject.DisplayEgramsDualChamber()
+                self.window.deiconify()
 
 
     def goBack(self):
@@ -95,34 +102,34 @@ class EgramsDisplay:
             if(self.token == 'pacingModes'):
                 #Find out which pacing mode you came from
                 if(self.patient.pacingMode == 'AOO'):
-                    pacingModes.launchAOO(self.window,self.patient)
+                    pacingModes.launchAOO(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'AOOR'):
-                    pacingModes.launchAOOR(self.window,self.patient)
+                    pacingModes.launchAOOR(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'AAI'):
-                    pacingModes.launchAAI(self.window,self.patient)
+                    pacingModes.launchAAI(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'AAIR'):
-                    pacingModes.launchAAIR(self.window,self.patient)
+                    pacingModes.launchAAIR(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'VOO'):
-                    pacingModes.launchVOO(self.window,self.patient)
+                    pacingModes.launchVOO(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'VOOR'):
-                    pacingModes.launchVOOR(self.window,self.patient)
+                    pacingModes.launchVOOR(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'VVI'):
-                    pacingModes.launchVVI(self.window,self.patient)
+                    pacingModes.launchVVI(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'VVIR'):
-                    pacingModes.launchVVIR(self.window,self.patient)
+                    pacingModes.launchVVIR(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'DDD'):
-                    pacingModes.launchDDD(self.window,self.patient)
+                    pacingModes.launchDDD(self.window,self.patient, self.Serobj)
                 elif(self.patient.pacingMode == 'DDDR'):
-                    pacingModes.launchDDDR(self.window,self.patient)
+                    pacingModes.launchDDDR(self.window,self.patient, self.Serobj)
                 else:
                     #Send them back to the mode select page
                     print("You don't have a pacing mode enabled")
                     #Flag an error for communication 
-                    modeSelection.launchModeSelect(self.patient.username)
+                    modeSelection.launchModeSelect(self.patient.username, self.window, self.Serobj)
 
             #If your previous window was the select mode window or something that I can't forsee at the moment
             else:
-                modeSelection.launchModeSelect(self.patient.username)
+                modeSelection.launchModeSelect(self.patient.username, self.window, self.Serobj)
         
 
 '''
