@@ -149,14 +149,7 @@ class RegistrationPage:
     def goToModeSelect(self): 
         usernameEntry=self.username_entry.get()
         self.frame.destroy()
-        modeSelection.launchModeSelect(usernameEntry, self.window)
+        modeSelection.launchModeSelect(usernameEntry, self.window, self.Serobj)
 
-def launchRegistration(window,SerObj):
-    RegistrationPage(window,10,SerObj) # 10 users
-
-if __name__ == '__main__':
-    window = Tk()
-    RegistrationPage(window,10)
-    window.iconbitmap("images\logo.ico")
-    launchRegistration(window)
-    window.mainloop()
+def launchRegistration(window, SerObj):
+    RegistrationPage(window,10,SerObj) # Maximum of 10 users
