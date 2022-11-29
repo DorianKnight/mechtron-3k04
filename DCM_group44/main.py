@@ -19,7 +19,7 @@ class WelcomePage:
         self.Serobj = Serobj
         def Refresh():
             # try to connect
-            global Serobj 
+            #global Serobj 
             SerialCommunications.checkHeartSer()
             if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("Ive been created hahahah")

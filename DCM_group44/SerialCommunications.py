@@ -58,13 +58,14 @@ class SerialObject:
         self.ser = serial.Serial()
         self.ser.baudrate = 115200 #Sets baud rate
         self.ser.port = getPortName() #Sets the serial communication port
+        print(self.ser.port)
         self.ser.open() #Opens the serial port
         
 
     def SendData(self, patient):
         print("got here")
         if (self.ser.is_open):
-            
+            print("got here and we're open :)")
             #Turn patient parameters into a steam of bytes that can be written to serial
             data = self.PackData(patient) #Data contains a byte stream to set parameters and echo parameters
 
@@ -92,7 +93,7 @@ class SerialObject:
     def PackData(self,patient):
         
         #Translate pacing mode into an integer recognized by the simulink program
-        pacingMode = 0 #Initalizing here such that the variable is within scope to the rest of the PackData method
+        print(patient.pacingMode)
         match patient.pacingMode:
             case "AOO":
                 pacingMode = 1
