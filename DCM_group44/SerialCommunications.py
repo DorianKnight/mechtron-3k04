@@ -75,7 +75,6 @@ class SerialObject:
             data = self.PackData(patient) #Data contains a byte stream to set parameters and echo parameters
 
             #Write data to pacemaker
-            time.sleep(1)
             self.ser.write(data[0])
             time.sleep(1)
             #Read data from pacemaker
