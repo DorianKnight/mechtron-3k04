@@ -20,7 +20,7 @@ class LoginPage:
         # function to go back to previous page (ie the welcome page)
         def goBack(): 
             self.login_frame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
 
         # ========= Login Frame =========
         self.login_frame = Frame(

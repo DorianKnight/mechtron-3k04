@@ -53,7 +53,7 @@ class ModeSelect:
         # back button to welcome page
         def backToWelcome(): 
             self.msFrame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
                 
         #MS Frame
         self.msFrame = Frame(self.window, bg = background, width = self.width, height = self.height)
