@@ -44,7 +44,10 @@ class PacingMode:
             self.patient.copyFromDB()
             
     def applyChanges(self): 
-        self.Serobj.SendData(self.patient)
+        try:
+            self.Serobj.SendData(self.patient)
+        except:
+            messagebox.showerror('Error', "Make sure to connect the pacemaker and heart before applying the changes")
         print("lrl",self.patient.lrl)
         
 
