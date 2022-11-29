@@ -4,7 +4,7 @@ import pacingModes
 import main
 import Patient as P
 from data import createDB, indexExists
-import connectionDisplay as CD
+# import connectionDisplay as CD
 import SerialCommunications
 
 background = 'white'
@@ -22,7 +22,8 @@ class ModeSelect:
         self.mode.set("None")
         self.patient=P.Patient()
         self.Serobj = Serobj
-
+        
+        '''
         def Refresh():
             # try to connect
             print(self.Serobj)
@@ -52,13 +53,14 @@ class ModeSelect:
         # display whether the DCM is connected to the pacemaker
         self.connectionBanner=CD.displayConnection(self.window)
         # display whether the DCM is connected to a new pacemaker
-        self.deviceBanner=CD.displayNewDevice(self.window)
+        self.deviceBanner=CD.displayNewDevice(self.window) 
         # refresh button
         refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
         refreshBtn.grid(row=0,column=4)
 
         # refresh automatically when window is instantiated
         Refresh()
+        '''
 
         # moves from current frame to frame of selected pacing mode
         def openMode(): 
