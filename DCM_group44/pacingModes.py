@@ -425,6 +425,7 @@ class VOO(PacingMode):
         self.addVpw(7)
         self.addVamp(8)
         self.addBackAndConfirm(9, goBack, vooConfirm, vooApply)
+        self.addDisplayEgrams(10)
 
 class AAI(PacingMode): 
     def __init__(self, window, patient, Serobj):
@@ -459,6 +460,7 @@ class AAI(PacingMode):
         self.addAsens(9)
         self.addArp(10)
         self.addBackAndConfirm(13, goBack, aaiConfirm, aaiApply)
+        self.addDisplayEgrams(14)
     
 class VVI(PacingMode): 
     def __init__(self, window, patient, Serobj):
@@ -496,6 +498,7 @@ class VVI(PacingMode):
         self.addVsens(9)
         self.addVrp(10)
         self.addBackAndConfirm(13, goBack, vviConfirm, vviApply)
+        self.addDisplayEgrams(14)
                 
 class AOOR(PacingMode): 
     def __init__(self, window, patient, Serobj):
@@ -531,6 +534,7 @@ class AOOR(PacingMode):
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
         self.addBackAndConfirm(16, goBack, aoorConfirm, aoorApply)
+        self.addDisplayEgrams(17)
         
 class VOOR(PacingMode): 
     def __init__(self, window, patient, Serobj):
@@ -566,6 +570,7 @@ class VOOR(PacingMode):
         self.addRecoveryTime(12)
         self.addMaxSensRate(13)
         self.addBackAndConfirm(16, goBack, voorConfirm, voorApply)
+        self.addDisplayEgrams(17)
         
 class AAIR(PacingMode): 
      def __init__(self, window, patient, Serobj):
@@ -603,6 +608,7 @@ class AAIR(PacingMode):
         self.addRecoveryTime(14)
         self.addMaxSensRate(15)
         self.addBackAndConfirm(18, goBack, aairConfirm, aairApply)
+        self.addDisplayEgrams(19)
         
         
 class VVIR(PacingMode): 
@@ -619,7 +625,7 @@ class VVIR(PacingMode):
             self.confirmation("VVIR")
         
         def vvirApply(): 
-            self.appyChanges()
+            self.applyChanges()
         
         def goBack(): 
             self.goBack("vvirRadio")
@@ -641,6 +647,7 @@ class VVIR(PacingMode):
         self.addRecoveryTime(14)
         self.addMaxSensRate(15)
         self.addBackAndConfirm(18, goBack, vvirConfirm, vvirApply)
+        self.addDisplayEgrams(19)
     
 class DDD(PacingMode): 
      def __init__(self, window, patient, Serobj):
@@ -680,6 +687,7 @@ class DDD(PacingMode):
         self.addVrp(15)
         self.addFixedAVdelay(16)
         self.addBackAndConfirm(19, goBack, dddConfirm, dddApply)
+        self.addDisplayEgrams(20)
 
         
 class DDDR(PacingMode): 
@@ -725,6 +733,7 @@ class DDDR(PacingMode):
         self.addMaxSensRate(20)
         self.addFixedAVdelay(21)
         self.addBackAndConfirm(24, goBack, dddrConfirm, dddrApply)
+        self.addDisplayEgrams(25)
 
 def launchAOO(window, patient, Serobj): 
     AOO(window, patient, Serobj)
