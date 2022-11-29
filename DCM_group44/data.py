@@ -30,27 +30,33 @@ def createDB():
                         fixedAVdelay INTEGER
                 )
                 ''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS pacemakers (
+            serNum TEXT
+        );
+    ''')
     connection.commit()
 
-''' idk why i wrote this tbh
-def getUserIndex(username): # returns an index (0-9) associated with a user in the database
+
+def DeviceIsNew(serNum): 
     connection = sqlite3.connect('userdata.db')
     cursor = connection.cursor()
 
 
-    cursor.execute("SELECT ROWID,* FROM accounts WHERE username = (:username)", {
-        'username': username
+    cursor.execute("SELECT * FROM pacemakers WHERE serNum = (:serNum)", {
+        'serNum': serNum
     })
 
-    if cursor.fetchone()!= None: # user is in the db
-        index = cursor.fetchone()[0]-1 # to start from index 0
-    else: # user is not in the db
-        index=  -1 # return -1 if user was not found in the database
+    fet=cursor.fetchone()
 
-    print(index)
+    connection.commit()
 
-    return index
-'''
+    if fet!= None: # serial number is in the db
+        return False
+    else: # serial number is not in the db
+        return True
+
+    
+
 
 def indexExists(index):
     connection = sqlite3.connect('userdata.db')
