@@ -46,7 +46,7 @@ class PacingMode:
     def applyChanges(self): 
         self.Serobj.SendData(self.patient)
         print("lrl",self.patient.lrl)
-        
+    
 
 
     def addTitleAndInstructions(self, mode):
@@ -245,7 +245,7 @@ class PacingMode:
     
     def launchEgrams(self):
         self.frame.destroy()
-        EgramsDisplay(self.window, self.patient, 'pacingModes')
+        EgramsDisplay(self.window, self.patient, 'pacingModes', self.Serobj)
 
 class AOO(PacingMode): 
     def __init__(self, window, patient, Serobj):
