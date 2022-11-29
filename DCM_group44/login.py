@@ -7,34 +7,20 @@ import modeSelection
 
 background = 'white'
 class LoginPage:
-    def __init__(self, window):
+    def __init__(self, window,Serobj):
         self.window = window
-        self.window.geometry('450x500')
+        self.window.geometry('450x600')
         self.width = 400
         self.height = 350
         self.window.minsize(self.width+30, self.height+40)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker Login")
+        self.Serobj = Serobj
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        
+        # function to go back to previous page (ie the welcome page)
         def goBack(): 
             self.login_frame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
 
         # ========= Login Frame =========
         self.login_frame = Frame(
@@ -80,11 +66,13 @@ class LoginPage:
     def loginUser(self):
         if(self.entriesCorrect()):
             usernameEntry = self.username_entry.get()
-            self.window.destroy()
-            modeSelection.launchModeSelect(usernameEntry)
+            self.login_frame.destroy()
+            modeSelection.launchModeSelect(usernameEntry, self.window,self.Serobj)
 
+    # check whether username/password entries are valid, and match a pair in the database
     def entriesCorrect(self):
         error_msg = ""
+        # check validity of username/password
         no_error = True
         if (self.username_entry.get() == ''):
             error_msg = "Username cannot be empty"
@@ -93,6 +81,7 @@ class LoginPage:
             error_msg = "Password cannot be empty"
             no_error = False
 
+        # if entries are valid, check if they match a pair in database
         if (no_error):        
             try:
                 connection = sqlite3.connect('userdata.db')
@@ -117,8 +106,8 @@ class LoginPage:
         return no_error
 
 
-def launchLogin(window):
-    LoginPage(window)
+def launchLogin(window,Serobj):
+    LoginPage(window,Serobj)
 
 if __name__ == '__main__':
     window = Tk()

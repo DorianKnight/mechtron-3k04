@@ -2,43 +2,72 @@ from tkinter import *
 from PIL import ImageTk, Image
 import login
 import registration
-from data import createDB
+from data import createDB, indexExists
+import connectionDisplay as CD
+import SerialCommunications
+from tkinter import messagebox
 
 background = 'white'
 class WelcomePage:
-    def __init__(self, window):
+    def __init__(self, window, Serobj):
         self.window = window
-        self.window.geometry('450x500')
+        self.window.geometry('450x600')
         self.width = 400
         self.height = 450
         self.window.minsize(self.width+30, self.height+40)
         self.window.iconbitmap("images\logo.ico")
         self.window.title("Pacemaker")
+        self.Serobj = Serobj
+        def Refresh():
+            # try to connect
+            if not (self.Serobj.opened):
+                try:
+                    self.Serobj.open() #Opens the serial port
+                    self.Serobj.opened = True
+                except Exception as ep:
+                    print("not plugged in", ep)
+                    
+            SerialCommunications.checkHeartSer()
+            if (SerialCommunications.getPortName() != '' and self.Serobj == None):
+                print("Ive been created hahahah")
+            oldUser=indexExists(2) # returns a bool stating whether the int passed exists as an index in the database (minimum index is 0)
+            #call indexExists and pass in the "user identifier" int stored in the pacemaker
 
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
+            #update newdevicechecker (connection checker is already updated in getPortName())
+            if(oldUser): #old user, exists in db
+                CD.newDeviceChecker=False
+            else: #new user
+                CD.newDeviceChecker=True
+                
 
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
+            # remove current status
+            self.connectionBanner.destroy()
+            self.deviceBanner.destroy()
+            
+            # display the status again
+            self.connectionBanner=CD.displayConnection(self.window)
+            self.deviceBanner=CD.displayNewDevice(self.window)
+
+
+        # display whether the DCM is connected to the pacemaker
+        self.connectionBanner=CD.displayConnection(self.window)
+        # display whether the DCM is connected to a new pacemaker
+        self.deviceBanner=CD.displayNewDevice(self.window)
+        # refresh button
+        refreshBtn=Button(window,text="Refresh", fg= 'black', font=("Helvetica",12), padx=10, command=Refresh)
+        refreshBtn.grid(row=0,column=4)
+
+        # refresh automatically when window is instantiated
+        Refresh()
 
         def openLoginWin():
             self.welcome_frame.destroy()
-            login.launchLogin(self.window)
+            login.launchLogin(self.window, self.Serobj)
 
 
         def openRegisterWin():
             self.welcome_frame.destroy()
-            registration.launchRegistration(self.window)
+            registration.launchRegistration(self.window, self.Serobj)
 
         # ========= Welcome Frame =========
         self.welcome_frame = Frame(
@@ -76,9 +105,11 @@ class WelcomePage:
 
 def launchApp():
     createDB()
+    serObj = SerialCommunications.SerialObject()
     window = Tk()
-    WelcomePage(window)
+    WelcomePage(window, serObj)
     window.mainloop()
+
 
 if __name__ == '__main__':
     launchApp()

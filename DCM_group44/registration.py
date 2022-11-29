@@ -7,12 +7,11 @@ from PIL import ImageTk, Image
 import main
 import modeSelection
 
-
 createDB()
 background = 'white'
 
 class RegistrationPage:
-    def __init__(self, window, max_accounts):
+    def __init__(self, window, max_accounts, Serobj):
         self.window = window
         self.window.geometry('450x500')
         self.width = 400
@@ -20,26 +19,11 @@ class RegistrationPage:
         self.window.minsize(self.width+30, self.height+30)
         self.max_accounts = max_accounts
         self.window.title("Pacemaker Register")
-
-        connectionChecker=False
-        if(connectionChecker==False):
-            connectionBanner=Label(self.window,text="Not connected - ", fg= 'red', font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-        else:
-            connectionBanner=Label(self.window,text="Connected - ",fg="green", font=("Helvetica",12), padx=10)
-            connectionBanner.grid(row=0,column=0, sticky=W)
-
-        newDeviceChecker=False
-        if(newDeviceChecker==False):
-            deviceBanner = Label(self.window,text="No new device",fg='black', font=("Helvetica", 12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
-        else:
-            deviceBanner = Label(self.window,text="New device detected", fg="black", font=("Helvetica",12), padx=10)
-            deviceBanner.grid(row=0,column=2, sticky=E)
+        self.Serobj = Serobj
 
         def goBack(): 
             self.frame.destroy()
-            main.WelcomePage(self.window)
+            main.WelcomePage(self.window, self.Serobj)
 
         # ========= Registration Frame =========
         self.frame = Frame(
@@ -87,9 +71,9 @@ class RegistrationPage:
         self.back_button.grid(row = 5, column = 0, pady = 10, sticky = W, padx = 25)
 
     def registerUser(self):
-        error_msg = self.checkEntryErrors()
+        error_msg = self.checkEntryErrors() # check for entry validity errors
 
-        # if there is no error
+        # if there is no error, check to see if the username is not already being used and then register account
         if (error_msg == ""):   
             try:
                 connection = sqlite3.connect('userdata.db')
@@ -111,24 +95,28 @@ class RegistrationPage:
                 if (not(new_user)):
                     raise Exception("This username is already in use")
 
-                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:hystBool,:hrl,:rs)", {
+                # make new user with nominal values
+                cursor.execute("INSERT INTO accounts VALUES (:username, :password, :pacingMode,:lrl,:url,:apw,:vpw,:aamp,:vamp,:asens,:vsens,:arp,:vrp,:pvarp,:actThr,:reactTime,:respFactor,:recoveryTime,:maxSensRate,:fixedAVdelay)", {
                                 'username': self.username_entry.get(),
                                 'password': self.password_entry.get(),
                                 'lrl': 60,
                                 'url': 120,
-                                'pacingMode': "NONE",
-                                'apw': 0.4,
-                                'vpw': 0.4,
-                                'aamp': 3.5,
-                                'vamp': 3.5,
-                                'asens': 0.75,
+                                'pacingMode': "DDD",
+                                'apw': 1,
+                                'vpw': 1,
+                                'aamp': 5,
+                                'vamp': 5,
+                                'asens': 2.5,
                                 'vsens': 2.5,
                                 'arp': 250,
                                 'vrp': 320,
                                 'pvarp': 250,
-                                'hystBool': 0,
-                                'hrl': 0,
-                                'rs': 0
+                                'actThr': "Med",
+                                'reactTime': 30,
+                                'respFactor': 8,
+                                'recoveryTime': 5,
+                                'maxSensRate': 120,
+                                'fixedAVdelay': 150
                 })
                 connection.commit()
                 self.goToModeSelect()
@@ -160,15 +148,8 @@ class RegistrationPage:
     
     def goToModeSelect(self): 
         usernameEntry=self.username_entry.get()
-        self.window.destroy()
-        modeSelection.launchModeSelect(usernameEntry)
+        self.frame.destroy()
+        modeSelection.launchModeSelect(usernameEntry, self.window, self.Serobj)
 
-def launchRegistration(window):
-    RegistrationPage(window,10)
-
-if __name__ == '__main__':
-    window = Tk()
-    RegistrationPage(window,10)
-    window.iconbitmap("images\logo.ico")
-    launchRegistration(window)
-    window.mainloop()
+def launchRegistration(window, SerObj):
+    RegistrationPage(window,10,SerObj) # Maximum of 10 users
