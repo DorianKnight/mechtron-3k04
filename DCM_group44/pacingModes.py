@@ -44,7 +44,10 @@ class PacingMode:
             self.patient.copyFromDB()
             
     def applyChanges(self): 
-        self.Serobj.SendData(self.patient)
+        try:
+            self.Serobj.SendData(self.patient)
+        except:
+            messagebox.showerror('Error', "Make sure to connect the pacemaker and heart before applying the changes")
         print("lrl",self.patient.lrl)
         
 
@@ -504,7 +507,7 @@ class AOOR(PacingMode):
     def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 450
+        self.height = 400
         self.window.title("Pacemaker | AOOR Pacing Mode")
         self.patient=patient
         
@@ -540,7 +543,7 @@ class VOOR(PacingMode):
     def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 450
+        self.height = 400
         self.window.title("Pacemaker | VOOR Pacing Mode")
         self.patient=patient
 
@@ -576,7 +579,7 @@ class AAIR(PacingMode):
      def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 550
+        self.height = 500
         self.window.title("Pacemaker | AAIR Pacing Mode")
         self.patient=patient
 
@@ -615,7 +618,7 @@ class VVIR(PacingMode):
      def __init__(self, window, patient, Serobj):
         super().__init__(window, patient, Serobj)
         self.width = 450
-        self.height = 550
+        self.height = 500
         self.window.title("Pacemaker | VVIR Pacing Mode")
         self.patient=patient
 
