@@ -1,4 +1,4 @@
-# MechTron 3K04 Group 44: Assignment 1
+# MechTron 3K04 Group 44: Assignment 2
 
 ## Simulink
 ### Instructions
