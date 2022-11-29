@@ -5,6 +5,7 @@ import registration
 from data import createDB, indexExists
 import connectionDisplay as CD
 import SerialCommunications
+from tkinter import messagebox
 
 background = 'white'
 class WelcomePage:
@@ -19,7 +20,13 @@ class WelcomePage:
         self.Serobj = Serobj
         def Refresh():
             # try to connect
-            #global Serobj 
+            if not (self.Serobj.opened):
+                try:
+                    self.Serobj.open() #Opens the serial port
+                    self.Serobj.opened = True
+                except Exception as ep:
+                    print("not plugged in", ep)
+                    
             SerialCommunications.checkHeartSer()
             if (SerialCommunications.getPortName() != '' and self.Serobj == None):
                 print("Ive been created hahahah")
