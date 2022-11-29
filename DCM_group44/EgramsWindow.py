@@ -93,6 +93,10 @@ class EgramsDisplay:
     def goBack(self):
             #Go back to your previous window
             plt.close('all')
+            #Free the serial port
+            self.EgramsPlotObject.pacemakerSerial.ser.close() 
+            #Delete the serial communication object to release the port
+            del self.EgramsPlotObject
             self.egrams_frame.destroy()
             #If your previous window was the specific pacemaker mode window
             if(self.token == 'pacingModes'):

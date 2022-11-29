@@ -9,11 +9,11 @@ import numpy as np
 from SerialCommunications import SerialObject
 
 class EgramsPlotting:
-    def __init__(self,refreshRate,patient, Serobj):
+    def __init__(self,refreshRate,port,patient):
         #refreshRate is how often you want to call echo (eg every 1 ms, 5 ms - it's your choice)
         self.refreshRate = refreshRate
         #Initializes the serial communication object to receive egrams data
-        self.pacemakerSerial = Serobj
+        self.pacemakerSerial = SerialObject(port)
         self.patient = patient
     
     def __del__(self):
